@@ -137,11 +137,16 @@ Do not include any other text or markdown.`;
     console.log('Falling back to simple ranking by source count...');
     return headlines
       .sort((a, b) => b.source_count - a.source_count || a.id - b.id)
-      .map((h, idx) => ({
-        id: h.id,
-        rank: idx + 1,
-        category: h.category_hint === 'general' ? 'World' : h.category_hint.charAt(0).toUpperCase() + h.category_hint.slice(1),
-      }));
+      .map((h, idx) => {
+        let category = h.category_hint === 'general' ? 'World' : h.category_hint.charAt(0).toUpperCase() + h.category_hint.slice(1);
+        // Fix "Us" → "U.S."
+        if (category === 'Us') category = 'U.S.';
+        return {
+          id: h.id,
+          rank: idx + 1,
+          category: category,
+        };
+      });
   }
 }
 

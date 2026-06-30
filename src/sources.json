@@ -29,6 +29,18 @@
         {
           "url": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml",
           "category": "science"
+        },
+        {
+          "url": "https://feeds.bbci.co.uk/sport/rss.xml",
+          "category": "sports"
+        },
+        {
+          "url": "https://feeds.bbci.co.uk/news/entertainment_and_arts/rss.xml",
+          "category": "entertainment"
+        },
+        {
+          "url": "https://feeds.bbci.co.uk/news/health/rss.xml",
+          "category": "health"
         }
       ]
     },
@@ -73,6 +85,18 @@
         {
           "url": "https://www.theguardian.com/technology/rss",
           "category": "technology"
+        },
+        {
+          "url": "https://www.theguardian.com/sport/rss",
+          "category": "sports"
+        },
+        {
+          "url": "https://www.theguardian.com/culture/rss",
+          "category": "entertainment"
+        },
+        {
+          "url": "https://www.theguardian.com/society/health/rss",
+          "category": "health"
         }
       ]
     },
@@ -86,16 +110,7 @@
         }
       ]
     },
-    {
-      "name": "CBS News",
-      "domain": "cbsnews.com",
-      "feeds": [
-        {
-          "url": "https://www.cbsnews.com/latest/rss/",
-          "category": "general"
-        }
-      ]
-    },
+
     {
       "name": "ABC News",
       "domain": "abcnews.go.com",
@@ -106,30 +121,8 @@
         }
       ]
     },
-    {
-      "name": "USA Today",
-      "domain": "usatoday.com",
-      "feeds": [
-        {
-          "url": "https://www.usatoday.com/news/index.html?feedtype=rss",
-          "category": "general"
-        }
-      ]
-    },
-    {
-      "name": "Politico",
-      "domain": "politico.com",
-      "feeds": [
-        {
-          "url": "https://www.politico.com/rss/politicopicks.xml",
-          "category": "us"
-        },
-        {
-          "url": "https://www.politico.com/rss/transportation.xml",
-          "category": "us"
-        }
-      ]
-    },
+
+
     {
       "name": "The Hill",
       "domain": "thehill.com",
@@ -140,26 +133,8 @@
         }
       ]
     },
-    {
-      "name": "PBS",
-      "domain": "pbs.org",
-      "feeds": [
-        {
-          "url": "https://www.pbs.org/newshour/feeds/rss/newshour",
-          "category": "general"
-        }
-      ]
-    },
-    {
-      "name": "C-SPAN",
-      "domain": "c-span.org",
-      "feeds": [
-        {
-          "url": "https://www.c-span.org/feeds/",
-          "category": "us"
-        }
-      ]
-    },
+
+
     {
       "name": "The Atlantic",
       "domain": "theatlantic.com",
@@ -190,56 +165,11 @@
         }
       ]
     },
-    {
-      "name": "ProPublica",
-      "domain": "propublica.org",
-      "feeds": [
-        {
-          "url": "https://www.propublica.org/feeds/all.xml",
-          "category": "general"
-        }
-      ]
-    },
-    {
-      "name": "Axios",
-      "domain": "axios.com",
-      "feeds": [
-        {
-          "url": "https://www.axios.com/feed",
-          "category": "general"
-        }
-      ]
-    },
-    {
-      "name": "Deutsche Welle",
-      "domain": "dw.com",
-      "feeds": [
-        {
-          "url": "https://www.dw.com/en/rss",
-          "category": "world"
-        }
-      ]
-    },
-    {
-      "name": "Christian Science Monitor",
-      "domain": "csmonitor.com",
-      "feeds": [
-        {
-          "url": "https://www.csmonitor.com/about/rss",
-          "category": "general"
-        }
-      ]
-    },
-    {
-      "name": "UPI",
-      "domain": "upi.com",
-      "feeds": [
-        {
-          "url": "https://www.upi.com/feed/",
-          "category": "general"
-        }
-      ]
-    },
+
+
+
+
+
     {
       "name": "The Economist",
       "domain": "economist.com",

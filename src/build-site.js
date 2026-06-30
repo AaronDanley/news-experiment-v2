@@ -48,8 +48,10 @@ function generateHTML(data) {
   // Add stories by category
   categoryOrder.forEach(category => {
     const stories = storyByCategory[category];
-    if (stories.length > 0) {
-      html += `  <h2>${category}</h2>\n`;
+    html += `  <h2>${category}</h2>\n`;
+    if (stories.length === 0) {
+      html += `  <p style="color: #999; font-style: italic;">No stories today</p>\n`;
+    } else {
       stories.forEach(story => {
         html += `  <div class="story">
     <div class="story-headline"><a href="${escapeHtml(story.link)}" target="_blank">${escapeHtml(story.headline)}</a></div>
