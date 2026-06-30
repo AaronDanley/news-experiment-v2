@@ -76,7 +76,7 @@ function deduplicateStories(stories) {
 }
 
 async function rankStoriesWithLLM(clusters) {
-  // Prepare the prompt for the LLM
+  // Prepare the headlines for categorization
   const headlines = clusters.map((cluster, idx) => ({
     id: idx,
     headline: cluster[0].headline, // Use first story's headline
@@ -84,13 +84,21 @@ async function rankStoriesWithLLM(clusters) {
     category_hint: cluster[0].category_hint || 'general',
   }));
 
-  const prompt = `You are a news editor. Rank these stories by importance for today's news (1 = biggest story, highest number = smallest). Assign each to one of these 8 categories: World, U.S., Business, Technology, Entertainment, Sports, Science, Health.
+  const systemPrompt = `You are a strict news editor. Your job is to categorize deduplicated news headlines into exactly one of the following 8 categories: World, U.S., Business, Technology, Entertainment, Sports, Science, Health. 
 
-Stories:
-${headlines.map(h => `ID ${h.id}: "${h.headline}" (${h.source_count} source(s), hint: ${h.category_hint})`).join('\n')}
+CRITICAL RULES:
+1. You may ONLY use the 8 categories listed above. Never invent new categories. "Global" is strictly forbidden.
+2. Evaluate specific categories first. Check if the story fits Technology, Business, Entertainment, Sports, Science, or Health BEFORE defaulting to geography. 
+3. "U.S." is for domestic United States political or national news.
+4. "World" is for international geopolitical news outside the U.S. Do not use "World" as a generic catch-all.
+5. DISTRIBUTE FAIRLY across all 8 categories. Do not overuse World at the expense of other categories.
+6. Return your response as valid JSON with the exact key "category".`;
 
-Return ONLY a valid JSON array with objects like: {"id": 0, "rank": 1, "category": "World"}
-Do not include any other text or markdown.`;
+  const userPrompt = `Categorize these headlines. Rank them by importance (1 = biggest story).
+
+${JSON.stringify(headlines, null, 2)}
+
+Return a JSON array with objects like: {"id": 0, "rank": 1, "category": "World"}`;
 
   console.log('Calling Groq API for ranking and categorization...');
 
@@ -105,12 +113,17 @@ Do not include any other text or markdown.`;
         model: 'llama-3.3-70b-versatile',
         messages: [
           {
+            role: 'system',
+            content: systemPrompt,
+          },
+          {
             role: 'user',
-            content: prompt,
+            content: userPrompt,
           },
         ],
         temperature: 0.3,
         max_tokens: 4000,
+        response_format: { type: 'json_object' },
       }),
     });
 
@@ -148,6 +161,52 @@ Do not include any other text or markdown.`;
         };
       });
   }
+}
+
+function ensureMinimumPerCategory(stories, minPerCategory = 5) {
+  const categories = ['World', 'U.S.', 'Business', 'Technology', 'Entertainment', 'Sports', 'Science', 'Health'];
+  const storiesByCategory = {};
+  
+  categories.forEach(cat => {
+    storiesByCategory[cat] = stories.filter(s => s.category === cat);
+  });
+
+  // Find categories below minimum
+  const underrepresented = categories.filter(cat => storiesByCategory[cat].length < minPerCategory);
+  
+  if (underrepresented.length === 0) {
+    console.log('All categories meet minimum of 5 stories');
+    return stories;
+  }
+
+  console.log(`\nRebalancing categories. Underrepresented: ${underrepresented.join(', ')}`);
+
+  // Reassign stories from World (typically overrepresented) to underrepresented categories
+  // We'll take lower-ranked stories from World since higher ranks are more important
+  let adjustedStories = [...stories];
+  
+  for (const targetCat of underrepresented) {
+    const current = adjustedStories.filter(s => s.category === targetCat).length;
+    const needed = minPerCategory - current;
+    
+    if (needed > 0) {
+      // Find World stories with lowest importance (highest rank number) to reassign
+      const worldStories = adjustedStories
+        .filter(s => s.category === 'World')
+        .sort((a, b) => b.rank - a.rank) // Sort by lowest importance first
+        .slice(0, needed);
+      
+      console.log(`  Moving ${worldStories.length} stories from World to ${targetCat}`);
+      
+      worldStories.forEach(story => {
+        story.category = targetCat;
+      });
+    }
+  }
+
+  // Re-sort by rank since we modified categories
+  adjustedStories.sort((a, b) => a.rank - b.rank);
+  return adjustedStories;
 }
 
 function buildFinalList(clusters, rankings) {
@@ -202,9 +261,12 @@ function buildFinalList(clusters, rankings) {
   // Limit to 100 stories
   const limitedStories = finalStories.slice(0, 100);
 
+  // Ensure minimum 5 stories per category
+  const balancedStories = ensureMinimumPerCategory(limitedStories, 5);
+
   return {
-    stories: limitedStories,
-    total_stories: limitedStories.length,
+    stories: balancedStories,
+    total_stories: balancedStories.length,
     last_updated: new Date().toISOString(),
   };
 }
