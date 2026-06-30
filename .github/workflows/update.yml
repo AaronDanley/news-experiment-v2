@@ -1,0 +1,76 @@
+name: Update News Aggregator
+
+on:
+  schedule:
+    # Run every hour at the top of the hour (UTC)
+    - cron: '0 * * * *'
+  # Allow manual trigger from GitHub UI
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Create .env file
+        run: |
+          echo "GROQ_API_KEY=${{ secrets.GROQ_API_KEY }}" > .env
+
+      - name: Fetch RSS feeds
+        run: node src/fetch-feeds.js
+
+      - name: Deduplicate and rank stories
+        run: node src/dedupe-and-rank.js
+
+      - name: Build HTML page
+        run: node src/build-site.js
+
+      - name: Configure Git
+        run: |
+          git config --local user.email "github-actions@users.noreply.github.com"
+          git config --local user.name "GitHub Actions"
+
+      - name: Check for changes
+        id: changes
+        run: |
+          if git diff --quiet; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit and push changes
+        if: steps.changes.outputs.has_changes == 'true'
+        run: |
+          git add data/latest.json public/index.html
+          git commit -m "chore: update news aggregator
+
+- Fetched and processed latest headlines
+- Updated ranking and categorization
+- Regenerated HTML page
+
+[skip ci]"
+          git push
+
+      - name: Log summary
+        run: |
+          echo "✓ News aggregator updated"
+          echo "Latest run: $(date)"
+          if [ -f data/latest.json ]; then
+            STORY_COUNT=$(node -e "console.log(JSON.parse(require('fs').readFileSync('data/latest.json')).total_stories)")
+            echo "Stories published: $STORY_COUNT"
+          fi

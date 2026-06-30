@@ -1,0 +1,806 @@
+{
+  "stories": [
+    {
+      "headline": "Supreme Court upholds birthright citizenship on constitutional grounds",
+      "source": "NPR",
+      "link": "https://www.npr.org/2026/06/30/nx-s1-5839358/birthright-citizenship-decision-scotus-trump",
+      "rank": 1,
+      "category": "World",
+      "sources_covering_story": 7
+    },
+    {
+      "headline": "US Supreme Court upholds bans on transgender athletes in female school and college sports",
+      "source": "BBC News",
+      "link": "https://www.bbc.co.uk/news/articles/cj40x888d9go?at_medium=RSS&at_campaign=rss",
+      "rank": 2,
+      "category": "World",
+      "sources_covering_story": 5
+    },
+    {
+      "headline": "Supreme Court strikes down limits on political party spending",
+      "source": "NPR",
+      "link": "https://www.npr.org/2026/06/30/nx-s1-5827039/supreme-court-campaign-finance",
+      "rank": 3,
+      "category": "World",
+      "sources_covering_story": 4
+    },
+    {
+      "headline": "Why Gen Z are planning for life without a state pension",
+      "source": "BBC News",
+      "link": "https://www.bbc.co.uk/news/articles/c8e2yp1gg37o?at_medium=RSS&at_campaign=rss",
+      "rank": 4,
+      "category": "World",
+      "sources_covering_story": 4
+    },
+    {
+      "headline": "Frequent AI chatbot users more likely to believe anti-vaccine myths, poll finds",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/technology/2026/jun/30/ai-chatbot-use-anti-vaccine-myths-poll",
+      "rank": 5,
+      "category": "World",
+      "sources_covering_story": 4
+    },
+    {
+      "headline": "Editor's note: NPR retracts Justice Samuel Alito story",
+      "source": "NPR",
+      "link": "https://www.npr.org/2026/06/30/nx-s1-4622951/samuel-alito-retires",
+      "rank": 6,
+      "category": "World",
+      "sources_covering_story": 3
+    },
+    {
+      "headline": "Plea for households to read energy meter as prices rise",
+      "source": "BBC News",
+      "link": "https://www.bbc.co.uk/news/articles/c5yzqrpw2g8o?at_medium=RSS&at_campaign=rss",
+      "rank": 7,
+      "category": "World",
+      "sources_covering_story": 3
+    },
+    {
+      "headline": "Women with PMOS should have yearly NHS checks, says health watchdog",
+      "source": "BBC News",
+      "link": "https://www.bbc.co.uk/news/articles/cd0m3g05kx2o?at_medium=RSS&at_campaign=rss",
+      "rank": 8,
+      "category": "World",
+      "sources_covering_story": 3
+    },
+    {
+      "headline": "Williams falls just short on Wimbledon singles return",
+      "source": "BBC News",
+      "link": "https://www.bbc.co.uk/sport/tennis/articles/c802jk8rz44o?at_medium=RSS&at_campaign=rss",
+      "rank": 9,
+      "category": "World",
+      "sources_covering_story": 3
+    },
+    {
+      "headline": "England right-backs Quansah and James miss training",
+      "source": "BBC News",
+      "link": "https://www.bbc.co.uk/sport/football/articles/c23yz02rrkgo?at_medium=RSS&at_campaign=rss",
+      "rank": 10,
+      "category": "World",
+      "sources_covering_story": 3
+    },
+    {
+      "headline": "Charlie Kirk’s parents and widow to attend key hearing for the man accused of his killing - AP News",
+      "source": "Associated Press",
+      "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNbnNydkxhZ3g1QkF2OFJXbUxwalRBQ1lFY1Q4M1hidHByR0NBMjJQUjhrdDRnWEJQRVpKNElUbEhsNnhLbE1oSTdBUXNiay1IbUtRR0RWeW5tdmFkMURpRGx4VG43T2tITnE0RXZiVzdHSUpPVXhFNGhSWGNZel8tREI3ZHBBNG1vU3hmWXMxeDE3aEgxZjA1TQ?oc=5",
+      "rank": 11,
+      "category": "World",
+      "sources_covering_story": 3
+    },
+    {
+      "headline": "Kylian Mbappé at the double as France swat aside Sweden in World Cup masterclass",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/football/2026/jul/01/france-sweden-world-cup-2026-last-32-match-report",
+      "rank": 12,
+      "category": "World",
+      "sources_covering_story": 3
+    },
+    {
+      "headline": "I pushed myself too hard at the gym – and ended up in the hospital",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/wellness/2026/jun/30/exertional-rhabdomyolysis-cause",
+      "rank": 13,
+      "category": "World",
+      "sources_covering_story": 3
+    },
+    {
+      "headline": "The Invite review – Seth Rogen adds zest and bite to fruity dinner party comedy",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/film/2026/jun/30/the-invite-review-seth-rogen-olivia-wilde-penelope-cruz-edward-norton",
+      "rank": 14,
+      "category": "World",
+      "sources_covering_story": 3
+    },
+    {
+      "headline": "The original Moana: did a 1926 documentary give birth to a 21st century Disney blockbuster?",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/film/2026/jun/30/the-original-moana-did-a-1926-documentary-give-birth-to-a-21st-century-disney-blockbuster",
+      "rank": 15,
+      "category": "World",
+      "sources_covering_story": 3
+    },
+    {
+      "headline": "Doubt that Elon Musk ‘earned’ his trillion? Rightwing media says you’re in an ‘impotent envy cult’ | Arwa Mahdawi",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/global/commentisfree/2026/jun/30/elon-musk-trillion-rightwing-media",
+      "rank": 16,
+      "category": "World",
+      "sources_covering_story": 3
+    },
+    {
+      "headline": "A US champion of ‘freebirthing’ always claimed there had been no maternal deaths linked to the movement. Is Stacey Warnecke the first?",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/world/2026/jun/30/freebirth-wellness-influencer-stacey-warnecke-death-ntwnfb",
+      "rank": 17,
+      "category": "World",
+      "sources_covering_story": 3
+    },
+    {
+      "headline": "Citizen Vigilante review – Armie Hammer returns to obliterate the imaginary woke piñata of Europe-stan",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/film/2026/jun/30/citizen-vigilante-review-armie-hammer-uwe-boll",
+      "rank": 18,
+      "category": "World",
+      "sources_covering_story": 3
+    },
+    {
+      "headline": "It’s a love story – or is it? The surprising conflict and chaos in Taylor Swift’s songs about commitment",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/music/2026/jun/30/taylor-swift-songs-about-marriage-and-commitment",
+      "rank": 19,
+      "category": "World",
+      "sources_covering_story": 3
+    },
+    {
+      "headline": "‘There’s this deep mystery of what, actually, is this thing?’: the philosopher inside Google DeepMind AI",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/news/ng-interactive/2026/jun/30/theres-this-deep-mystery-of-what-actually-is-this-thing-the-philosopher-inside-google-deepmind",
+      "rank": 20,
+      "category": "World",
+      "sources_covering_story": 3
+    },
+    {
+      "headline": "Mexico v Ecuador: World Cup 2026 last 32 – live",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/football/live/2026/jul/01/fifa-world-cup-2026-live-mexico-v-ecuador-updates-mex-vs-ecu-last-round-32-match-score-latest",
+      "rank": 21,
+      "category": "World",
+      "sources_covering_story": 3
+    },
+    {
+      "headline": "Erling Haaland fires Norway into last 16 with dramatic winner against Côte d’Ivoire",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/football/2026/jun/30/cote-d-ivoire-norway-world-cup-2026-last-32-match-report",
+      "rank": 22,
+      "category": "World",
+      "sources_covering_story": 3
+    },
+    {
+      "headline": "Ronald Koeman resigns as Netherlands head coach after World Cup loss to Morocco",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/football/2026/jun/30/ronald-koeman-resigns-as-netherlands-head-coach-after-world-cup-loss-to-morocco",
+      "rank": 23,
+      "category": "World",
+      "sources_covering_story": 3
+    },
+    {
+      "headline": "Why a surge in sexually transmitted infections in Europe should worry everybody | Peter Beyer",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/global-development/2026/jun/30/sexually-transmitted-infections-europe-world-drug-resistant-bacteria-amr",
+      "rank": 24,
+      "category": "World",
+      "sources_covering_story": 3
+    },
+    {
+      "headline": "Serena Williams’ Wimbledon singles return ended in first round by Maya Joint",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/sport/2026/jun/30/maya-joint-serena-williams-comeback-wimbledon-2026-womens-singles-first-round-tennis",
+      "rank": 25,
+      "category": "World",
+      "sources_covering_story": 3
+    },
+    {
+      "headline": "Alyssa Thomas calls out WNBA after receiving death threats, racial abuse from Caitlin Clark foul incident",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/sport/2026/jun/30/alyssa-thomas-wnba-caitlin-clark-death-threats-cathy-engelbert",
+      "rank": 26,
+      "category": "World",
+      "sources_covering_story": 3
+    },
+    {
+      "headline": "Tottenham win race to sign West Ham’s Mateus Fernandes for club record £85m",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/football/2026/jun/30/tottenham-west-ham-mateus-fernandes-club-record-85m-manchester-united-transfers",
+      "rank": 27,
+      "category": "World",
+      "sources_covering_story": 3
+    },
+    {
+      "headline": "Supergirl: doggy distress, frontier justice and a new direction for superhero movies – discuss with spoilers",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/film/2026/jun/30/supergirl-doggy-distress-frontier-justice-and-a-new-direction-for-superhero-movies-discuss-with-spoilers",
+      "rank": 28,
+      "category": "World",
+      "sources_covering_story": 3
+    },
+    {
+      "headline": "Spider-Man’s web of lies: what would actually happen if you were bitten by a radioactive spider?",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/film/2026/jun/30/spider-man-radioactive-spider-brand-new-day",
+      "rank": 29,
+      "category": "World",
+      "sources_covering_story": 3
+    },
+    {
+      "headline": "Blake Lively files to receive $8m in legal fees from Justin Baldoni and his studio",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/film/2026/jun/30/blake-lively-justin-baldoni-legal-fees",
+      "rank": 30,
+      "category": "World",
+      "sources_covering_story": 3
+    },
+    {
+      "headline": "Oura Ring 5 review: a stunning generational leap for smart rings",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/technology/2026/jun/30/oura-ring-5-review-smart-ring-health-tracking",
+      "rank": 31,
+      "category": "World",
+      "sources_covering_story": 3
+    },
+    {
+      "headline": "Return of the ‘greybeards’: AI backfired – so Ford had to rehire humans",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/technology/2026/jun/30/ai-backfired-so-ford-had-to-rehire-humans-greybeard-engineers",
+      "rank": 32,
+      "category": "U.S.",
+      "sources_covering_story": 3
+    },
+    {
+      "headline": "The Crossword: Tuesday, June 30, 2026",
+      "source": "The New Yorker",
+      "link": "https://www.newyorker.com/puzzles-and-games-dept/crossword/2026/06/30",
+      "rank": 33,
+      "category": "World",
+      "sources_covering_story": 3
+    },
+    {
+      "headline": "Three-year-old rescued and taken to hospital six days after Venezuela quake",
+      "source": "BBC News",
+      "link": "https://www.bbc.co.uk/news/articles/c1jykwk8n18o?at_medium=RSS&at_campaign=rss",
+      "rank": 34,
+      "category": "World",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "England fans' behaviour 'excellent' at World Cup",
+      "source": "BBC News",
+      "link": "https://www.bbc.co.uk/sport/football/articles/c75ye7lz347o?at_medium=RSS&at_campaign=rss",
+      "rank": 35,
+      "category": "World",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "Germany fans in need of hope as prospect of Klopp looms",
+      "source": "BBC News",
+      "link": "https://www.bbc.co.uk/sport/football/articles/cz0jgr7vy5zo?at_medium=RSS&at_campaign=rss",
+      "rank": 36,
+      "category": "World",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "Legally Blonde revival Elle - boring and tedious or a hot pink delight?",
+      "source": "BBC News",
+      "link": "https://www.bbc.co.uk/news/articles/c5yzj5m22lro?at_medium=RSS&at_campaign=rss",
+      "rank": 37,
+      "category": "World",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "Angry Venezuelans accuse government of negligence over earthquake response",
+      "source": "BBC News",
+      "link": "https://www.bbc.co.uk/news/articles/c5yzd18dxzxo?at_medium=RSS&at_campaign=rss",
+      "rank": 38,
+      "category": "World",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "Supreme Court's birthright ruling is major blow to Trump",
+      "source": "BBC News",
+      "link": "https://www.bbc.co.uk/news/videos/c9w2nprzq5ro?at_medium=RSS&at_campaign=rss",
+      "rank": 39,
+      "category": "World",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "'Normal birth drive' criticism removed from maternity report, expert claims",
+      "source": "BBC News",
+      "link": "https://www.bbc.co.uk/news/articles/c3eywv0np13o?at_medium=RSS&at_campaign=rss",
+      "rank": 40,
+      "category": "World",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "Brother of TV star Caroline Flack dies",
+      "source": "BBC News",
+      "link": "https://www.bbc.co.uk/news/articles/cj4gz85erywo?at_medium=RSS&at_campaign=rss",
+      "rank": 41,
+      "category": "World",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "'Absolute madness': Row over plan to demolish Nazi bunker under Berlin",
+      "source": "BBC News",
+      "link": "https://www.bbc.co.uk/news/articles/cwy09753nq3o?at_medium=RSS&at_campaign=rss",
+      "rank": 42,
+      "category": "World",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "Defying logic - how Haaland could end up with 260 international goals",
+      "source": "BBC News",
+      "link": "https://www.bbc.co.uk/sport/football/articles/cvge3wkn1v7o?at_medium=RSS&at_campaign=rss",
+      "rank": 43,
+      "category": "World",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "Koeman resigns, while Netherlands report racist abuse",
+      "source": "BBC News",
+      "link": "https://www.bbc.co.uk/sport/football/articles/cly0g1y3v00o?at_medium=RSS&at_campaign=rss",
+      "rank": 44,
+      "category": "World",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "Poor Wimbledon performance prompts yet another British inquest",
+      "source": "BBC News",
+      "link": "https://www.bbc.co.uk/sport/tennis/articles/c2ey1l4383lo?at_medium=RSS&at_campaign=rss",
+      "rank": 45,
+      "category": "World",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "Williams edged by Joint in epic three‑setter on singles return",
+      "source": "BBC News",
+      "link": "https://www.bbc.co.uk/sport/tennis/videos/c6210wl58z6o?at_medium=RSS&at_campaign=rss",
+      "rank": 46,
+      "category": "World",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "Roof collapse kills 14 children at Pakistan tuition centre",
+      "source": "BBC News",
+      "link": "https://www.bbc.co.uk/news/articles/cr7x38lle1jo?at_medium=RSS&at_campaign=rss",
+      "rank": 47,
+      "category": "World",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "Australia sues Amazon for making allegedly unfair contracts with subscribers",
+      "source": "BBC News",
+      "link": "https://www.bbc.co.uk/news/articles/c20yz9rzwy0o?at_medium=RSS&at_campaign=rss",
+      "rank": 48,
+      "category": "World",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "Homes harder to sell as high mortgage rates frustrate buyers",
+      "source": "BBC News",
+      "link": "https://www.bbc.co.uk/news/articles/cdr4env2v14o?at_medium=RSS&at_campaign=rss",
+      "rank": 49,
+      "category": "Business",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "Mbappe scores twice as France dominate Sweden",
+      "source": "BBC News",
+      "link": "https://www.bbc.co.uk/sport/football/videos/c6216q7d62ro?at_medium=RSS&at_campaign=rss",
+      "rank": 50,
+      "category": "Sports",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "Williams 'takes it all in' on Centre Court return",
+      "source": "BBC News",
+      "link": "https://www.bbc.co.uk/sport/tennis/videos/c932jy2qz24o?at_medium=RSS&at_campaign=rss",
+      "rank": 51,
+      "category": "Sports",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "Supreme Court spurns Trump on birthright citizenship, allows transgender sports bans - Reuters",
+      "source": "Reuters",
+      "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxOUWxxR1pBSWtqNUxqRXg2RWN3SGpNMnFvR1ZPUWJJd1pra2NDUWwxMlFkUjhGZ1dQMWc5c0tjdGdPR1lVRjcwcVR3OVJFQll2V3ZnbEhfbVctNjlFOHoxM2tPS2hrcDJWY3JBamxQY2hRTl9vQml4R3dqd2ZUZ2FWMURSUGJHY3VMcFBKaklOVUs2TVd0Q0tpWnMzblgwY0JTd1FDV0l5elBCbjFDaWtRQTZGRGtwYjVJdTN3bVhFWUc0YndCQ3VNVjFGX29Xdw?oc=5",
+      "rank": 52,
+      "category": "World",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "Trump cuts New York funding for Medicaid fraud unit - Reuters",
+      "source": "Reuters",
+      "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxPSFN1OENYdmg1UEZvTm82UFZub09WVG5mSmU3ampxX0RFT3ZFUVVNbXFGYUx0REJMUlVDRi0zdXBtbXozbU5qX0diUUZRYXh0M1hlZlJabThnbkRhVHVIemV1ZnZGR3pyREVBV0FSRHRtMHhCVnhyYjRheWQ3YmlkSzcyMW1yQ01hMlZWZ0lVT3ZEeDlGUGljODNFTTgxQnNuNnc?oc=5",
+      "rank": 53,
+      "category": "World",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "FDA allows Philip Morris to market Zyn as less harmful than cigarettes - Reuters",
+      "source": "Reuters",
+      "link": "https://news.google.com/rss/articles/CBMi5wFBVV95cUxQWVdVd1ZQZHUtd3AzNk85SnAyQm5rcVJwbmt0RUd1WHJ6LVRaV05zaTloM3dKRzZPVk01U0pQQS1PVGozS1ZGTHp5bEZIMmh6NVVUWGtkRXFFcGJUdDFRYWxXNWg5U0FRWk5sWTB1dEZwTmJGd3lzMFEzclZ6eG02VGxrclRIX1Q4QmlLUThkZmJSNld0SXBPcm00SlM0aDhUNEFXMHdnMnZRNGRIQVVoUXJCTHFnT1hHM1FLUWx1WlQ3TmttTHZhVEgtTHpaY2o1ak5hUGktdUVsNG9qZnJMTS1HYlNKUzQ?oc=5",
+      "rank": 54,
+      "category": "World",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "Self-exiled Chinese billionaire Guo Wengui gets 30 years in US prison for fraud conviction - AP News",
+      "source": "Associated Press",
+      "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOWWRvWFlGZFBqSEdVeUF3eXg5VV9FMWdfeGdIU0JFdXhEOTl5Z1VtUVV6dUtHVEpxVzJlMDl1UlpFdGlUSlJUTFZNOG4zNnFWemh5RUR2TFhWRzN2bWpTb3RmUkM1bXJ2VUhWVVBLZHVTTThMWHh0dFRJRmtncjVKOXdXeUNScVlTY08xTWJCQlA2Qjl5d1QtaVF0ZlU?oc=5",
+      "rank": 55,
+      "category": "World",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "Republican Tom Kean Jr. reveals depression diagnosis after his four-month absence from Congress - AP News",
+      "source": "Associated Press",
+      "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNTGtDLVVtdkNrTUp4M2hRTFhOblUwaWs2WnE1V0otZWI1WmwxUnRtVG1SYUFuYVJCcFlsTFdEaUFuclRrLWxxd1Bobm1zazNhdU9SNDB0X1pTMThteWpPOVlsb3lSb3ZmYl9rV2RvX2NlZEx6ZDEtVTNrVlB1VWVGazlIRFpXODFKZDA5dUZFbWppNEc2X2c?oc=5",
+      "rank": 56,
+      "category": "World",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "Takeaways from AP/'FRONTLINE’ investigation into how US tech is abused for global scams - AP News",
+      "source": "Associated Press",
+      "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxOZnVwOHFXc1g0elJHSVROUGo5SkNvNy1ITmlMVVhzLTJzNXhhMWtFSUhqU2hTZjVfcUkwYnVJTGJ3TDlkN2ppZk8xbi12WUZLcEdkOS1qNTk2UnZiUHF4amIwZmhqSGNyWVdEZ2dQS3VHZkRMSTEyTk16Z2ZrMmRlcG14dXdXTTlFalY4SEg2b2gycXdfX0ZLbDlZeFFjeTRuV2l3QVJKLWROcUZ1SS1QLWJJWQ?oc=5",
+      "rank": 57,
+      "category": "World",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "The full list of the 2026 class of ‘Great Immigrants, Great Americans’ - AP News",
+      "source": "Associated Press",
+      "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQMjRjVmVCMlJYOHliXzVUREtZbUlFS2MzQ2FReV94bXFoWWxyLTJVbEduSV9leEd5WV9LWWtwdTAyWFdLQl84eVFUYWI4dWV1ZTJoV2VoclQ4UFZiTE5kNkJfcTRVVjR6cGhGUFpIX3VZOWtjczlJdlFtY25vSXJ3UDVNUklyZmRyWjBWdFEtRFRwbU8wMzRlM213NWVtUVgzWWg5eThuYW9kUTFiVk9Ceg?oc=5",
+      "rank": 58,
+      "category": "World",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "Haaland scores deciding goal as Norway wins its 1st World Cup knockout game, beating Ivory Coast 2-1 - AP News",
+      "source": "Associated Press",
+      "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxQWFNzRTdSVlhXR3Q0WmZBMUNXZzQwWFp0dURIbklhQWZpeWRxQktHaUQ5Y0NhUGUzSXVVTEJibGJvR3RFamN2aHhJX00xcHhhMWJUUGJlcWpGUDNzdzBBTEFRSVB6bUN5cVV4d0FYX3NTUUNsREl2RlZnWVY0NUY3cm1GbnlDNExEa1BtbTluMDB5am1WbmRBLUFn?oc=5",
+      "rank": 59,
+      "category": "World",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "Why is Elon Musk boosting an anti-immigrant film loved by the far right? | Mehdi Hasan",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/commentisfree/2026/jun/30/elon-musk-citizen-vigilante-immigration",
+      "rank": 60,
+      "category": "World",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "US-Iran talks over $6bn Iranian assets to restart",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/world/2026/jun/30/us-iran-talks-6bn-iranian-assets-restart",
+      "rank": 61,
+      "category": "World",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "Pope Leo pleads with ultra-conservative sect not to ordain own bishops",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/world/2026/jun/30/pope-leo-conservative-sspx-ordain-bishops-warn",
+      "rank": 62,
+      "category": "World",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "Toddler rescued from rubble six days after devastating Venezuela earthquakes",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/world/2026/jun/30/toddler-rescued-from-rubble-six-days-after-devastating-venezuela-earthquakes",
+      "rank": 63,
+      "category": "World",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "‘They will attack me if I stay’: immigrants in South Africa flee for safety amid violence and anti-foreigner protests",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/world/2026/jun/30/they-will-attack-me-if-i-stay-immigrants-in-south-africa-flee-for-safety-amid-violence-and-anti-foreigner-protests",
+      "rank": 64,
+      "category": "World",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "Patient being tested for Ebola virus at Glasgow hospital",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/uk-news/2026/jun/30/patient-being-tested-for-suspected-ebola-virus-at-glasgow-hospital",
+      "rank": 65,
+      "category": "World",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "Six feared dead after ‘bizarre’ sinking of charter boat off Canadian coast",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/world/2026/jun/30/sinking-boat-vancouver-canada",
+      "rank": 66,
+      "category": "World",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "What to know about the US supreme court ruling on birthright citizenship",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/us-news/2026/jun/30/birthright-citizenship-explained-supreme-court",
+      "rank": 67,
+      "category": "Health",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "‘But we’re just 1% of emissions’: do smaller countries’ climate efforts matter?",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/environment/2026/jun/30/emissions-do-smaller-countries-climate-efforts-matter",
+      "rank": 68,
+      "category": "Health",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "How I survived the record Paris heatwave while seven months pregnant",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/environment/2026/jun/30/how-i-survived-record-paris-heatwave-while-seven-months-pregnant",
+      "rank": 69,
+      "category": "Health",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "Absolutely sensational! My week savouring life’s little pleasures – from drilling holes to licking trees",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/lifeandstyle/2026/jun/30/my-week-savouring-lifes-little-pleasures-drilling-holes-licking-trees",
+      "rank": 70,
+      "category": "Health",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "Who did it best? USA 1994 versus World Cup 2026 – then and now",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/football/ng-interactive/2026/jun/30/who-did-it-best-usa-1994-versus-world-cup-2026-then-and-now",
+      "rank": 71,
+      "category": "Health",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "‘Don’t start to doubt’: Tuchel warns England to be patient against defensive DR Congo",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/football/2026/jul/01/thomas-tuchel-warns-england-dr-congo-world-cup-2026-last-32",
+      "rank": 72,
+      "category": "Science",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "A US military worker killed my son in Britain, and still we fight for justice. I’m angry that others are waiting too | Charlotte Charles",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/commentisfree/2026/jun/30/us-military-worker-britain-harry-dunn-guardian",
+      "rank": 73,
+      "category": "Science",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "Is heterosexuality hopeless? | Arwa Mahdawi",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/commentisfree/2026/jun/30/is-heterosexuality-hopeless",
+      "rank": 74,
+      "category": "Science",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "The supreme court has again undermined the power of Congress | Moira Donegan",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/commentisfree/2026/jun/30/supreme-court-trump-v-slaughter",
+      "rank": 75,
+      "category": "Science",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "The Guardian view on Colombia’s election: Trumpism has gone transnational | Editorial",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/commentisfree/2026/jun/30/the-guardian-view-on-colombias-election-trumpism-has-gone-transnational",
+      "rank": 76,
+      "category": "Science",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "Zverev overcomes grass allergy and Blockx to advance to Wimbledon’s second round",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/sport/2026/jun/30/alexander-zverev-blockx-wimbledon-first-round-tennis",
+      "rank": 77,
+      "category": "Sports",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "Alleged Epstein victim and Trump accuser living in fear of retaliation, relative says",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/us-news/2026/jun/30/alleged-epstein-victim-trump-accuser",
+      "rank": 78,
+      "category": "Sports",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "US and European diplomats continue standoff over top Bosnia and Herzegovina post",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/world/2026/jun/30/eu-diplomats-clash-with-trump-administration-over-top-bosnia-and-herzegovina-post",
+      "rank": 79,
+      "category": "Sports",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "How Trump is making the US's 250th anniversary about himself – video",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/us-news/video/2026/jun/30/trump-us-250th-anniversary",
+      "rank": 80,
+      "category": "Entertainment",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "UK ‘minded’ to intervene in Paramount’s $110bn takeover of Warner Bros Discovery",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/business/2026/jun/30/uk-intervene-paramount-takeover-warner-bros-discovery",
+      "rank": 81,
+      "category": "Entertainment",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "Damning report on England maternity care ‘watershed moment’, health secretary says",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/politics/2026/jun/30/england-maternity-commissioner-shocking-failings-amos-review",
+      "rank": 82,
+      "category": "Entertainment",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "New York: two killed and 20 injured in Long Island Expressway crash",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/us-news/2026/jun/30/long-island-expressway-crash",
+      "rank": 83,
+      "category": "Entertainment",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "What we’re reading: writers and readers on the books they enjoyed in June",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/books/2026/jun/30/what-were-reading-writers-and-readers-on-the-books-they-enjoyed-in-june-candice-carty-williams",
+      "rank": 84,
+      "category": "Entertainment",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "Queenie Is Working On It by Candice Carty-Williams review – a smart sequel to a breakout bestseller",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/books/2026/jun/30/queenie-is-working-on-it-by-candice-carty-williams-review-a-smart-sequel-to-a-breakout-bestseller",
+      "rank": 85,
+      "category": "Technology",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "‘I felt like Orpheus’: how the designer of Gears of War bounced back from studio closure by producing Hadestown",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/games/2026/jun/30/designer-gears-of-war-hadestown-cliff-bleszinski",
+      "rank": 86,
+      "category": "Technology",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "‘He’d been wounded deeply’: the wild photographic life of Ed van der Elsken – in pictures",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/artanddesign/gallery/2026/jun/30/ed-van-der-elsken-dutch-photographer-in-pictures",
+      "rank": 87,
+      "category": "Technology",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "Waldmüller: Landscapes review – the rule-breaking radical whose ‘delicate fingers’ drove bourgeois Austria wild",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/artanddesign/2026/jun/30/waldmuller-landscapes-review-austria-bourgeois",
+      "rank": 88,
+      "category": "Technology",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "Musical fruit or unsung hero? A beginner’s guide to cooking with beans",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/food/2026/jul/01/beans-cooking-preparing-beginners-guide",
+      "rank": 89,
+      "category": "Technology",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "Six of the best long-distance European trails to walk in summer",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/travel/2026/jun/30/six-of-the-best-long-distance-european-trails-to-walk-in-summer",
+      "rank": 90,
+      "category": "Business",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "Grieving relatives still seeking answers as US normalises ‘drug boat’ strikes",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/world/2026/jun/30/us-military-boat-strikes-normalised-st-lucia-victim-family-seek-answers",
+      "rank": 91,
+      "category": "Business",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "‘I was devastated’: the Nigerian with albinism deported under Trump’s asylum crackdown",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/global-development/2026/jun/30/albinism-africa-us-asylum-rejection-nigerian-woman-ladidi-shaibu-uganda",
+      "rank": 92,
+      "category": "Business",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "Classroom nap and a looming wildfire: photos of the day – Tuesday",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/news/gallery/2026/jun/30/classroom-nap-looming-wildfire-photos-of-the-day-tuesday",
+      "rank": 93,
+      "category": "Business",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "‘I’m not a quitter!’ Rubén Blades, the salsa supremo who acted with Jack Nicholson, inspired Bad Bunny – and served as Panama’s tourism minister",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/music/2026/jun/30/ruben-blades-salsa-megastar-jack-nicholson-bad-bunny-tourism-minister",
+      "rank": 94,
+      "category": "U.S.",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "US supreme court agrees to hear challenges to assault-weapons bans",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/us-news/2026/jun/30/us-supreme-court-assault-weapons-bans",
+      "rank": 95,
+      "category": "U.S.",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "After last-32 upsets, US approach is simple: ‘We’re not going to go crazy’",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/football/2026/jun/30/usmnt-bosnia-herzegovina-world-cup-round-of-32-preview",
+      "rank": 96,
+      "category": "U.S.",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "How USMNT prepare for World Cup penalty drama: confidence, composure and consultants",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/football/2026/jun/30/usmnt-penalty-kicks-mauricio-pochettino-world-cup",
+      "rank": 97,
+      "category": "U.S.",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "England and Tuchel prepare to go deep but know ignominy may lie in wait if they fail | Jacob Steinberg",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/football/2026/jul/01/england-thomas-tuchel-world-cup-dr-congo-last-32",
+      "rank": 98,
+      "category": "U.S.",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "Socceroos hit back at worst match of World Cup claims: ‘You can’t make everyone happy’",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/football/2026/jul/01/socceroos-paraguay-worst-match-of-world-cup-claims",
+      "rank": 99,
+      "category": "U.S.",
+      "sources_covering_story": 2
+    },
+    {
+      "headline": "Gravity is undefeated: Ja Morant’s spectacular fall back to Earth is complete",
+      "source": "The Guardian",
+      "link": "https://www.theguardian.com/sport/2026/jun/30/ja-morant-trade-grizzlies-trail-blazers-nba",
+      "rank": 100,
+      "category": "U.S.",
+      "sources_covering_story": 2
+    }
+  ],
+  "total_stories": 100,
+  "last_updated": "2026-06-30T23:53:32.527Z"
+}
