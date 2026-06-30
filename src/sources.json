@@ -1,0 +1,310 @@
+{
+  "sources": [
+    {
+      "name": "NPR",
+      "domain": "npr.org",
+      "feeds": [
+        {
+          "url": "https://feeds.npr.org/1001/rss.xml",
+          "category": "general"
+        }
+      ]
+    },
+    {
+      "name": "BBC News",
+      "domain": "bbc.com",
+      "feeds": [
+        {
+          "url": "https://feeds.bbci.co.uk/news/rss.xml",
+          "category": "world"
+        },
+        {
+          "url": "https://feeds.bbci.co.uk/news/world/rss.xml",
+          "category": "world"
+        },
+        {
+          "url": "https://feeds.bbci.co.uk/news/business/rss.xml",
+          "category": "business"
+        },
+        {
+          "url": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml",
+          "category": "science"
+        }
+      ]
+    },
+    {
+      "name": "Reuters",
+      "domain": "reuters.com",
+      "feeds": [
+        {
+          "url": "https://news.google.com/rss/search?q=site:reuters.com+when:1d&hl=en-US&gl=US&ceid=US:en",
+          "category": "general",
+          "note": "Google News search fallback"
+        }
+      ]
+    },
+    {
+      "name": "Associated Press",
+      "domain": "apnews.com",
+      "feeds": [
+        {
+          "url": "https://news.google.com/rss/search?q=site:apnews.com+when:1d&hl=en-US&gl=US&ceid=US:en",
+          "category": "general",
+          "note": "Google News search fallback"
+        }
+      ]
+    },
+    {
+      "name": "The Guardian",
+      "domain": "theguardian.com",
+      "feeds": [
+        {
+          "url": "https://www.theguardian.com/international/rss",
+          "category": "world"
+        },
+        {
+          "url": "https://www.theguardian.com/us/rss",
+          "category": "us"
+        },
+        {
+          "url": "https://www.theguardian.com/business/rss",
+          "category": "business"
+        },
+        {
+          "url": "https://www.theguardian.com/technology/rss",
+          "category": "technology"
+        }
+      ]
+    },
+    {
+      "name": "NBC News",
+      "domain": "nbcnews.com",
+      "feeds": [
+        {
+          "url": "https://feeds.nbcnews.com/nbcnews/public/news",
+          "category": "general"
+        }
+      ]
+    },
+    {
+      "name": "CBS News",
+      "domain": "cbsnews.com",
+      "feeds": [
+        {
+          "url": "https://www.cbsnews.com/latest/rss/",
+          "category": "general"
+        }
+      ]
+    },
+    {
+      "name": "ABC News",
+      "domain": "abcnews.go.com",
+      "feeds": [
+        {
+          "url": "https://feeds.abcnews.com/abcnews/topstories",
+          "category": "general"
+        }
+      ]
+    },
+    {
+      "name": "USA Today",
+      "domain": "usatoday.com",
+      "feeds": [
+        {
+          "url": "https://www.usatoday.com/news/index.html?feedtype=rss",
+          "category": "general"
+        }
+      ]
+    },
+    {
+      "name": "Politico",
+      "domain": "politico.com",
+      "feeds": [
+        {
+          "url": "https://www.politico.com/rss/politicopicks.xml",
+          "category": "us"
+        },
+        {
+          "url": "https://www.politico.com/rss/transportation.xml",
+          "category": "us"
+        }
+      ]
+    },
+    {
+      "name": "The Hill",
+      "domain": "thehill.com",
+      "feeds": [
+        {
+          "url": "https://thehill.com/feed/",
+          "category": "us"
+        }
+      ]
+    },
+    {
+      "name": "PBS",
+      "domain": "pbs.org",
+      "feeds": [
+        {
+          "url": "https://www.pbs.org/newshour/feeds/rss/newshour",
+          "category": "general"
+        }
+      ]
+    },
+    {
+      "name": "C-SPAN",
+      "domain": "c-span.org",
+      "feeds": [
+        {
+          "url": "https://www.c-span.org/feeds/",
+          "category": "us"
+        }
+      ]
+    },
+    {
+      "name": "The Atlantic",
+      "domain": "theatlantic.com",
+      "feeds": [
+        {
+          "url": "https://www.theatlantic.com/feed/all/",
+          "category": "general"
+        }
+      ]
+    },
+    {
+      "name": "The New Yorker",
+      "domain": "newyorker.com",
+      "feeds": [
+        {
+          "url": "https://www.newyorker.com/feed/rss",
+          "category": "general"
+        }
+      ]
+    },
+    {
+      "name": "Time",
+      "domain": "time.com",
+      "feeds": [
+        {
+          "url": "https://time.com/feed",
+          "category": "general"
+        }
+      ]
+    },
+    {
+      "name": "ProPublica",
+      "domain": "propublica.org",
+      "feeds": [
+        {
+          "url": "https://www.propublica.org/feeds/all.xml",
+          "category": "general"
+        }
+      ]
+    },
+    {
+      "name": "Axios",
+      "domain": "axios.com",
+      "feeds": [
+        {
+          "url": "https://www.axios.com/feed",
+          "category": "general"
+        }
+      ]
+    },
+    {
+      "name": "Deutsche Welle",
+      "domain": "dw.com",
+      "feeds": [
+        {
+          "url": "https://www.dw.com/en/rss",
+          "category": "world"
+        }
+      ]
+    },
+    {
+      "name": "Christian Science Monitor",
+      "domain": "csmonitor.com",
+      "feeds": [
+        {
+          "url": "https://www.csmonitor.com/about/rss",
+          "category": "general"
+        }
+      ]
+    },
+    {
+      "name": "UPI",
+      "domain": "upi.com",
+      "feeds": [
+        {
+          "url": "https://www.upi.com/feed/",
+          "category": "general"
+        }
+      ]
+    },
+    {
+      "name": "The Economist",
+      "domain": "economist.com",
+      "feeds": [
+        {
+          "url": "https://www.economist.com/weeklyedition/rss.xml",
+          "category": "general",
+          "paywalled": true
+        }
+      ]
+    },
+    {
+      "name": "Financial Times",
+      "domain": "ft.com",
+      "feeds": [
+        {
+          "url": "https://feeds.ft.com/home/rss",
+          "category": "business",
+          "paywalled": true
+        }
+      ]
+    },
+    {
+      "name": "The New York Times",
+      "domain": "nytimes.com",
+      "feeds": [
+        {
+          "url": "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",
+          "category": "general",
+          "paywalled": true
+        }
+      ]
+    },
+    {
+      "name": "The Washington Post",
+      "domain": "washingtonpost.com",
+      "feeds": [
+        {
+          "url": "https://feeds.washingtonpost.com/rss/world",
+          "category": "world",
+          "paywalled": true
+        }
+      ]
+    },
+    {
+      "name": "The Wall Street Journal",
+      "domain": "wsj.com",
+      "feeds": [
+        {
+          "url": "https://feeds.wsj.com/xml/rss/3_7085.xml",
+          "category": "business",
+          "paywalled": true
+        }
+      ]
+    },
+    {
+      "name": "Bloomberg",
+      "domain": "bloomberg.com",
+      "feeds": [
+        {
+          "url": "https://www.bloomberg.com/feed/podcast/etf-report.xml",
+          "category": "business",
+          "paywalled": true
+        }
+      ]
+    }
+  ]
+}

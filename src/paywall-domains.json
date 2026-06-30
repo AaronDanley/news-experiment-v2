@@ -1,0 +1,17 @@
+{
+  "paywalled_domains": [
+    "nytimes.com",
+    "wsj.com",
+    "bloomberg.com",
+    "ft.com",
+    "economist.com",
+    "washingtonpost.com"
+  ],
+  "free_markers": [
+    "subscribe to continue",
+    "create a free account",
+    "sign in to read",
+    "limited free articles",
+    "subscription required"
+  ]
+}
