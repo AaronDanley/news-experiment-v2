@@ -113,7 +113,7 @@ function deduplicateStories(stories) {
 // Topical categories shown on the page (World / U.S. are now regions, not
 // categories). Politics sits above Business per the requested ordering.
 const TOPICAL_CATEGORIES = [
-  'Politics', 'Business', 'Technology', 'Entertainment', 'Sports',
+  'Politics', 'Business', 'Technology', 'Arts & Entertainment', 'Sports',
   'Science', 'Health',
 ];
 
@@ -129,10 +129,10 @@ function detectRegion(headline) {
 // Ordered topical classifiers — the first match wins, so specific topics are
 // checked before the Politics catch-all.
 const CATEGORY_PATTERNS = [
-  ['Health', /\b(health|covid|coronavirus|virus|disease|vaccine|vaccination|hospitals?|cancer|medical|medicine|doctors?|patients?|fda|outbreak|mental health|obesity|diabetes|flu|measles|opioid|abortion|pregnan|therapy|surgery)\b/i],
+  ['Health', /\b(covid|coronavirus|virus|disease|vaccine|vaccination|hospitals?|cancer|medical|medicine|doctors?|patients?|fda|outbreak|mental health|obesity|diabetes|flu|measles|opioid|abortion|pregnan|therapy|surgery|pandemic|epidemic|tuberculosis|malaria|infection|immunization|hiv|aids|covid-19)\b/i],
   ['Science', /\b(science|scientists?|space|spacewalks?|spacecrafts?|astronauts?|aerospace|nasa|spacex|rocket|satellite|telescopes?|orbit|cosmic|cosmos|nebula|asteroids?|meteors?|comet|climate|global warming|studies|researchers?|discovery|physics|astronomy|astrophysics|galaxy|galaxies|planet|mars|moon|fossils?|dinosaur|species|archaeolog|geolog|volcano|earthquake|wildlife|ocean|biology|genome)\b/i],
   ['Sports', /\b(sports?|championship|tournament|nba|nfl|mlb|nhl|ncaa|soccer|basketball|baseball|hockey|tennis|golf|olympics?|world cup|playoffs?|finals?|coach|league|fifa|uefa|grand slam|marathon|formula 1|f1|premier league|super bowl|free agency|free agent|quarterback|touchdown|home run|draft pick|midseason|wimbledon|lebron|lakers|celtics|warriors|knicks|yankees|dodgers|cowboys|patriots|athlete)\b/i],
-  ['Entertainment', /\b(movie|films?|music|celebrity|celebrities|tv show|hollywood|album|actors?|actress|singers?|oscars?|grammys?|emmys?|box office|streaming|netflix|concert|festival|premiere|red carpet|billboard)\b/i],
+  ['Arts & Entertainment', /\b(movie|films?|music|celebrity|celebrities|tv show|hollywood|album|actors?|actress|singers?|oscars?|grammys?|emmys?|box office|streaming|netflix|concert|festival|premiere|red carpet|billboard|books?|literary|novel|author|theater|theatre|ballet|opera|dance|gallery|art|artwork|museum|exhibition|painting|sculpture|playwright|broadway|shakespeare|artist|photography|photographer|fashion|design|documentary)\b/i],
   ['Technology', /\b(tech|technology|\bai\b|artificial intelligence|software|hardware|\bapp\b|apps|smartphones?|iphone|android|google|apple|microsoft|amazon|meta|openai|chatgpt|chips?|semiconductor|robots?|cyber|hacking|data breach|crypto|bitcoin|startup|silicon valley|algorithm|quantum)\b/i],
   ['Business', /\b(business|econom|markets?|stocks?|shares?|trade war|trading|earnings|revenue|profits?|inflation|recession|unemployment|\bfed\b|federal reserve|interest rate|gdp|mergers?|acquisition|ipo|tariffs?|banks?|investors?|nasdaq|dow jones|s&p 500|layoffs?|\bceo\b|jobs report)\b/i],
   ['Politics', /\b(politic|elections?|president|congress|senate|parliament|government|policy|votes?|voters?|campaign|\bwar\b|military|troops|courts?|lawsuit|legislation|immigration|border|protests?|minister|sanctions?|diplomat|treaty|nato|united nations|coup|referendum|governor|mayor|prime minister|foreign policy|nuclear|ceasefire|airstrike|election)\b/i],
@@ -241,11 +241,11 @@ async function callGroqBatch(batch, batchNum, batchTotal) {
   const systemPrompt = `You are a strict news editor. For each headline assign:
 1. "importance": an integer 1-10 (10 = biggest, most consequential story of the day; 1 = minor).
 2. "region": exactly "World" or "U.S." ("U.S." for domestic United States news, "World" for everything else).
-3. "category": exactly one of these 7 topical categories: Politics, Business, Technology, Entertainment, Sports, Science, Health.
+3. "category": exactly one of these 7 topical categories: Politics, Business, Technology, Arts & Entertainment, Sports, Science, Health.
 
 CRITICAL RULES:
 1. You may ONLY use the 7 categories listed above. Never invent new categories. Never use "World" or "U.S." as a category — those are regions only.
-2. Evaluate specific categories first (Technology, Business, Entertainment, Sports, Science, Health) before defaulting to Politics.
+2. Evaluate specific categories first (Technology, Business, Arts & Entertainment, Sports, Science, Health) before defaulting to Politics.
 3. Politics covers government, elections, policy, war, diplomacy, courts, and general hard news.
 4. Assign the category that best fits the actual subject of the headline.
 5. Return your response as valid JSON.`;
@@ -330,42 +330,81 @@ function ensureMinimumPerCategory(stories, minPerCategory = 5) {
 }
 
 function balanceSourceRepresentation(stories, limit = 100) {
-  // Group stories by source, each group ordered by importance (rank).
-  const bySource = {};
-  for (const story of stories) {
-    if (!bySource[story.source]) bySource[story.source] = [];
-    bySource[story.source].push(story);
-  }
-  Object.values(bySource).forEach(arr => arr.sort((a, b) => a.rank - b.rank));
-
-  const selected = [];
-  let addedThisRound = true;
-
-  // Round-robin: each round, take the next most-important story from every source.
-  // Within a round, sources are ordered by the rank of their next story so the
-  // biggest stories still surface first. This guarantees every source appears
-  // before any single source can take a second slot.
-  while (selected.length < limit && addedThisRound) {
-    addedThisRound = false;
-
-    const sourcesWithStories = Object.keys(bySource)
-      .filter(src => bySource[src].length > 0)
-      .sort((a, b) => bySource[a][0].rank - bySource[b][0].rank);
-
-    for (const src of sourcesWithStories) {
-      if (selected.length >= limit) break;
-      selected.push(bySource[src].shift());
-      addedThisRound = true;
-    }
-  }
-
-  // Re-sort the final selection by importance for display.
-  selected.sort((a, b) => a.rank - b.rank);
+  // Take the top N stories by rank (importance + coverage), allowing major
+  // outlets to appear multiple times. This prioritizes story quality over
+  // source diversity.
+  const selected = stories
+    .sort((a, b) => a.rank - b.rank)
+    .slice(0, limit);
 
   const sourceCount = new Set(selected.map(s => s.source)).size;
-  console.log(`\nBalanced selection: ${selected.length} stories across ${sourceCount} sources`);
+  console.log(`\nQuality-first selection: ${selected.length} stories across ${sourceCount} sources`);
 
   return selected;
+}
+
+// Outlet prominence tiers: used to prefer major outlets over local/niche ones
+// when multiple sources cover the same story. Higher tier = more prominent.
+const OUTLET_TIERS = {
+  // Tier 1: Major national / international news organizations
+  1: new Set([
+    'Associated Press', 'AP News', 'AP', 'Reuters', 'BBC', 'BBC News',
+    'NPR', 'The New York Times', 'The Washington Post', 'CNN', 'ABC News',
+    'CBS News', 'NBC News', 'PBS NewsHour', 'PBS News Hour', 'The Wall Street Journal',
+    'Financial Times', 'The Guardian', 'The Economist', 'Bloomberg', 'ProPublica',
+    'The Atlantic', 'POLITICO', 'Axios', 'USA Today', 'Time', 'Newsweek',
+  ]),
+  // Tier 2: Major regional / international outlets, plus national sports/entertainment
+  2: new Set([
+    'Reuters Staff', 'PA Media', 'DPA', 'EFE', 'AFP', 'The Hill', 'The New Yorker',
+    'Al Jazeera', 'Euronews', 'Deutsche Welle', 'DW', 'Sky News', 'Channel 4 News',
+    'ITV News', 'CNBC', 'Fox News', 'MSNBC', 'The Independent', 'Telegraph',
+    'The Times', 'Financial Post', 'The Globe and Mail', 'The Canadian Press',
+    'ESPN', 'The Athletic', 'NBC Sports', 'Variety', 'Deadline',
+  ]),
+  // Tier 3: Niche / regional / newer credible outlets
+  3: new Set([
+    'Politico', 'The Information', 'VentureBeat', 'TechCrunch', 'The Verge',
+    'Wired', 'The Register', 'Protocol', 'Vox', 'Slate', 'The Intercept',
+    'Mother Jones', 'The Daily Beast', 'Business Insider', 'STAT News',
+    'Science Daily', 'Nature', 'Science Magazine', 'Journal of Science',
+  ]),
+  // Tier 4: Regional / local outlets (deprioritized — only use if nothing better available)
+  4: new Set([
+    'PhillyVoice', 'WUSA9', 'NBC4 Washington', 'NBC7 San Diego', 'ABC7 New York',
+    'ABC7 Los Angeles', 'KPIX', 'WTVR', 'WAVY', 'San Francisco Chronicle',
+    'Chicago Tribune', 'Boston Globe', 'Denver Post', 'Atlanta Journal-Constitution',
+    'Miami Herald', 'Seattle Times', 'Minneapolis Star Tribune', '13newsnow',
+    'Local 10', 'NBC Bay Area',
+  ]),
+};
+
+function getOutletTier(outlet) {
+  const normalized = normalizeSourceName(outlet);
+  for (let tier = 1; tier <= 4; tier++) {
+    for (const name of OUTLET_TIERS[tier]) {
+      if (normalizeSourceName(name) === normalized) return tier;
+    }
+  }
+  return 5; // Unknown / niche
+}
+
+// Pick the most prominent outlet from a list of names, preferring tier 1 > 2 > 3 > unknown.
+function pickBestOutlet(outletNames) {
+  if (!outletNames || outletNames.length === 0) return null;
+  if (outletNames.length === 1) return outletNames[0];
+  
+  let best = outletNames[0];
+  let bestTier = getOutletTier(best);
+  
+  for (const outlet of outletNames) {
+    const tier = getOutletTier(outlet);
+    if (tier < bestTier) {
+      best = outlet;
+      bestTier = tier;
+    }
+  }
+  return best;
 }
 
 function buildFinalList(clusters, rankings) {
@@ -387,7 +426,7 @@ function buildFinalList(clusters, rankings) {
       'Politics': 'Politics', 'politics': 'Politics',
       'Business': 'Business', 'business': 'Business',
       'Technology': 'Technology', 'technology': 'Technology',
-      'Entertainment': 'Entertainment', 'entertainment': 'Entertainment',
+      'Arts & Entertainment': 'Arts & Entertainment', 'arts & entertainment': 'Arts & Entertainment', 'Entertainment': 'Arts & Entertainment', 'entertainment': 'Arts & Entertainment',
       'Sports': 'Sports', 'sports': 'Sports',
       'Science': 'Science', 'science': 'Science',
       'Health': 'Health', 'health': 'Health',
@@ -399,7 +438,7 @@ function buildFinalList(clusters, rankings) {
     // feeds (dedup clusters them), so scan the whole cluster and pick the most
     // specific topical hint present. "general"/"world"/"us" are non-topical and
     // ignored here (they fall through to the heuristic, which can return Politics).
-    const CATEGORY_HINT_PRIORITY = ['Health', 'Science', 'Sports', 'Entertainment', 'Technology', 'Business'];
+    const CATEGORY_HINT_PRIORITY = ['Health', 'Science', 'Sports', 'Arts & Entertainment', 'Technology', 'Business'];
     let clusterHint = null;
     for (const cat of CATEGORY_HINT_PRIORITY) {
       if (cluster.some(s => categoryMap[(s.category_hint || '').toLowerCase()] === cat)) {
@@ -421,10 +460,25 @@ function buildFinalList(clusters, rankings) {
     // overlap alone. sources_list drives the "also covered by..." display.
     const coverage = clusterCoverage(cluster);
 
+    // Pick the most prominent outlet from the coverage list to display as the
+    // primary source, preferring major outlets (CNN, NYT, AP) over local ones.
+    const source = pickBestOutlet(coverage.names) || primaryStory.source;
+    
+    // Find the link from the best outlet's version of this story, if available.
+    // Otherwise fall back to the primary story's link.
+    let link = primaryStory.link;
+    const sourceNormalized = normalizeSourceName(source);
+    for (const story of cluster) {
+      if (normalizeSourceName(story.source || '') === sourceNormalized) {
+        link = story.link;
+        break;
+      }
+    }
+
     finalStories.push({
       headline: primaryStory.headline,
-      source: primaryStory.source,
-      link: primaryStory.link,
+      source: source,
+      link: link,
       rank: ranking.rank,
       category: category,
       region: region,

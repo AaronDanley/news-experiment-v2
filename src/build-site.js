@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 function generateHTML(data) {
-  const categoryOrder = ['Politics', 'Business', 'Technology', 'Entertainment', 'Sports', 'Science', 'Health'];
+  const categoryOrder = ['Politics', 'Business', 'Technology', 'Arts & Entertainment', 'Sports', 'Science', 'Health'];
 
   // Group stories by category
   const storyByCategory = {};
