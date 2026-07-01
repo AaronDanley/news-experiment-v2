@@ -26,9 +26,9 @@ are documentation only and are **not** parsed as outlet names.
 
 # Part 1 — Blocked publishers & domains
 
-## Russian state / news agencies
+## State-controlled media
 
-Outlets controlled by or aligned with the Russian state.
+Government-controlled outlets, state news agencies, and propaganda organs.
 
 - RT
 - RT News
@@ -49,6 +49,24 @@ Outlets controlled by or aligned with the Russian state.
 - Lenta.ru
 - Tsargrad
 - NTV
+- Xinhua
+- Global Times
+- CGTN
+- People's Daily
+- China Daily
+- Press TV
+- PressTV
+- Tasnim
+- Tasnim News Agency
+- Fars
+- Fars News Agency
+- Mehr News
+- IRNA
+- Tehran Times
+- KCNA
+- teleSUR
+- BelTA
+- SANA
 
 ## Far-right / extremist sources
 
@@ -136,6 +154,58 @@ journalism.
 - TinyLetter
 - Hashnode
 - Dev.to
+
+## Conspiracy / pseudoscience
+
+Outlets that traffic in conspiracy theories, health misinformation, or
+pseudoscience rather than fact-based reporting.
+
+- Natural News
+- NaturalNews
+- Mercola
+- Zero Hedge
+- ZeroHedge
+- Before It's News
+- Activist Post
+- The People's Voice
+- NewsPunch
+- Prison Planet
+- Global Research
+- Health Impact News
+- GreenMedInfo
+- Collective Evolution
+- Waking Times
+
+## Satire / parody
+
+Comedy and satire sites whose content is fictional and should not be treated as
+real news.
+
+- The Onion
+- Babylon Bee
+- The Hard Times
+- Reductress
+- ClickHole
+- The Beaverton
+- The Daily Mash
+- NewsThump
+- Waterford Whispers News
+- The Betoota Advocate
+
+## Press-release / PR wires
+
+Wire services that distribute corporate press releases and sponsored
+announcements, not independent journalism.
+
+- PR Newswire
+- Business Wire
+- GlobeNewswire
+- EIN Presswire
+- Cision
+- Accesswire
+- PRWeb
+- Send2Press
+- openPR
 
 ---
 
