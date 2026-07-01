@@ -318,6 +318,17 @@
           "note": "Google News proxy — direct feed DNS failure"
         }
       ]
+    },
+    {
+      "name": "CNN",
+      "domain": "cnn.com",
+      "feeds": [
+        {
+          "url": "https://news.google.com/rss/search?q=site:cnn.com+when:1d&hl=en-US&gl=US&ceid=US:en",
+          "category": "general",
+          "note": "Google News proxy — rss.cnn.com feeds are deprecated and serve frozen 2018-2023 content"
+        }
+      ]
     }
   ]
 }

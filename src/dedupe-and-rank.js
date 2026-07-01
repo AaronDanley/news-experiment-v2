@@ -16,6 +16,8 @@ if (!GROQ_API_KEY) {
   process.exit(1);
 }
 
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 // Simple keyword extraction for deduplication
 function extractKeywords(headline) {
   const stopwords = new Set([
@@ -85,7 +87,7 @@ const TOPICAL_CATEGORIES = [
 // A story is tagged U.S. when it clearly concerns United States people,
 // places, or institutions; otherwise it is World.
 const US_REGION_RE =
-  /\b(u\.?s\.?|u\.?s\.?a\.?|united states|americans?|america|washington|d\.?c\.?|congress|senate|white house|capitol|pentagon|supreme court|scotus|trump|biden|harris|vance|republicans?|democrats?|gop|federal reserve|wall street|fbi|cia|ice|nasa|medicare|medicaid|social security|new york|california|texas|florida)\b/i;
+  /\b(u\.?s\.?|u\.?s\.?a\.?|united states|americans?|america|washington|d\.?c\.?|congress|senate|white house|capitol|pentagon|supreme court|scotus|trump|biden|harris|vance|republicans?|democrats?|gop|federal reserve|wall street|fbi|cia|ice|nasa|medicare|medicaid|social security|new york|california|texas|florida|nba|nfl|mlb|nhl|ncaa|lakers|celtics|warriors|knicks|yankees|dodgers|cowboys|patriots|super bowl)\b/i;
 
 function detectRegion(headline) {
   return US_REGION_RE.test(headline || '') ? 'U.S.' : 'World';
@@ -96,7 +98,7 @@ function detectRegion(headline) {
 const CATEGORY_PATTERNS = [
   ['Health', /\b(health|covid|coronavirus|virus|disease|vaccine|vaccination|hospitals?|cancer|medical|medicine|doctors?|patients?|fda|outbreak|mental health|obesity|diabetes|flu|measles|opioid|abortion|pregnan|therapy|surgery)\b/i],
   ['Science', /\b(science|scientists?|space|nasa|spacex|rocket|satellite|climate|global warming|studies|researchers?|discovery|physics|astronomy|galaxy|planet|mars|moon|fossils?|dinosaur|species|archaeolog|geolog|volcano|earthquake|wildlife|ocean|biology|genome)\b/i],
-  ['Sports', /\b(sports?|championship|tournament|nba|nfl|mlb|nhl|soccer|basketball|baseball|hockey|tennis|golf|olympics?|world cup|playoffs?|finals?|coach|league|fifa|uefa|grand slam|marathon|formula 1|f1|premier league|super bowl)\b/i],
+  ['Sports', /\b(sports?|championship|tournament|nba|nfl|mlb|nhl|ncaa|soccer|basketball|baseball|hockey|tennis|golf|olympics?|world cup|playoffs?|finals?|coach|league|fifa|uefa|grand slam|marathon|formula 1|f1|premier league|super bowl|free agency|free agent|quarterback|touchdown|home run|draft pick|midseason|wimbledon|lebron|lakers|celtics|warriors|knicks|yankees|dodgers|cowboys|patriots|athlete)\b/i],
   ['Entertainment', /\b(movie|films?|music|celebrity|celebrities|tv show|hollywood|album|actors?|actress|singers?|oscars?|grammys?|emmys?|box office|streaming|netflix|concert|festival|premiere|red carpet|billboard)\b/i],
   ['Technology', /\b(tech|technology|\bai\b|artificial intelligence|software|hardware|\bapp\b|apps|smartphones?|iphone|android|google|apple|microsoft|amazon|meta|openai|chatgpt|chips?|semiconductor|robots?|cyber|hacking|data breach|crypto|bitcoin|startup|silicon valley|algorithm|quantum)\b/i],
   ['Business', /\b(business|econom|markets?|stocks?|shares?|trade war|trading|earnings|revenue|profits?|inflation|recession|unemployment|\bfed\b|federal reserve|interest rate|gdp|mergers?|acquisition|ipo|tariffs?|banks?|investors?|nasdaq|dow jones|s&p 500|layoffs?|\bceo\b|jobs report)\b/i],
@@ -118,142 +120,167 @@ async function rankStoriesWithLLM(clusters) {
     id: idx,
     headline: cluster[0].headline, // Use first story's headline
     source_count: cluster.length,
-    category_hint: cluster[0].category_hint || 'general',
   }));
 
-  const systemPrompt = `You are a strict news editor. For each deduplicated headline you must assign:
-1. A "region": exactly "World" or "U.S." ("U.S." for domestic United States news, "World" for everything else).
-2. A "category": exactly one of these 7 topical categories: Politics, Business, Technology, Entertainment, Sports, Science, Health.
+  // Only the strongest candidates (by source coverage) are sent to the LLM so
+  // the number of requests stays small and within the rate limit. The rest are
+  // very unlikely to reach the top 100 and fall back to heuristics.
+  const LLM_CANDIDATE_LIMIT = 150;
+  const BATCH_SIZE = 25;
+
+  const candidates = [...headlines]
+    .sort((a, b) => b.source_count - a.source_count || a.id - b.id)
+    .slice(0, LLM_CANDIDATE_LIMIT);
+
+  const batches = [];
+  for (let i = 0; i < candidates.length; i += BATCH_SIZE) {
+    batches.push(candidates.slice(i, i + BATCH_SIZE));
+  }
+
+  console.log(`Categorizing ${candidates.length} candidate stories via Groq in ${batches.length} batches...`);
+
+  const llmResults = new Map(); // id -> { importance, region, category }
+  let llmFailures = 0;
+
+  for (let b = 0; b < batches.length; b++) {
+    const batch = batches[b];
+    const parsed = await callGroqBatch(batch, b + 1, batches.length);
+
+    if (parsed) {
+      for (const item of parsed) {
+        if (item == null || item.id === undefined) continue;
+        const region = (item.region === 'U.S.' || item.region === 'World')
+          ? item.region
+          : null;
+        const category = TOPICAL_CATEGORIES.includes(item.category)
+          ? item.category
+          : null;
+        let importance = Number(item.importance);
+        if (!Number.isFinite(importance)) importance = 5;
+        importance = Math.max(1, Math.min(10, importance));
+        llmResults.set(item.id, { importance, region, category });
+      }
+    } else {
+      llmFailures++;
+    }
+
+    // Small delay between batches to respect the tokens-per-minute limit.
+    if (b < batches.length - 1) await sleep(3000);
+  }
+
+  console.log(`LLM categorized ${llmResults.size} stories (${llmFailures} batch failure(s), remainder use heuristics).`);
+
+  // Combine LLM output with heuristic fallback for everything else.
+  const enriched = headlines.map(h => {
+    const llm = llmResults.get(h.id);
+    const region = (llm && llm.region) || detectRegion(h.headline);
+    const category = (llm && llm.category) || detectCategory(h.headline);
+    const importance = llm ? llm.importance : 0; // 0 => sorts below LLM-scored
+    return { ...h, region, category, importance, scored: !!llm };
+  });
+
+  // Rank globally: LLM-scored stories first (by importance, then coverage),
+  // then the rest by coverage. Importance (1-10) is absolute, so it is
+  // comparable across batches.
+  enriched.sort((a, b) => {
+    if (a.scored !== b.scored) return a.scored ? -1 : 1;
+    if (a.importance !== b.importance) return b.importance - a.importance;
+    return b.source_count - a.source_count || a.id - b.id;
+  });
+
+  return enriched.map((h, idx) => ({
+    id: h.id,
+    rank: idx + 1,
+    region: h.region,
+    category: h.category,
+  }));
+}
+
+// Calls Groq to categorize one batch of headlines. Returns a parsed array of
+// { id, importance, region, category } or null if the request fails.
+async function callGroqBatch(batch, batchNum, batchTotal) {
+  const systemPrompt = `You are a strict news editor. For each headline assign:
+1. "importance": an integer 1-10 (10 = biggest, most consequential story of the day; 1 = minor).
+2. "region": exactly "World" or "U.S." ("U.S." for domestic United States news, "World" for everything else).
+3. "category": exactly one of these 7 topical categories: Politics, Business, Technology, Entertainment, Sports, Science, Health.
 
 CRITICAL RULES:
 1. You may ONLY use the 7 categories listed above. Never invent new categories. Never use "World" or "U.S." as a category — those are regions only.
 2. Evaluate specific categories first (Technology, Business, Entertainment, Sports, Science, Health) before defaulting to Politics.
 3. Politics covers government, elections, policy, war, diplomacy, courts, and general hard news.
-4. DISTRIBUTE FAIRLY across categories. Do not overuse Politics at the expense of other categories.
+4. Assign the category that best fits the actual subject of the headline.
 5. Return your response as valid JSON.`;
 
-  const userPrompt = `Categorize these headlines. Rank them by importance (1 = biggest story).
+  const payload = batch.map(h => ({ id: h.id, headline: h.headline }));
+  const userPrompt = `Classify each of these headlines.
 
-${JSON.stringify(headlines, null, 2)}
+${JSON.stringify(payload, null, 2)}
 
-Return a JSON array with objects like: {"id": 0, "rank": 1, "region": "U.S.", "category": "Politics"}`;
+Return ONLY a JSON array with one object per headline, like:
+[{"id": 0, "importance": 8, "region": "U.S.", "category": "Politics"}]`;
 
-  console.log('Calling Groq API for ranking and categorization...');
-
-  try {
+  const MAX_RETRIES = 4;
+  for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+    const timeoutId = setTimeout(() => controller.abort(), 30000);
+    try {
+      const response = await fetch(GROQ_API_URL, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${GROQ_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          model: 'llama-3.3-70b-versatile',
+          messages: [
+            { role: 'system', content: systemPrompt },
+            { role: 'user', content: userPrompt },
+          ],
+          temperature: 0.2,
+          max_tokens: 2000,
+          response_format: { type: 'json_object' },
+        }),
+        signal: controller.signal,
+      });
+      clearTimeout(timeoutId);
 
-    const response = await fetch(GROQ_API_URL, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${GROQ_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        model: 'llama-3.3-70b-versatile',
-        messages: [
-          {
-            role: 'system',
-            content: systemPrompt,
-          },
-          {
-            role: 'user',
-            content: userPrompt,
-          },
-        ],
-        temperature: 0.3,
-        max_tokens: 4000,
-        response_format: { type: 'json_object' },
-      }),
-      signal: controller.signal,
-    });
+      // Rate limited — wait and retry.
+      if (response.status === 429) {
+        const retryAfter = Number(response.headers.get('retry-after')) || (attempt * 8);
+        console.log(`  Batch ${batchNum}/${batchTotal}: rate limited, waiting ${retryAfter}s...`);
+        await sleep(retryAfter * 1000);
+        continue;
+      }
 
-    clearTimeout(timeoutId);
+      if (!response.ok) {
+        const errText = await response.text();
+        throw new Error(`Groq API error: ${response.status} ${errText.slice(0, 200)}`);
+      }
 
-    if (!response.ok) {
-      const error = await response.text();
-      throw new Error(`Groq API error: ${response.status} ${error}`);
+      const data = await response.json();
+      const content = data.choices[0].message.content;
+      const jsonMatch = content.match(/\[[\s\S]*\]/);
+      if (!jsonMatch) throw new Error('No JSON array found in response');
+      const parsed = JSON.parse(jsonMatch[0]);
+      console.log(`  Batch ${batchNum}/${batchTotal}: categorized ${parsed.length} stories.`);
+      return parsed;
+    } catch (error) {
+      clearTimeout(timeoutId);
+      console.error(`  Batch ${batchNum}/${batchTotal} attempt ${attempt} failed: ${error.message}`);
+      if (attempt < MAX_RETRIES) await sleep(attempt * 4000);
     }
-
-    const data = await response.json();
-    const content = data.choices[0].message.content;
-
-    // Extract JSON from response
-    const jsonMatch = content.match(/\[[\s\S]*\]/);
-    if (!jsonMatch) {
-      throw new Error('No JSON found in response');
-    }
-
-    const rankings = JSON.parse(jsonMatch[0]);
-    return rankings;
-  } catch (error) {
-    console.error('Error calling Groq API:', error);
-    
-    // Fallback: simple ranking by source count
-    console.log('Falling back to simple ranking by source count...');
-    return headlines
-      .sort((a, b) => b.source_count - a.source_count || a.id - b.id)
-      .map((h, idx) => ({
-        id: h.id,
-        rank: idx + 1,
-        region: detectRegion(h.headline),
-        category: detectCategory(h.headline),
-      }));
   }
+
+  console.error(`  Batch ${batchNum}/${batchTotal}: giving up, using heuristics for these stories.`);
+  return null;
 }
 
 function ensureMinimumPerCategory(stories, minPerCategory = 5) {
-  const categories = TOPICAL_CATEGORIES;
-  const storiesByCategory = {};
-
-  categories.forEach(cat => {
-    storiesByCategory[cat] = stories.filter(s => s.category === cat);
-  });
-
-  // Find categories below minimum
-  const underrepresented = categories.filter(cat => storiesByCategory[cat].length < minPerCategory);
-
-  if (underrepresented.length === 0) {
-    console.log('All categories meet minimum of 5 stories');
-    return stories;
-  }
-
-  console.log(`\nRebalancing categories. Underrepresented: ${underrepresented.join(', ')}`);
-
-  const adjustedStories = [...stories];
-
-  for (const targetCat of underrepresented) {
-    const current = adjustedStories.filter(s => s.category === targetCat).length;
-    const needed = minPerCategory - current;
-
-    if (needed > 0) {
-      // Pull the lowest-importance stories from whichever category currently
-      // has the most stories (typically Politics) to fill the gap.
-      const counts = {};
-      categories.forEach(cat => {
-        counts[cat] = adjustedStories.filter(s => s.category === cat).length;
-      });
-      const donorCat = categories
-        .filter(cat => cat !== targetCat)
-        .sort((a, b) => counts[b] - counts[a])[0];
-
-      const donors = adjustedStories
-        .filter(s => s.category === donorCat)
-        .sort((a, b) => b.rank - a.rank) // lowest importance first
-        .slice(0, needed);
-
-      console.log(`  Moving ${donors.length} stories from ${donorCat} to ${targetCat}`);
-
-      donors.forEach(story => {
-        story.category = targetCat;
-      });
-    }
-  }
-
-  // Re-sort by rank since we modified categories
-  adjustedStories.sort((a, b) => a.rank - b.rank);
-  return adjustedStories;
+  // Intentionally a no-op: forcing a minimum per category stuffed unrelated
+  // stories into small sections (e.g. Politics stories dumped into Science),
+  // which produced badly miscategorized sections. Stories now stay only in the
+  // category they actually belong to.
+  return stories;
 }
 
 function balanceSourceRepresentation(stories, limit = 100) {
@@ -343,10 +370,7 @@ function buildFinalList(clusters, rankings) {
   finalStories.sort((a, b) => a.rank - b.rank);
 
   // Select the top 100 while ensuring fair representation across all sources
-  const limitedStories = balanceSourceRepresentation(finalStories, 100);
-
-  // Ensure minimum 5 stories per category
-  const balancedStories = ensureMinimumPerCategory(limitedStories, 5);
+  const balancedStories = balanceSourceRepresentation(finalStories, 100);
 
   // Renumber ranks sequentially (1..N) by importance so the displayed
   // ranking is always 1-100 rather than the raw ranking scale.
