@@ -127,16 +127,20 @@ function isPaywalledPublisher(publisher) {
   return PAYWALLED_PUBLISHERS.has(normalizePublisher(publisher));
 }
 
-// --- Source exclusion list (see EXCLUDED_SOURCES.md) ---------------------
-// EXCLUDED_SOURCES.md is the single, human-editable source of truth. We parse
-// its markdown list items: bare-domain entries match the link domain; all
-// other entries match the publisher name as a whole word.
-const EXCLUDED_DOC_PATH = path.join(__dirname, '../EXCLUDED_SOURCES.md');
+// --- Source exclusion list (see EXCLUSION_RULES.md) ----------------------
+// EXCLUSION_RULES.md is the single, human-editable source of truth. We parse
+// the Part 1 markdown list items: bare-domain entries match the link domain;
+// all other entries match the publisher name as a whole word. Part 2
+// ("Content rules") is documentation only, so we stop collecting once we reach
+// it.
+const EXCLUDED_DOC_PATH = path.join(__dirname, '../EXCLUSION_RULES.md');
 const EXCLUDED_DOMAINS = [];
 const EXCLUDED_PUBLISHER_PATTERNS = [];
 try {
   const md = fs.readFileSync(EXCLUDED_DOC_PATH, 'utf8');
   for (const line of md.split('\n')) {
+    // Stop parsing outlet names once the "Content rules" part begins.
+    if (/^#{1,6}\s.*content rules/i.test(line)) break;
     const m = line.match(/^\s*[-*]\s+(.+?)\s*$/);
     if (!m) continue;
     const entry = m[1].replace(/`/g, '').trim();
@@ -165,6 +169,32 @@ function isExcludedSource(publisher, link) {
   const domain = extractDomainFromUrl(link);
   if (domain && EXCLUDED_DOMAINS.some(d => domain.includes(d))) return true;
   return false;
+}
+
+// --- Content rules (see EXCLUSION_RULES.md, Part 2) ----------------------
+// Headlines longer than this are summaries/abstracts/malformed entries, not
+// real headlines.
+const MAX_HEADLINE_LENGTH = 200;
+
+// Domains that host video/audio/media rather than readable articles.
+const NON_ARTICLE_DOMAINS = [
+  'youtube.com', 'youtu.be', 'vimeo.com', 'dailymotion.com', 'twitch.tv',
+  'soundcloud.com', 'spotify.com', 'open.spotify.com', 'podcasts.apple.com',
+  'podcasts.google.com', 'iheart.com', 'megaphone.fm',
+];
+
+// Path/extension markers that indicate a non-article (video/audio/gallery) page.
+const NON_ARTICLE_PATH_RE =
+  /(?:\/videos?\/|\/watch\b|\/live\/|\/podcasts?\b|\/audio\/|\/galler(?:y|ies)\b|\/photos?\/|\/slideshows?\b|\.(?:mp4|mp3|m4a|m3u8)(?:$|[?#]))/i;
+
+// True when a link points to video/audio/gallery content instead of an article.
+// (Google News links are redirects, so this only catches direct-feed links;
+// title-based markers in isJunkStory handle the Google News case.)
+function isNonArticleLink(link) {
+  if (!link) return false;
+  const domain = extractDomainFromUrl(link);
+  if (domain && NON_ARTICLE_DOMAINS.some(d => domain === d || domain.endsWith('.' + d))) return true;
+  return NON_ARTICLE_PATH_RE.test(link);
 }
 
 // Section/index landing-page titles (after stripping the trailing " - Publisher"
@@ -266,6 +296,9 @@ function isJunkStory(headline, link) {
 
   // Too short to be a real headline
   if (raw.length < 12) return true;
+
+  // Extremely long "headlines" are summaries/abstracts/malformed entries.
+  if (raw.length > MAX_HEADLINE_LENGTH) return true;
 
   // Games / puzzles
   if (/\b(crossword|wordle|sudoku|the mini|spelling bee|acrostic|quiz of the (day|week))\b/i.test(raw)) {
@@ -459,8 +492,13 @@ async function fetchAllFeeds() {
         }
 
         // Drop excluded sources (Russian state media, far-right outlets,
-        // tabloids, etc. — see EXCLUDED_SOURCES.md).
+        // tabloids, etc. — see EXCLUSION_RULES.md).
         if (isExcludedSource(publisher, item.link)) {
+          continue;
+        }
+
+        // Drop non-article links (video, audio/podcasts, galleries, etc.).
+        if (isNonArticleLink(item.link)) {
           continue;
         }
 
