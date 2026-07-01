@@ -16,7 +16,16 @@ const PAYWALLED_DOMAINS = paywallData.paywalled_domains;
 
 async function fetchFeed(feedUrl) {
   try {
-    const feed = await parser.parseURL(feedUrl);
+    // Wrap parseURL in a timeout promise
+    const timeoutPromise = new Promise((_, reject) => 
+      setTimeout(() => reject(new Error('Feed fetch timeout (10s exceeded)')), 10000)
+    );
+    
+    const feed = await Promise.race([
+      parser.parseURL(feedUrl),
+      timeoutPromise
+    ]);
+    
     return feed.items || [];
   } catch (error) {
     console.error(`Error fetching ${feedUrl}:`, error.message);

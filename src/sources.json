@@ -169,70 +169,33 @@
 
 
 
-
-    {
-      "name": "The Economist",
-      "domain": "economist.com",
-      "feeds": [
-        {
-          "url": "https://www.economist.com/weeklyedition/rss.xml",
-          "category": "general",
-          "paywalled": true
-        }
-      ]
-    },
-    {
-      "name": "Financial Times",
-      "domain": "ft.com",
-      "feeds": [
-        {
-          "url": "https://feeds.ft.com/home/rss",
-          "category": "business",
-          "paywalled": true
-        }
-      ]
-    },
-    {
-      "name": "The New York Times",
-      "domain": "nytimes.com",
-      "feeds": [
-        {
-          "url": "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",
-          "category": "general",
-          "paywalled": true
-        }
-      ]
-    },
-    {
-      "name": "The Washington Post",
-      "domain": "washingtonpost.com",
-      "feeds": [
-        {
-          "url": "https://feeds.washingtonpost.com/rss/world",
-          "category": "world",
-          "paywalled": true
-        }
-      ]
-    },
     {
       "name": "The Wall Street Journal",
       "domain": "wsj.com",
       "feeds": [
         {
-          "url": "https://feeds.wsj.com/xml/rss/3_7085.xml",
-          "category": "business",
-          "paywalled": true
-        }
-      ]
-    },
-    {
-      "name": "Bloomberg",
-      "domain": "bloomberg.com",
-      "feeds": [
+          "url": "https://feeds.a.dj.com/rss/WSJcomUSBusiness.xml",
+          "category": "business"
+        },
         {
-          "url": "https://www.bloomberg.com/feed/podcast/etf-report.xml",
-          "category": "business",
-          "paywalled": true
+          "url": "https://feeds.a.dj.com/rss/RSSWorldNews.xml",
+          "category": "world"
+        },
+        {
+          "url": "https://feeds.a.dj.com/rss/RSSMarketsMain.xml",
+          "category": "business"
+        },
+        {
+          "url": "https://feeds.a.dj.com/rss/RSSWSJD.xml",
+          "category": "technology"
+        },
+        {
+          "url": "https://feeds.a.dj.com/rss/RSSOpinion.xml",
+          "category": "general"
+        },
+        {
+          "url": "https://feeds.a.dj.com/rss/RSSLifestyle.xml",
+          "category": "entertainment"
         }
       ]
     },
