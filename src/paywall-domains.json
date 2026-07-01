@@ -3,7 +3,26 @@
     "nytimes.com",
     "ft.com",
     "economist.com",
-    "washingtonpost.com"
+    "washingtonpost.com",
+    "wsj.com",
+    "bloomberg.com",
+    "barrons.com",
+    "theathletic.com",
+    "theinformation.com"
+  ],
+  "paywalled_publishers": [
+    "The New York Times",
+    "New York Times",
+    "The Wall Street Journal",
+    "Wall Street Journal",
+    "Financial Times",
+    "The Economist",
+    "The Washington Post",
+    "Washington Post",
+    "Bloomberg",
+    "The Athletic",
+    "Barron's",
+    "The Information"
   ],
   "free_markers": [
     "subscribe to continue",

@@ -112,6 +112,61 @@ function isPaywalled(url) {
   return PAYWALLED_DOMAINS.some(pd => domain.includes(pd));
 }
 
+// Normalize a publisher label for comparison (lowercase, drop a leading "the").
+function normalizePublisher(name) {
+  return (name || '').toLowerCase().replace(/^the\s+/, '').trim();
+}
+
+const PAYWALLED_PUBLISHERS = new Set(
+  (paywallData.paywalled_publishers || []).map(normalizePublisher)
+);
+
+// Google News links are redirect URLs (news.google.com), so the article's
+// domain isn't visible — match the extracted publisher name instead.
+function isPaywalledPublisher(publisher) {
+  return PAYWALLED_PUBLISHERS.has(normalizePublisher(publisher));
+}
+
+// --- Source exclusion list (see EXCLUDED_SOURCES.md) ---------------------
+// EXCLUDED_SOURCES.md is the single, human-editable source of truth. We parse
+// its markdown list items: bare-domain entries match the link domain; all
+// other entries match the publisher name as a whole word.
+const EXCLUDED_DOC_PATH = path.join(__dirname, '../EXCLUDED_SOURCES.md');
+const EXCLUDED_DOMAINS = [];
+const EXCLUDED_PUBLISHER_PATTERNS = [];
+try {
+  const md = fs.readFileSync(EXCLUDED_DOC_PATH, 'utf8');
+  for (const line of md.split('\n')) {
+    const m = line.match(/^\s*[-*]\s+(.+?)\s*$/);
+    if (!m) continue;
+    const entry = m[1].replace(/`/g, '').trim();
+    if (!entry) continue;
+    if (/^[a-z0-9][a-z0-9.-]*\.[a-z]{2,}$/i.test(entry)) {
+      EXCLUDED_DOMAINS.push(entry.toLowerCase());
+      // Also match the base label (e.g. "gazeta" from "gazeta.ru") as a whole
+      // word against publisher names, since Google News redirect links hide the
+      // real domain.
+      const base = entry.toLowerCase().split('.')[0];
+      if (/^[a-z]{3,}$/.test(base)) {
+        EXCLUDED_PUBLISHER_PATTERNS.push(new RegExp(`\\b${base}\\b`, 'i'));
+      }
+    } else {
+      const escaped = entry.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      EXCLUDED_PUBLISHER_PATTERNS.push(new RegExp(`\\b${escaped}\\b`, 'i'));
+    }
+  }
+} catch (e) {
+  console.error(`Could not load ${EXCLUDED_DOC_PATH}: ${e.message}`);
+}
+
+// True when a story's publisher or link domain is on the exclusion list.
+function isExcludedSource(publisher, link) {
+  if (publisher && EXCLUDED_PUBLISHER_PATTERNS.some(re => re.test(publisher))) return true;
+  const domain = extractDomainFromUrl(link);
+  if (domain && EXCLUDED_DOMAINS.some(d => domain.includes(d))) return true;
+  return false;
+}
+
 // Section/index landing-page titles (after stripping the trailing " - Publisher"
 // that Google News appends). These are navigation pages, not articles.
 const JUNK_TITLE_PATTERNS = [
@@ -387,11 +442,6 @@ async function fetchAllFeeds() {
           continue;
         }
 
-        // Check paywall
-        if (isPaywalled(item.link)) {
-          continue;
-        }
-
         // For Google News feeds, the item title is "Headline - Publisher".
         // Pull out the real publisher and clean the headline.
         let rawTitle = item.title;
@@ -400,6 +450,18 @@ async function fetchAllFeeds() {
           const split = splitGoogleNewsTitle(item.title);
           rawTitle = split.headline;
           publisher = split.publisher;
+        }
+
+        // Check paywall — by link domain (direct feeds) and by publisher name
+        // (Google News links are redirects that hide the real domain).
+        if (isPaywalled(item.link) || isPaywalledPublisher(publisher)) {
+          continue;
+        }
+
+        // Drop excluded sources (Russian state media, far-right outlets,
+        // tabloids, etc. — see EXCLUDED_SOURCES.md).
+        if (isExcludedSource(publisher, item.link)) {
+          continue;
         }
 
         // Skip non-article noise (section pages, newsletters, puzzles, etc.).
