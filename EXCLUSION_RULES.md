@@ -79,14 +79,13 @@ bias and fact-checking organizations. Edit as needed.
 - Big League Politics
 - Taki's Magazine
 
-## Tabloids / gossip / low-quality
+## Tabloids / Celebrity Gossip
 
 Tabloids and outlets focused on celebrity gossip, entertainment rumors, and
 sensationalist coverage.
 
 - TMZ
 - Page Six
-- Medium
 - Daily Mail
 - MailOnline
 - The Sun
@@ -113,6 +112,30 @@ sensationalist coverage.
 - Bossip
 - MediaTakeOut
 - The Shade Room
+
+## Self-publishing / newsletter platforms
+
+Open platforms where anyone can publish; content is unvetted rather than edited
+journalism.
+
+- Medium
+- Substack
+- Ghost
+- Beehiiv
+- WordPress
+- Blogger
+- Tumblr
+- LinkedIn Pulse
+- LinkedIn
+- Wix
+- Weebly
+- Squarespace
+- Patreon
+- Buttondown
+- Revue
+- TinyLetter
+- Hashnode
+- Dev.to
 
 ---
 

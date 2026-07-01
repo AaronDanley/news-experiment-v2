@@ -38,7 +38,9 @@ function extractKeywords(headline) {
     .filter(word => word.length > 0);
 }
 
-function cosineSimilarity(keywords1, keywords2) {
+// Jaccard similarity of two keyword sets: |intersection| / |union|.
+// (Named cosine historically, but this is set-overlap, i.e. Jaccard.)
+function jaccardSimilarity(keywords1, keywords2) {
   const set1 = new Set(keywords1);
   const set2 = new Set(keywords2);
   
@@ -46,6 +48,33 @@ function cosineSimilarity(keywords1, keywords2) {
   const union = new Set([...set1, ...set2]);
 
   return intersection.size / (union.size || 1);
+}
+
+// Normalize a publisher name for coverage counting (lowercase, drop a leading
+// "the", collapse whitespace) so "The New York Times" and "New York Times" are
+// counted as one outlet.
+function normalizeSourceName(name) {
+  return (name || '')
+    .toLowerCase()
+    .replace(/^the\s+/, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+// Distinct outlets covering a clustered story. Combines the publishers of the
+// clustered feed items with the related-outlet list Google provides in each
+// Google News item description, deduped by normalized name. Returns
+// { count, names } where names keeps the first-seen display form of each outlet.
+function clusterCoverage(cluster) {
+  const byNormalized = new Map(); // normalized -> display name
+  for (const story of cluster) {
+    const candidates = [story.source, ...(story.google_sources || [])];
+    for (const raw of candidates) {
+      const norm = normalizeSourceName(raw);
+      if (norm && !byNormalized.has(norm)) byNormalized.set(norm, raw);
+    }
+  }
+  return { count: byNormalized.size, names: [...byNormalized.values()] };
 }
 
 function deduplicateStories(stories) {
@@ -68,7 +97,7 @@ function deduplicateStories(stories) {
       const otherStory = stories[j];
       const keywords2 = extractKeywords(otherStory.headline);
 
-      const similarity = cosineSimilarity(keywords1, keywords2);
+      const similarity = jaccardSimilarity(keywords1, keywords2);
       if (similarity > 0.4) { // Threshold for "same story"
         cluster.push(otherStory);
         processed.add(j);
@@ -123,7 +152,7 @@ async function rankStoriesWithLLM(clusters) {
   const headlines = clusters.map((cluster, idx) => ({
     id: idx,
     headline: cluster[0].headline, // Use first story's headline
-    source_count: cluster.length,
+    source_count: clusterCoverage(cluster).count,
   }));
 
   // Only the strongest candidates (by source coverage) are sent to the LLM so
@@ -387,6 +416,11 @@ function buildFinalList(clusters, rankings) {
       ? ranking.region
       : detectRegion(primaryStory.headline);
 
+    // Coverage combines the cluster's own publishers with Google's related-
+    // outlet list, so the count reflects real coverage rather than headline
+    // overlap alone. sources_list drives the "also covered by..." display.
+    const coverage = clusterCoverage(cluster);
+
     finalStories.push({
       headline: primaryStory.headline,
       source: primaryStory.source,
@@ -394,7 +428,8 @@ function buildFinalList(clusters, rankings) {
       rank: ranking.rank,
       category: category,
       region: region,
-      sources_covering_story: cluster.length,
+      sources_covering_story: coverage.count,
+      sources_list: coverage.names,
     });
   });
 

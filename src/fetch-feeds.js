@@ -53,6 +53,39 @@ function splitGoogleNewsTitle(title) {
   return { headline, publisher };
 }
 
+// Google News item descriptions contain Google's own clustering of the story:
+// an <ol><li> list where each entry is a related article ending in
+// <font ...>Publisher</font>. Extract those publisher names — this is a real
+// list of outlets covering the same story, far more reliable than rebuilding it
+// from headline keyword overlap. (The related links are themselves Google News
+// redirects, so only the names are usable.)
+function extractRelatedSources(content) {
+  if (!content) return [];
+  const names = [];
+  const re = /<font[^>]*>([^<]*)<\/font>/gi;
+  let m;
+  while ((m = re.exec(content)) !== null) {
+    const name = cleanSourceName(decodeEntities(m[1]).trim());
+    if (name) names.push(name);
+  }
+  return names;
+}
+
+// Google sometimes appends a descriptive tagline or a domain suffix to an
+// outlet name in the related-links list (e.g. "ABC News - Breaking News, Latest
+// News and Videos", "Ukrinform - Ukrainian National News Agency",
+// "Bloomberg.com"). Trim it back to the core outlet name.
+function cleanSourceName(name) {
+  if (!name) return name;
+  let out = name.trim();
+  // Drop a trailing " - tagline" / " – tagline" descriptor.
+  const dash = out.search(/\s[-–—]\s/);
+  if (dash > 0) out = out.slice(0, dash).trim();
+  // Drop a trailing domain suffix (".com", ".co.uk", etc.) when it ends the name.
+  out = out.replace(/\.(?:com|org|net|co\.uk|co|io|tv|us|uk|de|fr)$/i, '').trim();
+  return out || name.trim();
+}
+
 async function fetchFeed(feedUrl) {
   // Use AbortController so the underlying socket is actually torn down on timeout.
   // (Promise.race alone leaves the connection open, which keeps Node's event loop
@@ -479,10 +512,15 @@ async function fetchAllFeeds() {
         // Pull out the real publisher and clean the headline.
         let rawTitle = item.title;
         let publisher = null;
+        let relatedSources = [];
         if (isGoogleNews) {
           const split = splitGoogleNewsTitle(item.title);
           rawTitle = split.headline;
           publisher = split.publisher;
+          // Google's own list of outlets covering this story (from the
+          // description's <ol><li> list). The first entry is this article;
+          // the rest are additional coverage.
+          relatedSources = extractRelatedSources(item.content);
         }
 
         // Check paywall — by link domain (direct feeds) and by publisher name
@@ -519,6 +557,7 @@ async function fetchAllFeeds() {
           category_hint: feedConfig.category,
           published_at: item.pubDate,
           guid: item.guid || item.link || item.title, // For deduplication
+          google_sources: relatedSources, // Google's related-outlet list (Google News only)
         });
       }
     }

@@ -70,9 +70,24 @@ function generateHTML(data) {
       stories.forEach(story => {
         const region = story.region || 'World';
         const regionClass = region === 'U.S.' ? 'region-us' : 'region-world';
+        // Coverage line: how many outlets ran the story, plus a few named ones
+        // ("also covered by...") drawn from Google's related-outlet list.
+        let coverageText = '';
+        if (story.sources_covering_story > 1) {
+          coverageText = ` • Covered by ${story.sources_covering_story} sources`;
+          const others = (story.sources_list || []).filter(
+            name => name.toLowerCase().replace(/^the\s+/, '').trim() !==
+                    (story.source || '').toLowerCase().replace(/^the\s+/, '').trim()
+          );
+          if (others.length > 0) {
+            const shown = others.slice(0, 3).join(', ');
+            const extra = others.length > 3 ? ` +${others.length - 3} more` : '';
+            coverageText += ` (also: ${escapeHtml(shown)}${escapeHtml(extra)})`;
+          }
+        }
         html += `  <div class="story" data-region="${escapeHtml(region)}">
     <div class="story-headline"><a href="${escapeHtml(story.link)}" target="_blank">${escapeHtml(story.headline)}</a></div>
-    <div class="story-meta"><span class="region-tag ${regionClass}">${escapeHtml(region)}</span>${escapeHtml(story.source)} • Ranking ${story.rank}${story.sources_covering_story > 1 ? ` • Covered by ${story.sources_covering_story} sources` : ''}</div>
+    <div class="story-meta"><span class="region-tag ${regionClass}">${escapeHtml(region)}</span>${escapeHtml(story.source)} • Ranking ${story.rank}${coverageText}</div>
   </div>\n`;
       });
     }
