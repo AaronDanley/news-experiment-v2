@@ -235,6 +235,26 @@
           "paywalled": true
         }
       ]
+    },
+    {
+      "name": "CBS News",
+      "domain": "cbsnews.com",
+      "feeds": [
+        {
+          "url": "https://www.cbsnews.com/latest/rss/main",
+          "category": "general"
+        }
+      ]
+    },
+    {
+      "name": "ProPublica",
+      "domain": "propublica.org",
+      "feeds": [
+        {
+          "url": "https://feeds.propublica.org/propublica/main",
+          "category": "general"
+        }
+      ]
     }
   ]
 }
