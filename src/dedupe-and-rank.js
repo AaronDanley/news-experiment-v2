@@ -103,6 +103,9 @@ Return a JSON array with objects like: {"id": 0, "rank": 1, "category": "World"}
   console.log('Calling Groq API for ranking and categorization...');
 
   try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+
     const response = await fetch(GROQ_API_URL, {
       method: 'POST',
       headers: {
@@ -125,7 +128,10 @@ Return a JSON array with objects like: {"id": 0, "rank": 1, "category": "World"}
         max_tokens: 4000,
         response_format: { type: 'json_object' },
       }),
+      signal: controller.signal,
     });
+
+    clearTimeout(timeoutId);
 
     if (!response.ok) {
       const error = await response.text();
@@ -161,6 +167,25 @@ Return a JSON array with objects like: {"id": 0, "rank": 1, "category": "World"}
         };
       });
   }
+}
+
+function moveUSAStoriesFromWorld(stories) {
+  // Detect USA-focused stories in World category and move to U.S.
+  const usaKeywords = /\b(usa|u\.s\.|united states|us |america|american|trump|biden|congress|senate|house|capitol|washington|dc|president|federal|republican|democrat)\b/i;
+  
+  let moved = 0;
+  stories.forEach(story => {
+    if (story.category === 'World' && usaKeywords.test(story.headline)) {
+      story.category = 'U.S.';
+      moved++;
+    }
+  });
+
+  if (moved > 0) {
+    console.log(`\nMoved ${moved} USA-focused stories from World to U.S.`);
+  }
+
+  return stories;
 }
 
 function ensureMinimumPerCategory(stories, minPerCategory = 5) {
@@ -261,8 +286,11 @@ function buildFinalList(clusters, rankings) {
   // Limit to 100 stories
   const limitedStories = finalStories.slice(0, 100);
 
+  // Move USA-focused stories from World to U.S. category first
+  const usaMovedStories = moveUSAStoriesFromWorld(limitedStories);
+
   // Ensure minimum 5 stories per category
-  const balancedStories = ensureMinimumPerCategory(limitedStories, 5);
+  const balancedStories = ensureMinimumPerCategory(usaMovedStories, 5);
 
   return {
     stories: balancedStories,
@@ -275,11 +303,14 @@ async function main() {
   const rawPath = path.join(__dirname, '../data/latest.json');
 
   if (!fs.existsSync(rawPath)) {
-    console.error('raw-stories.json not found. Run fetch-feeds.js first.');
+    console.error('latest.json not found. Run fetch-feeds.js first.');
     process.exit(1);
   }
 
-  const stories = JSON.parse(fs.readFileSync(rawPath, 'utf8'));
+  const rawData = JSON.parse(fs.readFileSync(rawPath, 'utf8'));
+  
+  // Handle both array (from fetch-feeds.js) and object (from previous dedupe run)
+  const stories = Array.isArray(rawData) ? rawData : rawData.stories || [];
   console.log(`Loaded ${stories.length} stories from latest.json`);
 
   // Deduplicate

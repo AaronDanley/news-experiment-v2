@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node src/fetch-feeds.js",
-    "build": "npm run start && node src/build-site.js",
+    "build": "npm run start && node src/dedupe-and-rank.js && node src/build-site.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
