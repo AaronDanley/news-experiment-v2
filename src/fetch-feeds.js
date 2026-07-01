@@ -197,6 +197,12 @@ function isJunkStory(headline, link) {
   if (/\bfull (episode|show)\b/i.test(raw)) return true;
   if (/news ?hour full/i.test(raw)) return true;
 
+  // Internal agency / institutional notices (common in .gov feeds) that aren't
+  // news: annual reports, oversight/IG reviews, and recurring HR-style posts.
+  if (/\bannual report\b/i.test(raw)) return true;
+  if (/\b(employee|scientist|stars?)\s+of the (month|week|year)\b/i.test(raw)) return true;
+  if (/^[\w'’\s]*\bmanagement of its\b/i.test(raw)) return true;
+
   // Market data / futures ticker pages
   // (e.g. "ATWU31 | Rotterdam Coal Sep 2031 Contracts")
   if (/^[A-Z0-9]{4,10}\s*\|/.test(raw)) return true;
@@ -276,6 +282,12 @@ const AGENCY_SUFFIX_RE = new RegExp(
 const AGENCY_DOMAIN_SUFFIX_RE =
   /\s*[-–—|]\s*[A-Za-z0-9][\w-]*(?:\.[\w-]+)*\.(?:com|org|net|co|us|uk|co\.uk|io|tv|de|fr)\s*$/i;
 
+// Google News labels some sources as "Title - Publisher Name (.gov)" where the
+// publisher name precedes a parenthetical TLD (e.g. "... - NASA (.gov)",
+// "... - NASA Office of Inspector General (.gov)"). Strip that whole segment.
+const AGENCY_LABEL_SUFFIX_RE =
+  /\s*[-–—|]\s*[^-–—|]+\s*\(\.?(?:gov|com|org|net|edu|us|uk|co\.uk|io|tv)\)\s*$/i;
+
 // Removes the trailing " - Publisher" news-agency suffix from a headline.
 // If sourceName is given, its own name (with/without a leading "The") is also
 // stripped as a safety net for publishers not in AGENCY_NAMES.
@@ -293,6 +305,7 @@ function stripAgencySuffix(title, sourceName) {
   let prev;
   do {
     prev = out;
+    out = out.replace(AGENCY_LABEL_SUFFIX_RE, '').trim();
     out = out.replace(AGENCY_SUFFIX_RE, '').trim();
     out = out.replace(AGENCY_DOMAIN_SUFFIX_RE, '').trim();
     if (sourceRe) out = out.replace(sourceRe, '').trim();

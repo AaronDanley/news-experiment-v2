@@ -329,6 +329,17 @@
           "note": "Google News proxy — rss.cnn.com feeds are deprecated and serve frozen 2018-2023 content"
         }
       ]
+    },
+    {
+      "name": "NASA",
+      "domain": "nasa.gov",
+      "feeds": [
+        {
+          "url": "https://news.google.com/rss/search?q=site:nasa.gov+when:1d&hl=en-US&gl=US&ceid=US:en",
+          "category": "science",
+          "note": "Google News proxy — science/space coverage"
+        }
+      ]
     }
   ]
 }

@@ -97,7 +97,7 @@ function detectRegion(headline) {
 // checked before the Politics catch-all.
 const CATEGORY_PATTERNS = [
   ['Health', /\b(health|covid|coronavirus|virus|disease|vaccine|vaccination|hospitals?|cancer|medical|medicine|doctors?|patients?|fda|outbreak|mental health|obesity|diabetes|flu|measles|opioid|abortion|pregnan|therapy|surgery)\b/i],
-  ['Science', /\b(science|scientists?|space|nasa|spacex|rocket|satellite|climate|global warming|studies|researchers?|discovery|physics|astronomy|galaxy|planet|mars|moon|fossils?|dinosaur|species|archaeolog|geolog|volcano|earthquake|wildlife|ocean|biology|genome)\b/i],
+  ['Science', /\b(science|scientists?|space|spacewalks?|spacecrafts?|astronauts?|aerospace|nasa|spacex|rocket|satellite|telescopes?|orbit|cosmic|cosmos|nebula|asteroids?|meteors?|comet|climate|global warming|studies|researchers?|discovery|physics|astronomy|astrophysics|galaxy|galaxies|planet|mars|moon|fossils?|dinosaur|species|archaeolog|geolog|volcano|earthquake|wildlife|ocean|biology|genome)\b/i],
   ['Sports', /\b(sports?|championship|tournament|nba|nfl|mlb|nhl|ncaa|soccer|basketball|baseball|hockey|tennis|golf|olympics?|world cup|playoffs?|finals?|coach|league|fifa|uefa|grand slam|marathon|formula 1|f1|premier league|super bowl|free agency|free agent|quarterback|touchdown|home run|draft pick|midseason|wimbledon|lebron|lakers|celtics|warriors|knicks|yankees|dodgers|cowboys|patriots|athlete)\b/i],
   ['Entertainment', /\b(movie|films?|music|celebrity|celebrities|tv show|hollywood|album|actors?|actress|singers?|oscars?|grammys?|emmys?|box office|streaming|netflix|concert|festival|premiere|red carpet|billboard)\b/i],
   ['Technology', /\b(tech|technology|\bai\b|artificial intelligence|software|hardware|\bapp\b|apps|smartphones?|iphone|android|google|apple|microsoft|amazon|meta|openai|chatgpt|chips?|semiconductor|robots?|cyber|hacking|data breach|crypto|bitcoin|startup|silicon valley|algorithm|quantum)\b/i],
@@ -348,7 +348,13 @@ function buildFinalList(clusters, rankings) {
     };
 
     const mappedCategory = categoryMap[ranking.category];
-    const category = mappedCategory || detectCategory(primaryStory.headline);
+    // When neither the LLM nor the headline heuristic yields a specific topic,
+    // fall back to the source feed's declared topical category (e.g. NASA's
+    // "science" feed) before landing on the Politics catch-all.
+    const hintCategory = categoryMap[(primaryStory.category_hint || '').toLowerCase()];
+    const heuristicCategory = detectCategory(primaryStory.headline);
+    const category = mappedCategory
+      || (heuristicCategory === 'Politics' && hintCategory ? hintCategory : heuristicCategory);
 
     // Region is World or U.S.; prefer the LLM's region, else detect it.
     const region = (ranking.region === 'U.S.' || ranking.region === 'World')
