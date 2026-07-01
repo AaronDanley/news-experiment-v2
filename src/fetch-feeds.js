@@ -14,22 +14,41 @@ const paywallData = JSON.parse(fs.readFileSync(path.join(__dirname, 'paywall-dom
 
 const PAYWALLED_DOMAINS = paywallData.paywalled_domains;
 
+const FEED_TIMEOUT_MS = 10000; // Per-feed hard timeout
+
 async function fetchFeed(feedUrl) {
+  // Use AbortController so the underlying socket is actually torn down on timeout.
+  // (Promise.race alone leaves the connection open, which keeps Node's event loop
+  // alive and causes the process to hang after all feeds are "done".)
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), FEED_TIMEOUT_MS);
+
   try {
-    // Wrap parseURL in a timeout promise
-    const timeoutPromise = new Promise((_, reject) => 
-      setTimeout(() => reject(new Error('Feed fetch timeout (10s exceeded)')), 10000)
-    );
-    
-    const feed = await Promise.race([
-      parser.parseURL(feedUrl),
-      timeoutPromise
-    ]);
-    
+    const response = await fetch(feedUrl, {
+      signal: controller.signal,
+      headers: {
+        // Some feeds reject requests without a UA
+        'User-Agent': 'Mozilla/5.0 (compatible; NewsAggregator/1.0)',
+      },
+    });
+
+    if (!response.ok) {
+      console.error(`Error fetching ${feedUrl}: Status code ${response.status}`);
+      return [];
+    }
+
+    const xml = await response.text();
+    const feed = await parser.parseString(xml);
     return feed.items || [];
   } catch (error) {
-    console.error(`Error fetching ${feedUrl}:`, error.message);
+    if (error.name === 'AbortError') {
+      console.error(`Timeout fetching ${feedUrl} (${FEED_TIMEOUT_MS / 1000}s exceeded) — skipping`);
+    } else {
+      console.error(`Error fetching ${feedUrl}:`, error.message);
+    }
     return [];
+  } finally {
+    clearTimeout(timeout);
   }
 }
 
@@ -118,4 +137,23 @@ async function main() {
   console.log(`\nPhase 1a complete. Ready for deduplication and ranking.`);
 }
 
-main().catch(console.error);
+// Global safety net: if the whole fetch stage somehow exceeds this, force exit
+// so the process can never hang indefinitely.
+const GLOBAL_TIMEOUT_MS = 5 * 60 * 1000; // 5 minutes
+const globalKill = setTimeout(() => {
+  console.error(`\nGlobal timeout (${GLOBAL_TIMEOUT_MS / 1000}s) reached — forcing exit.`);
+  process.exit(1);
+}, GLOBAL_TIMEOUT_MS);
+globalKill.unref(); // Don't let this timer itself keep the process alive
+
+main()
+  .then(() => {
+    clearTimeout(globalKill);
+    // Force a clean exit in case any lingering keep-alive sockets remain open.
+    process.exit(0);
+  })
+  .catch((error) => {
+    console.error(error);
+    clearTimeout(globalKill);
+    process.exit(1);
+  });
