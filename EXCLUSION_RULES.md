@@ -130,12 +130,3 @@ detection is configured in `src/paywall-domains.json`:
   required because Google News redirect links hide the real domain.
 
 To exclude another paywalled outlet, add its domain and display name there.
-
-
-## Excluded domains
-
-Matched against the article's link domain (for direct, non-redirected feeds).
-
-- medium.com
-- tmz.com
-- pagesix.com
