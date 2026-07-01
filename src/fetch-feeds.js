@@ -202,6 +202,10 @@ function isJunkStory(headline, link) {
   if (/^[A-Z0-9]{4,10}\s*\|/.test(raw)) return true;
   if (/\|/.test(raw) && /\b(contracts?|futures)\s*$/i.test(raw)) return true;
 
+  // Opinion / editorial content — not news stories.
+  if (/^opinion\b/i.test(raw)) return true;
+  if (/^editor['’]?s note\b/i.test(raw)) return true;
+
   // Video / audio / gallery segments. Per request, plain media words are only
   // treated as junk when they lead the title (e.g. "Video: ...", "Watch: ...");
   // bracketed markers like [Video] or (Video) count anywhere.

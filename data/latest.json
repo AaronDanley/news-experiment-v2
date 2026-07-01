@@ -5,15 +5,17 @@
       "source": "NPR",
       "link": "https://www.npr.org/2026/06/30/nx-s1-5839358/birthright-citizenship-decision-scotus-trump",
       "rank": 1,
-      "category": "World",
-      "sources_covering_story": 12
+      "category": "Politics",
+      "region": "U.S.",
+      "sources_covering_story": 13
     },
     {
       "headline": "US Supreme Court upholds bans on transgender athletes in female school and college sports",
       "source": "BBC News",
       "link": "https://www.bbc.co.uk/news/articles/cj40x888d9go?at_medium=RSS&at_campaign=rss",
       "rank": 2,
-      "category": "U.S.",
+      "category": "Sports",
+      "region": "U.S.",
       "sources_covering_story": 8
     },
     {
@@ -21,7 +23,8 @@
       "source": "NPR",
       "link": "https://www.npr.org/2026/06/30/nx-s1-5827039/supreme-court-campaign-finance",
       "rank": 3,
-      "category": "World",
+      "category": "Politics",
+      "region": "U.S.",
       "sources_covering_story": 7
     },
     {
@@ -29,7 +32,8 @@
       "source": "Associated Press",
       "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNXzlXQTJiSWJPRmlpTWVmWjFDWnpWUmE3RkEzQjVpRGJqRmFDMzVQYkhLY1RHakxVdXRqbTItX2wwSmFOVTF1b0pVemNGcFdYNm1QNFlXVXVoWGc3TmczVi1PajlseU1QdmNMSnBpczFmeUtONmpIUmVrWGt2OTBReC1qeDZxd2hGUXVCV1JVWjA2aFVRR0JUVjBER3RjSWFjZVkya0pVY0lPdw?oc=5",
       "rank": 4,
-      "category": "U.S.",
+      "category": "Politics",
+      "region": "U.S.",
       "sources_covering_story": 6
     },
     {
@@ -37,7 +41,8 @@
       "source": "NBC News",
       "link": "https://www.nbcnews.com/nightly-news/video/supreme-court-rejects-trump-s-push-to-end-birthright-citizenship-265983557529",
       "rank": 5,
-      "category": "U.S.",
+      "category": "Politics",
+      "region": "U.S.",
       "sources_covering_story": 6
     },
     {
@@ -45,39 +50,44 @@
       "source": "The Guardian",
       "link": "https://www.theguardian.com/us-news/2026/jun/30/us-supreme-court-upholds-laws-trans-women-sports",
       "rank": 6,
-      "category": "U.S.",
+      "category": "Sports",
+      "region": "U.S.",
+      "sources_covering_story": 5
+    },
+    {
+      "headline": "Rotterdam Coal Feb 2031 Futures Prices and News",
+      "source": "The Wall Street Journal",
+      "link": "https://news.google.com/rss/articles/CBMibkFVX3lxTFByZlY3UlQwOTNmLXZ3cXB4aVl4bGZYZTNRSFMwNEdQTWdpOTB5c245Vmg5eFVqXzB6ZTNHX0dTM0FuTnhRYWYwb1MzTXBXTkFlekxCQ2VMWkNEUXdSLTQzWTB4X055dHd2QkxLcEFR?oc=5",
+      "rank": 7,
+      "category": "Politics",
+      "region": "World",
       "sources_covering_story": 5
     },
     {
       "headline": "Why Gen Z are planning for life without a state pension",
       "source": "BBC News",
       "link": "https://www.bbc.co.uk/news/articles/c8e2yp1gg37o?at_medium=RSS&at_campaign=rss",
-      "rank": 7,
-      "category": "World",
+      "rank": 8,
+      "category": "Politics",
+      "region": "World",
       "sources_covering_story": 4
     },
     {
       "headline": "Trump made more than $1bn from crypto in first year back in office",
       "source": "BBC News",
       "link": "https://www.bbc.co.uk/news/articles/cvgmv98ez3zo?at_medium=RSS&at_campaign=rss",
-      "rank": 8,
-      "category": "U.S.",
+      "rank": 9,
+      "category": "Technology",
+      "region": "U.S.",
       "sources_covering_story": 4
     },
     {
       "headline": "Blake Lively wants $8 million in legal fees from Justin Baldoni after ‘It Ends With Us’ dispute",
       "source": "Associated Press",
       "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxOTWVEajQtbTktZG5pX3VyZmtmdlVaaHEtbTFiUmZBVVdocmRGX2ViQXNJejBRN3hIaHRGUG0tdGlpbjJGR2hkUGNXemV2UldySDFsUGZRTWRScjNrVklGaTE5X0hia0VmLWw4LXRobXN4ekJ4cVF2ejFLQ2tHb2xHNFRUYkJPN0F5UEtyN0hJQWhsQzQ3RzRIMGo2N1hkSHlHSTZRZzEza3Q0bWc?oc=5",
-      "rank": 9,
-      "category": "World",
-      "sources_covering_story": 4
-    },
-    {
-      "headline": "Richards Bay Coal Monthly May 2031 Futures Prices and News",
-      "source": "The Wall Street Journal",
-      "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1QcERVMEZzNjA2REtHMUNqUlRHYWNTUnduaENjX3hLcWs4QTdLNmVZazRyRERlSUhHQW9JUGQ4Vjl4cmhZX3YtSWJ3X3pEZ2ItcDFJMFRCbVlkRGxkSDlFVDIzdzc2Mk0?oc=5",
       "rank": 10,
-      "category": "Business",
+      "category": "Politics",
+      "region": "U.S.",
       "sources_covering_story": 4
     },
     {
@@ -85,343 +95,386 @@
       "source": "Deutsche Welle",
       "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPanNhU0tPZDQxcWZzSUNuZldnVlhCWnB6dk51cS1xNVRtX1c0eV9EeHpyTkNtT3BwNTlDNjM3YmdUQjNIWjhlVmpobWRORHZYaW1GZjhGLU0tOWQtVlV2VGRqc01SNXAzUjBKcFd2NVJBTGtBSVN2ME5BU1EteFc0TjcxMTRUeFBtWklxM3NvTVdYakEtczl3?oc=5",
       "rank": 11,
-      "category": "World",
+      "category": "Politics",
+      "region": "World",
       "sources_covering_story": 4
-    },
-    {
-      "headline": "Editor's note: NPR retracts Justice Samuel Alito story",
-      "source": "NPR",
-      "link": "https://www.npr.org/2026/06/30/nx-s1-4622951/samuel-alito-retires",
-      "rank": 12,
-      "category": "World",
-      "sources_covering_story": 3
     },
     {
       "headline": "Plea for households to read energy meter as prices rise",
       "source": "BBC News",
       "link": "https://www.bbc.co.uk/news/articles/c5yzqrpw2g8o?at_medium=RSS&at_campaign=rss",
-      "rank": 13,
-      "category": "World",
+      "rank": 12,
+      "category": "Politics",
+      "region": "World",
       "sources_covering_story": 3
     },
     {
       "headline": "Women with PMOS should have yearly NHS checks, says health watchdog",
       "source": "BBC News",
       "link": "https://www.bbc.co.uk/news/articles/cd0m3g05kx2o?at_medium=RSS&at_campaign=rss",
-      "rank": 14,
-      "category": "World",
+      "rank": 13,
+      "category": "Health",
+      "region": "World",
       "sources_covering_story": 3
     },
     {
       "headline": "Supreme Court spurns Trump on birthright citizenship, allows transgender sports bans",
       "source": "Reuters",
       "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxOUWxxR1pBSWtqNUxqRXg2RWN3SGpNMnFvR1ZPUWJJd1pra2NDUWwxMlFkUjhGZ1dQMWc5c0tjdGdPR1lVRjcwcVR3OVJFQll2V3ZnbEhfbVctNjlFOHoxM2tPS2hrcDJWY3JBamxQY2hRTl9vQml4R3dqd2ZUZ2FWMURSUGJHY3VMcFBKaklOVUs2TVd0Q0tpWnMzblgwY0JTd1FDV0l5elBCbjFDaWtRQTZGRGtwYjVJdTN3bVhFWUc0YndCQ3VNVjFGX29Xdw?oc=5",
-      "rank": 15,
-      "category": "U.S.",
+      "rank": 14,
+      "category": "Sports",
+      "region": "U.S.",
       "sources_covering_story": 3
     },
     {
       "headline": "Trump cuts New York funding for Medicaid fraud unit",
       "source": "Reuters",
       "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxPSFN1OENYdmg1UEZvTm82UFZub09WVG5mSmU3ampxX0RFT3ZFUVVNbXFGYUx0REJMUlVDRi0zdXBtbXozbU5qX0diUUZRYXh0M1hlZlJabThnbkRhVHVIemV1ZnZGR3pyREVBV0FSRHRtMHhCVnhyYjRheWQ3YmlkSzcyMW1yQ01hMlZWZ0lVT3ZEeDlGUGljODNFTTgxQnNuNnc?oc=5",
-      "rank": 16,
-      "category": "U.S.",
+      "rank": 15,
+      "category": "Politics",
+      "region": "U.S.",
       "sources_covering_story": 3
     },
     {
       "headline": "Trump filing shows he took in about $1.2 billion from crypto businesses last year",
       "source": "Associated Press",
       "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQWjNlekt0VjJhX2w5b01vaFFEaXB2LVdlc0R4dUU0UVQtZ3RxMGxvb2pZUGNnT3lvQmpkOXJjdnMzaVpTcDZNZ3ZnalNMYWZSMjFaZkxXTldKYUtRcnFvd2hBZnlGZWpPU0V0Qms0YVBsZkdCUkxZcEdXRmZ5WHJDb01SSmM4TExxMVl6UElqbmlKQ0lqRk9SZw?oc=5",
-      "rank": 17,
-      "category": "U.S.",
+      "rank": 16,
+      "category": "Technology",
+      "region": "U.S.",
       "sources_covering_story": 3
     },
     {
       "headline": "Republican Tom Kean Jr. reveals depression diagnosis after his four-month absence from Congress",
       "source": "Associated Press",
       "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNTGtDLVVtdkNrTUp4M2hRTFhOblUwaWs2WnE1V0otZWI1WmwxUnRtVG1SYUFuYVJCcFlsTFdEaUFuclRrLWxxd1Bobm1zazNhdU9SNDB0X1pTMThteWpPOVlsb3lSb3ZmYl9rV2RvX2NlZEx6ZDEtVTNrVlB1VWVGazlIRFpXODFKZDA5dUZFbWppNEc2X2c?oc=5",
-      "rank": 18,
-      "category": "U.S.",
+      "rank": 17,
+      "category": "Politics",
+      "region": "U.S.",
       "sources_covering_story": 3
     },
     {
       "headline": "LeBron hits free agency: James not returning to Lakers, plans to play 24th season elsewhere",
       "source": "Associated Press",
       "link": "https://news.google.com/rss/articles/CBMigAFBVV95cUxOUlREVWFNNDNBX1Q1RmcweFpvdkxRbHlONmJ1R3B6TDR6azQ1Vk9xcVBuVHpZZ1RFWklVQVlsc182YTk4VkduRll5TW5SMXZyUE10aDM2bGJuYnE1TzdicWlISHM3d1ZpeGU1dkhvUDc5dFNNRDB0YnpNTEx2ZW9lQw?oc=5",
-      "rank": 19,
-      "category": "World",
+      "rank": 18,
+      "category": "Politics",
+      "region": "World",
       "sources_covering_story": 3
     },
     {
       "headline": "Kylian Mbappé at the double as France swat aside Sweden in World Cup masterclass",
       "source": "The Guardian",
       "link": "https://www.theguardian.com/football/2026/jul/01/france-sweden-world-cup-2026-last-32-match-report",
-      "rank": 20,
-      "category": "World",
+      "rank": 19,
+      "category": "Sports",
+      "region": "World",
       "sources_covering_story": 3
     },
     {
       "headline": "I pushed myself too hard at the gym – and ended up in the hospital",
       "source": "The Guardian",
       "link": "https://www.theguardian.com/wellness/2026/jun/30/exertional-rhabdomyolysis-cause",
-      "rank": 21,
-      "category": "World",
+      "rank": 20,
+      "category": "Health",
+      "region": "World",
       "sources_covering_story": 3
     },
     {
       "headline": "The Invite review – Seth Rogen adds zest and bite to fruity dinner party comedy",
       "source": "The Guardian",
       "link": "https://www.theguardian.com/film/2026/jun/30/the-invite-review-seth-rogen-olivia-wilde-penelope-cruz-edward-norton",
-      "rank": 22,
-      "category": "World",
+      "rank": 21,
+      "category": "Politics",
+      "region": "World",
       "sources_covering_story": 3
     },
     {
       "headline": "Is the Great American State Fair 'packed'?",
       "source": "USA Today",
       "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNV245YXRMS0lDTk96cFlpYjYxSUJIdTJrUzVvd0J3bU1HQ2lDSmR6ci01cnlQUmxTdkVsNmdGd2RyM3dBR0w0UDI5UHJKX0hlTUNPbEZCLUFiclE0UllEYmhuRi1KZlRySEs0TmZTQlVwdU9iSGI0MW1fdU9zYUJwbmczbnpENHpTTnp6cmhwTVhPZ3RvUUIzLWRwemlGVDNUeVNVUklBNVd5WnM?oc=5",
-      "rank": 23,
-      "category": "U.S.",
+      "rank": 22,
+      "category": "Politics",
+      "region": "U.S.",
       "sources_covering_story": 3
     },
     {
       "headline": "United Kingdom (UK) | Latest news and analysis from The Economist",
       "source": "The Economist",
       "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNOWc2d2dHY2pHUThnMllyVVlaSWlYVmdWMkpSSjNFVU5XQU5SZnpIYmFrZEowMHF1U05uVDc2c0FkdEdQOUxreEJnMEYzbzh6djFYb0FEOVEtSWRUU244ZERtdFdPdTRBYzJlU0pGZEdoOG5XOXc0XzdkVDJaR2VmQWdTMHhtdjFpM19V?oc=5",
-      "rank": 24,
-      "category": "World",
+      "rank": 23,
+      "category": "Politics",
+      "region": "World",
       "sources_covering_story": 3
     },
     {
       "headline": "Neil Waller of Whalar Group on the creator economy | Leader to Leader Vodcast from WP Studios",
       "source": "The Washington Post",
       "link": "https://news.google.com/rss/articles/CBMi7AFBVV95cUxNQTFiMWpGRHNPdUJVT1BVTUdQemk0cjVESndIQ0hNZWNsRlVpWmdJaG54UURsWGRNZEhGMmMzcUV3Zmx1YmFNYkZtb0dDeFdqRFNjM1l3aDJZVnVUWXBaTUVwRkMtTkNxbk1HQlNHX3RnU1NuOTFCUmdQaVhTcFlzc0JUVDhIWDRhejFkWHF3eGxXdHI5dHRDQVVtQmpvY0lzeDdQaXFXZDFoRmRyUUwtMTZ6ZlAxTmpGemdBVWxEZ1VDaEUyNEc5c1JiSkJ0VXVCc3k5bnloYlE2dDhYVUdPZ2haVFRLdmExUGZwYg?oc=5",
-      "rank": 25,
-      "category": "World",
+      "rank": 24,
+      "category": "Politics",
+      "region": "World",
       "sources_covering_story": 3
     },
     {
       "headline": "What the Supreme Court did on the final day of its term",
       "source": "NPR",
       "link": "https://www.npr.org/2026/06/30/nx-s1-5876238/the-biggest-news-from-the-final-day-of-this-supreme-court-term",
-      "rank": 26,
-      "category": "World",
+      "rank": 25,
+      "category": "Sports",
+      "region": "U.S.",
       "sources_covering_story": 2
     },
     {
       "headline": "US lifts curbs on Anthropic's Fable, Mythos AI models",
       "source": "Reuters",
       "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNZDJJRUpoY0J3YUZXZWFpUFF5N2pzUTM3X2pSMzZXdVI3ZEtsTnU1b09yRl9TU1NhMlV2RFF4Q3ZEaUVnQXVYWlpzd0k0OGVjRkgzNlBtVTFab3ZxZWFGWUMtWXFCOEZqODdRNzhhSml1Y0pTZGZVNVJLSFZvSGJ2VDFMZ1RTNm5fTXoxVXpQWWRSR3ptWXVpM2Mzc0l4YW05cl9LRDBPV3kwc1FhdmVKcWJwWHA?oc=5",
-      "rank": 27,
-      "category": "U.S.",
+      "rank": 26,
+      "category": "Technology",
+      "region": "U.S.",
       "sources_covering_story": 2
     },
     {
       "headline": "US Supreme Court to hear Apple appeal of contempt in Epic Games lawsuit",
       "source": "Reuters",
       "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQN1BxaEdYVHIwSEdkOG1NcUhmWV9pZXh1cE5iNnZ1MXZGeThsTExWM1pMTHJuVlN2UnJnSWNaVnJ3Z3BUemVKdldOUWE5YzNuSzJEYjhVaFRpV0hWbmhCUVNhOU1KbXlLZ0RrVmI4dDhNZ1l6VkMyZFFyV3JIQzk2N2JDNmdFS294MURqd29FYmh3ZmFRZXQ4WXFmMXprQkRYR2ZLNjFtdw?oc=5",
-      "rank": 28,
-      "category": "U.S.",
+      "rank": 27,
+      "category": "Technology",
+      "region": "U.S.",
       "sources_covering_story": 2
     },
     {
       "headline": "Trump made $1 billion from crypto, financial disclosure shows",
       "source": "ABC News",
       "link": "https://abcnews.com/Politics/trump-made-1-billion-crypto-financial-disclosure-shows/story?id=134358357",
-      "rank": 29,
-      "category": "U.S.",
+      "rank": 28,
+      "category": "Technology",
+      "region": "U.S.",
       "sources_covering_story": 2
     },
     {
       "headline": "Trump administration lifts limits on Anthropic’s new AI models",
       "source": "The Hill",
       "link": "https://thehill.com/homenews/5948719-anthropic-fable-mythos-models-restored/",
-      "rank": 30,
-      "category": "U.S.",
+      "rank": 29,
+      "category": "Technology",
+      "region": "U.S.",
       "sources_covering_story": 2
     },
     {
       "headline": "Trump says Supreme Court loss on birthright citizenship ‘too bad,’ calls on Congress to act",
       "source": "The Hill",
       "link": "https://thehill.com/homenews/administration/5947829-donald-trump-reaction-supreme-court-birthright-citizenship/",
-      "rank": 31,
-      "category": "U.S.",
+      "rank": 30,
+      "category": "Politics",
+      "region": "U.S.",
       "sources_covering_story": 2
     },
     {
       "headline": "Trump using $500M no-bid contract to build his White House ballroom",
       "source": "The Hill",
       "link": "https://thehill.com/homenews/administration/5947494-white-house-no-bid-contract/",
-      "rank": 32,
-      "category": "U.S.",
+      "rank": 31,
+      "category": "Politics",
+      "region": "U.S.",
       "sources_covering_story": 2
     },
     {
       "headline": "Witkoff, Kushner in Qatar but won’t meet with Iran directly Tuesday",
       "source": "The Hill",
       "link": "https://thehill.com/homenews/administration/5947244-witkoff-kushner-qatar-iran-talks/",
-      "rank": 33,
-      "category": "U.S.",
+      "rank": 32,
+      "category": "Politics",
+      "region": "World",
       "sources_covering_story": 2
     },
     {
       "headline": "Rep. Tom Kean Returns to Congress, Explains Mysterious Four-Month Absence",
       "source": "Time",
       "link": "https://time.com/article/2026/06/30/tom-kean-returns-congress-depression-diagnosis/",
-      "rank": 34,
-      "category": "U.S.",
+      "rank": 33,
+      "category": "Politics",
+      "region": "U.S.",
       "sources_covering_story": 2
     },
     {
       "headline": "Debt and Risky Bets Fuel South Korea and Taiwan's AI Stock Boom",
       "source": "Bloomberg",
       "link": "https://www.bloomberg.com/news/videos/2026-06-30/debt-and-risky-bets-fuel-south-korea-and-taiwan-s-ai-stock-boom",
-      "rank": 35,
+      "rank": 34,
       "category": "Technology",
+      "region": "World",
       "sources_covering_story": 2
     },
     {
       "headline": "Phil Weiser upsets Michael Bennet to win Democratic primary for Colorado governor",
       "source": "Axios",
       "link": "https://www.axios.com/local/denver/2026/07/01/colorado-governor-democratic-primary-phil-weiser",
-      "rank": 36,
-      "category": "World",
+      "rank": 35,
+      "category": "Politics",
+      "region": "World",
       "sources_covering_story": 2
     },
     {
       "headline": "GOP lawmaker says depression diagnosis, hospitalization caused 4-month absence",
       "source": "USA Today",
       "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQVUtRT1VNTTNPQmVLQWFiQjhmS2NCNGxrdEp4bERSR054LVp6cmp5UVg3eHBFSEdibEdoNlhBbk54WTV1NUlyM2JRVG9WT2pEV29zQWx1dWhkVGJ0ZjJYa0x0Y1E5U3VQS0NFcUdoVHl3ZGZvQ0htZ2ZDNE1DOUdKYWxyVVpQYUZhbllRNU5Pc1FYNTJ5YVMxOFFCVmNOc2ZKLTc4TmN2Wmp4Yzg?oc=5",
-      "rank": 37,
-      "category": "World",
+      "rank": 36,
+      "category": "Politics",
+      "region": "U.S.",
       "sources_covering_story": 2
     },
     {
       "headline": "Energy & Utilities Roundup: Market Talk",
       "source": "The Wall Street Journal",
       "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE4xZFl1Y0xqUmxfYzVqSk02MDBneF9CQ1hTSVZjNENqaDY1TE5uVk0wbXUxOTZvR1lOczgwNFNUX1oxOUZKcE44LTkzTDlSeEw1b3lrc0pCVklZaDVvX2V4c3ZiM1Z3Ty1TcjdMcGdITjMxeGhMRnhGb0lPbTJqLVk?oc=5",
-      "rank": 38,
+      "rank": 37,
       "category": "Business",
+      "region": "World",
       "sources_covering_story": 2
     },
     {
       "headline": "World in Brief: Supreme Court limits Trump’s agenda; Qatar says no direct talks between America and Iran",
       "source": "The Economist",
       "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxOSVhib25BSWVIZzI2dXFYX3lWYVpocUwzbUFvMnpwbXZMbl9BV0JCM2liYVJGWkUyMjczZlltbGVqblozQXloWFZFM0tWVHZ1QlBMSERDMGI4M3YxTDBkS1FPWThlMjZEWmt5TWFmNldWd1Z0X0xIMTNLNTRtMzRFUnZ2WUFscjc2QlZWdTJsdzR4OWtqZ0pB?oc=5",
-      "rank": 39,
-      "category": "U.S.",
+      "rank": 38,
+      "category": "Politics",
+      "region": "U.S.",
       "sources_covering_story": 2
     },
     {
       "headline": "World in Brief: Trump’s new power to sack agency heads; Iran’s peace talk denial",
       "source": "The Economist",
       "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxOSVlpVWczakJDaElTQzVwR3d2ZjZRYzF3LXpGY0FTdlU2blQ2YTBfSTY2b0h0YmpwNDdWRlA2V1NrS25MMXdoeF9LRlg0WEJBeXVPYnFKR3V1NVFKaVhiRExzZ1dCMG1DSnRvTHplRlhlMkd2N1ROWFpnSFpUZWFUdVByYjMtUWNseW42M3Y2YkxXREg2SkU0?oc=5",
-      "rank": 40,
-      "category": "U.S.",
+      "rank": 39,
+      "category": "Politics",
+      "region": "U.S.",
       "sources_covering_story": 2
     },
     {
       "headline": "Chief Impact Officer - Aarthus, Denmark (DK) with travel to member sites job with EIT Water | 37043",
       "source": "The Economist",
       "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTFBuYzBteEY4U2hlY3NHc1FNOXlJMEpSc0lETmhkc3JEWThWa2lfaC0xRlUzSGRhaU0xZWJESGZLM2JfWndIXzNNUGtvX0k3eWlaOFBPc1RmMl9mZ1VTTnZkWGV0aHM4RjNKN3c?oc=5",
-      "rank": 41,
-      "category": "World",
+      "rank": 40,
+      "category": "Politics",
+      "region": "World",
       "sources_covering_story": 2
     },
     {
       "headline": "How the great wealth transfer is rattling Wall Street",
       "source": "Financial Times",
       "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxQTjc2TlJNemltZkc4eGY5TFRXekF2b0syTjNsOXNiM3FXbDVOZFFzZjlFSjV1aHRZRVd3aDBqSzhLU3BsN3drMXBoU2wtTTJ2N2ZTUFJacGtoTnBBRWp6SXlsZmhQZEt6V3kyVUZjQm1KNnJjcV9xcFY1TGg2akNkVl9vT3k?oc=5",
-      "rank": 42,
-      "category": "Business",
+      "rank": 41,
+      "category": "Politics",
+      "region": "U.S.",
       "sources_covering_story": 2
     },
     {
       "headline": "Reklaim LTD Announces Annual General Meeting Date",
       "source": "Financial Times",
       "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNLTFiNk9ab3RyUm02Z3dVTUhKdElNZXJ0WTFGdVYwQUVmMnhhMDh6TXotMmp5TmhDTjNQaFJQUExobXBSUHItaUc0ZEVTYWZfUzNMSnpTY1NNckFUeU1QUUVuVmRpTWFNUG5CNGpuZkRZSnlzcHo4SElFX1VRcGRZZkpUbmdiZDl1VlJLYTg1YzNrUnIyby1wQw?oc=5",
-      "rank": 43,
-      "category": "Business",
+      "rank": 42,
+      "category": "Politics",
+      "region": "World",
       "sources_covering_story": 2
     },
     {
       "headline": "Canadian Investment Regulatory Organization Trading Halt - NVX – Company Announcement",
       "source": "Financial Times",
       "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxOWUVyWk5HcjNJcWt2X0FmU3BBS0Y2UHYzdFpJZFZuUkRkdXl1NnR4bTYwRHpUOWl6MUROc3ZfcS1OYVRUbEVRc0pYbjRhdnkyMVVsMUlfU1prdFdQZlNxd3dudlYxaDQ1Q1R1ZXhSQ2VSVWNtUkFrVnJsY2tOSUZQeHVnNlBKVjg4TUpoaGhGNHBBanVsMmc?oc=5",
-      "rank": 44,
+      "rank": 43,
       "category": "Business",
+      "region": "World",
       "sources_covering_story": 2
     },
     {
       "headline": "Times/Siena Poll Finds Talarico and Paxton Tied in Texas Senate Race",
       "source": "The New York Times",
       "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPaGF2U0w1MDhnQ2VBWG44dWFoakswX01nb2VWeVc0cW1BelM4cEQ2bFdYN3pqNFBqTlpHdHlXd2pabkU1VlNGa1NibXZ1LUxjc1k1OHdrbE9US2QtR3FwVDU4enhpZ3pJVnF1WHpXdEhtRzI1dHQ2czlaVXlVN1ZBbDVwTTV6VWdoWjRvNkdn?oc=5",
-      "rank": 45,
-      "category": "U.S.",
+      "rank": 44,
+      "category": "Politics",
+      "region": "U.S.",
       "sources_covering_story": 2
     },
     {
       "headline": "Is this the Democratic tea party?",
       "source": "The Washington Post",
       "link": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxPekJHdzRuWG9jNnh5YUFIVERSSFIyRUUybHRNaWlIV2JIYUZpaGw4SkdZWWVHeFFmRmlSM1MwVDRLblRSd2NVSGEwcXJ1UWZVZHJYNFFiWGxXYzdYUjNpS2stMnpZbHowUHhtWjh5ZDZMNmNnRnNyRUhuWENyTG5SX0haZnFjdWc0VzJqUVVvT2M3RWwwbXM5dlh3Q0huS2hSWmZPQVdYaW1KYTFHekxia3YzZlhoWmtrbnhWSWg1RVJfbkVLWWtGRmlUT2N4TkNMSHZR?oc=5",
-      "rank": 46,
-      "category": "World",
+      "rank": 45,
+      "category": "Politics",
+      "region": "World",
       "sources_covering_story": 2
     },
     {
       "headline": "Who is affected by the Supreme Court's ruling on trans athletes in women's sports",
       "source": "PBS NewsHour",
       "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxOQWlsWGwzVmk0dE9HRkM4bG83aXhudmF3SVoxb3N2WVlRdXVkWFJ2WjlzUS1ZNGNua0ZlZkhqTGNlY1lkNUIxcW1leUFhNXZ2UnpTZ2w2bVR5RzVTeU9kTF9lazRva1VxY2t3ZDRlQ25YUDZmZUhSRWxqelB6N0w3TzljNFJ2T0ZHWHhGazBZYmV4RGhicHgxcjRua2JGSm9NYlloZmp1N3BycEJ2bWthRi1HSQ?oc=5",
-      "rank": 47,
-      "category": "World",
+      "rank": 46,
+      "category": "Sports",
+      "region": "U.S.",
       "sources_covering_story": 2
     },
     {
       "headline": "Marble Hall Murders",
       "source": "PBS NewsHour",
       "link": "https://news.google.com/rss/articles/CBMiWEFVX3lxTFA2QnJ5b2k1LXVwaGc1VXBtMlJObHlXNHlfVHd1QWNDalcyYnYyMWNJT3BpRkpuekVMMnU2SERrYlNreUFuSmkyLUFCcWx2NTNzUTRVbS1qbUg?oc=5",
-      "rank": 48,
-      "category": "World",
+      "rank": 47,
+      "category": "Politics",
+      "region": "World",
       "sources_covering_story": 2
     },
     {
       "headline": "Richard Pryor Put the N-Word on Stage. His Daughter Reckons with Its Legacy",
       "source": "PBS NewsHour",
       "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOM1VNT2k2aGdxdUVkUUJSMkJRZnItcE81UUV5WXdsSm5IMXd4OTYzLXlNNmVIUkF3SS1KeDZ4ZDBKc3B6cHlJRUZaS0lkSTM5LU1adU5XclhNdkJFMlBUcmdRTl9uamx0TlVxTHllX3NOWHUwc2paNmFrc25tM0tqUDFkQVVTWTdqaHBuWkpCcFJiRjFQbzMwSzlUUjFYQjRpdTliLThxTGVpMVc4?oc=5",
-      "rank": 49,
-      "category": "World",
+      "rank": 48,
+      "category": "Politics",
+      "region": "World",
       "sources_covering_story": 2
     },
     {
       "headline": "Supreme Court Nominee",
       "source": "Politico",
       "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE1kZEtDX3lSN1pIdU85eF9GR1BmWXB3ZkdMZUZfQUlpanhmSTJ6RXhHdDJMdXRwRVozOWxfZ0M5RnVRbDRDbUQzcnQ5MXBJSjFMX01VaVNwbTNoaVZtSVAwZkNwQQ?oc=5",
-      "rank": 50,
-      "category": "U.S.",
+      "rank": 49,
+      "category": "Politics",
+      "region": "U.S.",
       "sources_covering_story": 2
     },
     {
       "headline": "What Putin's admission about fuel crisis means for Russia",
       "source": "Deutsche Welle",
       "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxOYU81Y29GdXN5YzRUeWJoSTdXMm9XS25ScXBrdXMwdVFZRG1nYWdzc1dPZUhNcUFUX1hoZFAyXzFNQW41U1hzdXhpTWhlNDFoZnZwUXNhUFV5dE84Nkh4ZkdvTnZSOXl4eFpCTU5SQjYzaEJPOXA2U2MwNDVCd0MyTDEwdmlRTUlGWGRUWGtfazhuTzNKVTQzdQ?oc=5",
-      "rank": 51,
-      "category": "World",
+      "rank": 50,
+      "category": "Politics",
+      "region": "World",
       "sources_covering_story": 2
     },
     {
       "headline": "Why sleep is so important for your immune system",
       "source": "Deutsche Welle",
       "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPY29VMnQtYzBrMU9tbzN5aDRCak40TkQySlRCWTdpN2FvMlkwaU9iZ3ZDNURrZ2JSWW5yOVJZNlhLSWl4V3BKQWNXaE9CQTRQQk0xSHBQLXJ4emo4WlV3NHJsQjZYNGFNOUtGWG51ZTUzWkRieldud251cHgwbmtPcVdMNldKX1Y5SmtKWnNB?oc=5",
-      "rank": 52,
-      "category": "World",
+      "rank": 51,
+      "category": "Politics",
+      "region": "World",
       "sources_covering_story": 2
+    },
+    {
+      "headline": "NPR discusses error in reporting on the last day of the Supreme Court term",
+      "source": "NPR",
+      "link": "https://www.npr.org/2026/06/30/nx-s1-5876268/npr-discusses-error-in-reporting-on-the-last-day-of-the-supreme-court-term",
+      "rank": 52,
+      "category": "Politics",
+      "region": "U.S.",
+      "sources_covering_story": 1
     },
     {
       "headline": "Supreme Court strikes down long-standing campaign finance restrictions",
       "source": "NBC News",
       "link": "https://www.nbcnews.com/politics/supreme-court/supreme-court-strikes-long-standing-campaign-finance-restrictions-rcna252593",
       "rank": 53,
-      "category": "World",
+      "category": "Politics",
+      "region": "U.S.",
       "sources_covering_story": 1
     },
     {
@@ -429,7 +482,8 @@
       "source": "NBC News",
       "link": "https://www.nbcnews.com/politics/donald-trump/financial-disclosure-1-billion-cryptocurrency-earnings-meme-coins-rcna352497",
       "rank": 54,
-      "category": "U.S.",
+      "category": "Technology",
+      "region": "U.S.",
       "sources_covering_story": 1
     },
     {
@@ -437,7 +491,8 @@
       "source": "NBC News",
       "link": "https://www.nbcnews.com/video/kornacki-cam-watch-steve-analyze-colorado-primary-election-results-265879109818",
       "rank": 55,
-      "category": "World",
+      "category": "Politics",
+      "region": "World",
       "sources_covering_story": 1
     },
     {
@@ -445,7 +500,8 @@
       "source": "ABC News",
       "link": "https://abcnews.com/GMA/News/toddler-found-dead-suv-florida-preschool/story?id=134353508",
       "rank": 56,
-      "category": "World",
+      "category": "Politics",
+      "region": "U.S.",
       "sources_covering_story": 1
     },
     {
@@ -453,7 +509,8 @@
       "source": "The Atlantic",
       "link": "https://www.theatlantic.com/culture/2026/06/the-trump-kennedy-center-foundation-is-the-arts-complexs-latest-mystery/687752/?utm_source=feed",
       "rank": 57,
-      "category": "World",
+      "category": "Politics",
+      "region": "World",
       "sources_covering_story": 1
     },
     {
@@ -461,7 +518,8 @@
       "source": "The Atlantic",
       "link": "https://www.theatlantic.com/newsletters/2026/06/what-the-supreme-court-rulings-mean-for-trump/687751/?utm_source=feed",
       "rank": 58,
-      "category": "World",
+      "category": "Politics",
+      "region": "World",
       "sources_covering_story": 1
     },
     {
@@ -469,7 +527,8 @@
       "source": "The Atlantic",
       "link": "https://www.theatlantic.com/technology/2026/06/npr-alito-supreme-court-retraction/687750/?utm_source=feed",
       "rank": 59,
-      "category": "World",
+      "category": "Politics",
+      "region": "World",
       "sources_covering_story": 1
     },
     {
@@ -477,7 +536,8 @@
       "source": "The Atlantic",
       "link": "https://www.theatlantic.com/science/2026/06/venezuela-earthquake-towers/687747/?utm_source=feed",
       "rank": 60,
-      "category": "World",
+      "category": "Politics",
+      "region": "World",
       "sources_covering_story": 1
     },
     {
@@ -485,7 +545,8 @@
       "source": "The New Yorker",
       "link": "https://www.newyorker.com/news/the-lede/the-supreme-court-upheld-birthright-citizenship-but-the-fight-may-not-be-over",
       "rank": 61,
-      "category": "World",
+      "category": "Politics",
+      "region": "U.S.",
       "sources_covering_story": 1
     },
     {
@@ -493,7 +554,8 @@
       "source": "The New Yorker",
       "link": "https://www.newyorker.com/news/the-lede/the-supreme-courts-check-on-trumps-power-was-too-close-for-comfort",
       "rank": 62,
-      "category": "U.S.",
+      "category": "Politics",
+      "region": "U.S.",
       "sources_covering_story": 1
     },
     {
@@ -501,7 +563,8 @@
       "source": "The New Yorker",
       "link": "https://www.newyorker.com/news/the-lede/searching-for-survivors-after-venezuelas-historic-earthquakes",
       "rank": 63,
-      "category": "World",
+      "category": "Politics",
+      "region": "World",
       "sources_covering_story": 1
     },
     {
@@ -509,7 +572,8 @@
       "source": "The New Yorker",
       "link": "https://www.newyorker.com/sports/world-cup-2026/erling-haaland-plays-like-a-viking",
       "rank": 64,
-      "category": "Health",
+      "category": "Politics",
+      "region": "World",
       "sources_covering_story": 1
     },
     {
@@ -517,7 +581,8 @@
       "source": "Time",
       "link": "https://time.com/article/2026/06/30/bosnia-herzegovina-world-cup/",
       "rank": 65,
-      "category": "Health",
+      "category": "Sports",
+      "region": "World",
       "sources_covering_story": 1
     },
     {
@@ -525,7 +590,8 @@
       "source": "Time",
       "link": "https://time.com/article/2026/06/30/birthright-citizenship-constitutional-amendment-republicans-supreme-court/",
       "rank": 66,
-      "category": "Health",
+      "category": "Politics",
+      "region": "U.S.",
       "sources_covering_story": 1
     },
     {
@@ -533,7 +599,8 @@
       "source": "Time",
       "link": "https://time.com/article/2026/06/30/why-learning-a-language-still-matters/",
       "rank": 67,
-      "category": "Health",
+      "category": "Politics",
+      "region": "World",
       "sources_covering_story": 1
     },
     {
@@ -542,6 +609,7 @@
       "link": "https://www.bloomberg.com/news/articles/2026-07-01/panasonic-targets-further-ai-growth-to-build-on-record-valuation",
       "rank": 68,
       "category": "Technology",
+      "region": "World",
       "sources_covering_story": 1
     },
     {
@@ -549,7 +617,8 @@
       "source": "Bloomberg",
       "link": "https://www.bloomberg.com/news/articles/2026-07-01/uber-backed-lime-investors-said-to-price-ipo-at-25-per-share",
       "rank": 69,
-      "category": "Technology",
+      "category": "Business",
+      "region": "World",
       "sources_covering_story": 1
     },
     {
@@ -558,6 +627,7 @@
       "link": "https://www.bloomberg.com/news/articles/2026-06-30/us-government-lifts-restrictions-on-anthropic-s-fable-5-model",
       "rank": 70,
       "category": "Technology",
+      "region": "U.S.",
       "sources_covering_story": 1
     },
     {
@@ -565,7 +635,8 @@
       "source": "Axios",
       "link": "https://www.axios.com/2026/06/30/senate-gop-nrsc-ad-spending-scotus-midterms-2026",
       "rank": 71,
-      "category": "Health",
+      "category": "Politics",
+      "region": "U.S.",
       "sources_covering_story": 1
     },
     {
@@ -573,7 +644,8 @@
       "source": "Axios",
       "link": "https://www.axios.com/2026/06/30/lebanon-war-powers-vote-house-democrats-tlaib",
       "rank": 72,
-      "category": "U.S.",
+      "category": "Politics",
+      "region": "U.S.",
       "sources_covering_story": 1
     },
     {
@@ -581,7 +653,8 @@
       "source": "Axios",
       "link": "https://www.axios.com/2026/06/30/us-steel-nippon-trump",
       "rank": 73,
-      "category": "Science",
+      "category": "Politics",
+      "region": "U.S.",
       "sources_covering_story": 1
     },
     {
@@ -589,7 +662,8 @@
       "source": "CBS News",
       "link": "https://www.cbsnews.com/news/lawyer-e-jean-carroll-says-trump-wants-to-delay-5-million-payment/",
       "rank": 74,
-      "category": "U.S.",
+      "category": "Politics",
+      "region": "U.S.",
       "sources_covering_story": 1
     },
     {
@@ -597,7 +671,8 @@
       "source": "CBS News",
       "link": "https://www.cbsnews.com/news/justice-department-investigating-sen-ruben-gallego-campaign-funds/",
       "rank": 75,
-      "category": "Science",
+      "category": "Politics",
+      "region": "World",
       "sources_covering_story": 1
     },
     {
@@ -605,7 +680,8 @@
       "source": "CBS News",
       "link": "https://www.cbsnews.com/news/anthropic-trump-administration-lifted-claude-restrictions/",
       "rank": 76,
-      "category": "U.S.",
+      "category": "Technology",
+      "region": "U.S.",
       "sources_covering_story": 1
     },
     {
@@ -613,7 +689,8 @@
       "source": "CBS News",
       "link": "https://www.cbsnews.com/news/venezuela-earthquakes-rescue-team-security-guard/",
       "rank": 77,
-      "category": "Science",
+      "category": "Politics",
+      "region": "World",
       "sources_covering_story": 1
     },
     {
@@ -621,7 +698,8 @@
       "source": "ProPublica",
       "link": "https://www.propublica.org/article/alice-sebold-anthony-broadwater-rape-exoneration-syracuse",
       "rank": 78,
-      "category": "Science",
+      "category": "Politics",
+      "region": "World",
       "sources_covering_story": 1
     },
     {
@@ -629,7 +707,8 @@
       "source": "ProPublica",
       "link": "https://www.propublica.org/article/enid-oklahoma-oil-gas-pollution-water-protections",
       "rank": 79,
-      "category": "Science",
+      "category": "Politics",
+      "region": "World",
       "sources_covering_story": 1
     },
     {
@@ -637,7 +716,8 @@
       "source": "ProPublica",
       "link": "https://www.propublica.org/article/aclu-trump-police-reform-doj-minneapolis-louisville-phoenix-memphis",
       "rank": 80,
-      "category": "U.S.",
+      "category": "Politics",
+      "region": "U.S.",
       "sources_covering_story": 1
     },
     {
@@ -645,7 +725,8 @@
       "source": "ProPublica",
       "link": "https://www.propublica.org/article/florida-death-penalty-executions-ron-desantis",
       "rank": 81,
-      "category": "Sports",
+      "category": "Politics",
+      "region": "U.S.",
       "sources_covering_story": 1
     },
     {
@@ -653,7 +734,8 @@
       "source": "USA Today",
       "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOWDBnTGV6cmplOGk2QTVVNUk5LWFMZXUyQzVSWVB0Y0xSTjNvMllaYjJwcC1GZ3VnU3hYQmRoXzlDYkROMkRmbkRyU0c5X3o2U0g0QUpjZExDNlV4WDJqWDVZRGx5RWxzYkVscEJhQlA3MnFPZGRpM2lKMHBwX01zS0JjMEFNWG5DWVBqaldUcDJtaEFTVmlzMFZYU2RYa01D?oc=5",
       "rank": 82,
-      "category": "Sports",
+      "category": "Politics",
+      "region": "World",
       "sources_covering_story": 1
     },
     {
@@ -661,7 +743,8 @@
       "source": "USA Today",
       "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxQekl5SGZNVDE1ZTdLbHBpQjI4LTZkeF8tbWZmVURmd0JNcUZFZkNFTTBVQWV3NGY5ZEkwUG1jUVVBamhCZ3hQejAtOUt3b0ZiblI3TG5RaGJCRkhlOHNUWll0ODMxSzFfZUtNZk1WWldHS3RUSmg1aVNuY1NSdktvNlBiNWJ4SXdZbkhhWFZmWTlWQUVteTZhb0ZZeU85VWRFeFlDUkdlUmhDZjdic2JkWUlMTER6MFZweXZ0Nw?oc=5",
       "rank": 83,
-      "category": "Sports",
+      "category": "Health",
+      "region": "U.S.",
       "sources_covering_story": 1
     },
     {
@@ -669,7 +752,8 @@
       "source": "The Wall Street Journal",
       "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxPdDJ0Sk0yaWZoMEZHN1A5TEdPNXRwcmJuU2xvT014bllhdFp2dFZFY1VwOWhLRk5uaHRUSGpvRE05em12enVBOGduY1UwMFpDWmNJMTNFSUNlWFNwbWJva1JXQnE0ekhYVW5zdVE5cjdlbXpkQnhhYmxZNGZQVkowSDNQYTlpdEdsa3NLeE9xZHdQOVlsYy01V3lXdUF6OXJvdmJud3NGU3JvS1EtOXJMYktlOHYtN2tHNGxmaQ?oc=5",
       "rank": 84,
-      "category": "Business",
+      "category": "Health",
+      "region": "U.S.",
       "sources_covering_story": 1
     },
     {
@@ -677,15 +761,17 @@
       "source": "The Wall Street Journal",
       "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQQXJicEhjU3prNkpwa2tQNXFtSi1sVFpwaVU4UmxqcERFUlhYaWdYcFZXbDdSLTJ3dHZ3T1JCZk0wWTEwbzlHNUIzODRTMFhSS2U4UFV3bzZyY3RRRWgyTzNJSURwQ08tQWFGTDNIVWYtTm9KN0JUT3laMGdZMFVMT3FxNTRUdzVMeUduTm1VaGQ4cUNGdFFPc2FGeE56bVREOUtkRWZhQWJYckRyMlpr?oc=5",
       "rank": 85,
-      "category": "Business",
+      "category": "Health",
+      "region": "World",
       "sources_covering_story": 1
     },
     {
-      "headline": "Trump ally seeks to emulate Putin to stay in power in Serbia",
+      "headline": "White House lifts ban on Anthropic models",
       "source": "Financial Times",
-      "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNSDFrd3F4SThiYXlBZTlHUWxEbnRTRV9kTEF0S25HZnRoQXBJQW5qMU1NdlhVbHVEZlZqWGlfUGw2UmJRTFJ3dmwzQnZtQ2dCSklvTzllWHlPX0pFdFJzbGtjclMzdUpqY0dnYmNNaVVLVllxNl81R1otWUNqQUdtTVNEejA?oc=5",
+      "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNbnhxOVBhczExZzJOd3dKRDloVVhpNjFmTl84WC1hNlhzdmhvSjVlOXMxOGZfeVF4MERuLXU1V0o3WlA2WHdkSkRubmNhXzE1RWdQRnl3TEFxd3J5ZDR1NDJlLTJIOTE4OWttc2Y1bUNnZkxQWTJjcWVsVTZYR1NXeVZkYy0?oc=5",
       "rank": 86,
-      "category": "Business",
+      "category": "Science",
+      "region": "U.S.",
       "sources_covering_story": 1
     },
     {
@@ -694,6 +780,7 @@
       "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOVFBOT2xfTllxanhFckRKTTlKa1ZOMEd1UThFMTV3ZzlsQXBIS2pqOHdLUFhMVVN4V2VtUHIyUC11WXl4Y2xYazVlODlzSjY1RHh5bUp0NTVWTTN1ZVJHV2ExT2xYM3RUN2dwa0JKX2t4dzVhZEZ3TkF3eHFuQTQtMlNiLV9rdnM?oc=5",
       "rank": 87,
       "category": "Sports",
+      "region": "U.S.",
       "sources_covering_story": 1
     },
     {
@@ -701,15 +788,17 @@
       "source": "The New York Times",
       "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQZkttdzV0bHdsay0tWVFCWEx1ZVJiSU9IVEN0MTdwUDdDOVEtck5vZFZ3WW9adlB0RHlVT0o2enk5ZXVFVWJqS0JfWWVoLUx1MGxOOVVTcHNOZVY5WDZJamJ4NzRnaFk1MHdtZU1XYWtGTkp5b0FPN1NNZ0M3aUZhUTFManZ5UzNoemhhRDNjdw?oc=5",
       "rank": 88,
-      "category": "Sports",
+      "category": "Science",
+      "region": "World",
       "sources_covering_story": 1
     },
     {
-      "headline": "Kawhi Leonard returning to Raptors is more than a fun thought — it makes sense",
+      "headline": "Justices Expand Presidential Power Over Regulators, but Not the Fed",
       "source": "The New York Times",
-      "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPaVJjYWM5T3IxNENmbEVidDFRX1JndHZFdUk5NTRSRUFTZGFkTlFJbDEtcXhEcmM1VC1pUTVGMUVyZ2tpN3p5NERsb01oVFBrX0JSTTY5WTR0X0R0QVNyWHNBaHZxSmxqejJXdXZIRjVMRkZzMEpHa2hNT0l2WjVDRnJmUnRfQ0Z1RkwtUkc2dE80cVY3cmhwa21waWpCT2lsVXBxRXN6UQ?oc=5",
+      "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxNbXQzdmo2Sm55N3phSWc4R0VvQnUxNkFoOE1XS2lEeGs5WS1GWGpYV2Ntbnk2Tm9FTW5yeFJxRWZTYldfZUdqXy1hVFhoSmNBVGEyZG5GY1lLTkFGVlhTSVpHY0hrQl8xRmJsSGdoX1Y1dHJMcGFxSGtERlJEVHJqeHRSM2ljNjFm?oc=5",
       "rank": 89,
-      "category": "Entertainment",
+      "category": "Business",
+      "region": "World",
       "sources_covering_story": 1
     },
     {
@@ -717,7 +806,8 @@
       "source": "The Washington Post",
       "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxNak03NU52MWwwNnJTeHFlZUxuaW5GenQ0dmlTdUxyd0o4VzdLTVhCb0VYMllqc19mUnBFOTZYTWlqTmVZVEJWbzl2NWdZWDZpVmRYR1VxMkhrN3lBZzh5bVdwcVlDbExxVEdDM3hCbm5kYW1IdVBLSTFvV0J0eThTWTlqQlJQMmJiQXMyY1RHSEk2U3I2SmQ3cU5EVVM1UnNYc0dDZkpMX2M2cVNCeHJ0bg?oc=5",
       "rank": 90,
-      "category": "U.S.",
+      "category": "Business",
+      "region": "U.S.",
       "sources_covering_story": 1
     },
     {
@@ -725,7 +815,8 @@
       "source": "The Washington Post",
       "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQdWxkOGR0TFZ3TnNaTGVIUFdHVlRUUHZtRDlJNWZNV0s3MlBvN0hWcXFua0l4ZGt5S3p1ZHNnUjdYUmN6TEYzbG5paDZWZzQ1N2F4c256dUh2X2dfUkN5a2VhZnNib1ozQzFwdFpWeGRUMm5OemNmSHV3aTJ0SlR1NEU1RjcxRWczeWdmZU40enVETUtkLXpZYzRDOHFwUXlSVDlQd3AwZzQ1OXVQazlwMW9XNHJaUQ?oc=5",
       "rank": 91,
-      "category": "U.S.",
+      "category": "Science",
+      "region": "U.S.",
       "sources_covering_story": 1
     },
     {
@@ -733,23 +824,26 @@
       "source": "PBS NewsHour",
       "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPeG4wcWtPaTZrSkxnd1lldmdwcHFjM2tlbGI2Y1J2VXJ3WE9CclEwYllmRjd3b25ZNVZmY0hhRS1KZkZXOEtIUU55RktIWnNZYVBlTUFYQjdmRDdlMk5mV2V5WGMtZHRFYXU1RXhsTi1kRUxobFc5bWxzajZza1hSUlhsUnJQTzk0NzdKQjU5ZTEzY1piRkdKV1VTeUNNY2xUTnNB?oc=5",
       "rank": 92,
-      "category": "Entertainment",
-      "sources_covering_story": 1
-    },
-    {
-      "headline": "Trump reports more than $1.4B in crypto income",
-      "source": "Politico",
-      "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxQYjZTRzJZSno1WC1FOC1vYWpydm4xTTNqSkxUQjRqVUZQX2ttQ0JqQXRSbmhLQkh5dF84NzlCdTRBd1dZSHVvQXZnYlI5NXZ5UmVzNGN2UEZYNzNoNmgtc1hKUzBqRVo4eFhtOElfSG9UWjRLTk5SSmxIOXQ5NHhyWkliQlVZM293aWhV?oc=5",
-      "rank": 93,
-      "category": "U.S.",
+      "category": "Science",
+      "region": "World",
       "sources_covering_story": 1
     },
     {
       "headline": "Progressive Manny Rutinel wins primary in battleground Colorado House district",
       "source": "Politico",
       "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPc3RBdDJqbm9SUklTQnZuVFQ2akZUd0xfUThJMVBXb3pzcnA4Ni1YNFljcnFnNFQ2bW4zLUNfX0pCVzg2OHJLZW9FWURXZ3E1S2lHdlRlLWtGQ1FPM1dRQUotby1BZkdBS1FfaFNOV09mT3BlUUdqenphWWVqTERUYUtlLWVLa242aURzZ2R3?oc=5",
+      "rank": 93,
+      "category": "Science",
+      "region": "World",
+      "sources_covering_story": 1
+    },
+    {
+      "headline": "Trump's second-term windfall: $1.4B in crypto earnings",
+      "source": "Politico",
+      "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxQYjZTRzJZSno1WC1FOC1vYWpydm4xTTNqSkxUQjRqVUZQX2ttQ0JqQXRSbmhLQkh5dF84NzlCdTRBd1dZSHVvQXZnYlI5NXZ5UmVzNGN2UEZYNzNoNmgtc1hKUzBqRVo4eFhtOElfSG9UWjRLTk5SSmxIOXQ5NHhyWkliQlVZM293aWhV?oc=5",
       "rank": 94,
-      "category": "U.S.",
+      "category": "Technology",
+      "region": "U.S.",
       "sources_covering_story": 1
     },
     {
@@ -757,7 +851,8 @@
       "source": "Politico",
       "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxOVHNIZGc4RmpwZnhIblQ4LTlDd2cxa0VDdXk0bkttU3lkQklYREFpQmlwczQ0eU5kc2pXS2RUSUZpMTBiVHBnZV9sMmg0Q3FsRk40cWxfM1JUU3d1c2NJMnRfN1dqcjRuRHVDLU95blRuSDU2WGFZR0o2NnRXcDFSNXRaWHNvVThLcUlFN1lucHc?oc=5",
       "rank": 95,
-      "category": "U.S.",
+      "category": "Entertainment",
+      "region": "U.S.",
       "sources_covering_story": 1
     },
     {
@@ -766,6 +861,7 @@
       "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPMHlZb1JRZU52V3hMdmFUcnJxTHdfVWZ3WW5vXzlYQ2RRSG50dUdCY3hxX3oxQU0xUjY1NlduMTduZnVTdnQ4UUhDa0l0R25URzVaSXhnVEFfdC1fTl9TdjQwbHpwZkZtc3RZTTB2Q3c3emtscUM4R2d5eGJfbXprcUJCNHhlamotTWtYLU9teUpyMmJxbmdZ0gGXAUFVX3lxTE55VDRfbkgxU2FEcHpHT2t3QXVkSDFVUDN6M25wTWZUYlVxY00xYThrdGhqOVJxV3hJRWJwUE5wMDBIRUdabG9KeGthOWFPWEhVSVBINENJQXdGTkVhZnBDMVJQdzI3MGxrVFJGN25rYk1qQkFYYUl2dEhuU3I5bHBwbk5pMjlySnZXNGpBZTFiV0hzMkVnLVE?oc=5",
       "rank": 96,
       "category": "Entertainment",
+      "region": "World",
       "sources_covering_story": 1
     },
     {
@@ -773,7 +869,8 @@
       "source": "Christian Science Monitor",
       "link": "https://news.google.com/rss/articles/CBMigAFBVV95cUxNZ3NmYUFyY0dGR2hhTG9felFzMW51c1FGSzdaNzdPZ09lSF9tcDdFaGd4b1JVd0tMUEMxUFhuQjFITkFRTzFBbC1kd1JKcXVGVVV2bWl0QnRZdVQwMDlpM3BGbTlnZWZqTEh5T0ZHWTIwWGV2M0hvVmM0alhyYnNORdIBmgFBVV95cUxNRGZZOEU3azVVVHhKeDlCc25oaGZMUVdKdjFfbDB3cUh6VW9nWFVreGs3ZjNPNFFaR3ZpNTB0Y1BNaHhwZmZDQkVXdFEwUmNRUVBQbnJLUkF3Z3hTblZmUFlwOFlHTTFFM2VyMXNuVHBZZXJBa000OFd2QktHX0JDZjJiQnJ2MXdaRWQ2TzZQSmg2VmduN1BJbmxn?oc=5",
       "rank": 97,
-      "category": "U.S.",
+      "category": "Technology",
+      "region": "U.S.",
       "sources_covering_story": 1
     },
     {
@@ -782,6 +879,7 @@
       "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxPRUNEV3R2TlNPQkVCSF9VLWk4cnowY1NxLVJwdW45X1kybGgxRnY5b0NKRnF0MFdHTnd1eVpKWjVfTjBMOUtnNENka3BBQzlFLWdoYWRZRm1JRFJEUlg2cHdPLXVRc0x6REpwcUVORXIteE0yYmZDNktvOW1fYUxlU0gwQ05iOWVjWjhVMjZGMS1oWlJVSTVGUHpsLVlGa3dyY0dkY0hxTGg3UFF4ZE5oYUxCRG9lTUtkdF9nazJvRDRSQdIBzwFBVV95cUxQTlRKaFoxbEFrdFMtdjdPelg3WEs2SjRTZmdTTUxOVHNvQldUVUc2YktVVzlfOG1vTVZwN2pkTENSVHBEd3V4U3JCajF3c216UlJld285ZGtHdHFiVHhOak1BQlFaMVVVQ0pHTTFMbUlVSzlGanBXNWtLdUdQQlpja0J0Rlc0N1FyRHRmckFBNEhsUjJub0JkX1JNN2J4WE9FRWFTNUF4M2ttQmFPLVlOcWxBd1RlSWxmY1haLURsOENhQS1ycFZhajBKdUllbUU?oc=5",
       "rank": 98,
       "category": "Entertainment",
+      "region": "World",
       "sources_covering_story": 1
     },
     {
@@ -790,6 +888,7 @@
       "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPM2t1bmpYT3JZbnZJdHVENWZhUk1fUF9XWDFRTGVPamY1TXY4eXoyLWJHaE1iTzQtVnJHNW5uMkY5cGp0T1d3VjRaVF9wdjBDc1JYeEVrdkJab1hjVkhfakFCRHdzbE9Gc29rRTh4c1lQWTQ4My1udjNlOVBnOFhsOGlOUDRVaDNXWTFxam5oZ0E5TTV0ZEkyRkdMT0FXOFNoRTBSOWUzc9IBwAFBVV95cUxQakNjc0Z3UnItcy1Qemkxb0pGMU45c2pIbTN3TUxyUmU3R2UwYzU2RjRuTnpCU3FmZW1uQ3k2QmdhSGVVOFQtcHN2bldfTnJZcEFoT2I0NTR4NXR2c0NHbm5LTVpnX2VuU21iNnBFNjFXLTlueEVrOEhST1k1QUdBS05fOEZjRzJyeFAyVDFEaWZfSXVGZ1NOUUpmWE9JbXlyYUxjR1FqSG5na19fdTVWZnFIamRJWF9qdlBpd01vVDk?oc=5",
       "rank": 99,
       "category": "Entertainment",
+      "region": "World",
       "sources_covering_story": 1
     },
     {
@@ -797,10 +896,11 @@
       "source": "Christian Science Monitor",
       "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPbFczRUxTX2JMRjBCX1F1LXBJTWVRNUNwaVJ0NWp6NVVYcm9XREIyaW5zLXJReHRtMHl1S0RlLU0zdDA2TExvSFMzQkpieDRvZ1hiM0hmNjZVazNmOFRHbUJScjM0MDk3dkcycDZFQ3k2UHdRaEhrckZNYWlidWJDZDV6c1FzZTNGYzFraGh5SWxzVWxrT0HSAa8BQVVfeXFMUHJ4QThEdUFtQWs5YjdNTUhmd0xJU3c4bVRrcmExQlhrejJETXl3eF9EalMtUGVDTTB6a0x1Mmd0Z21CU1FEQklUcFI2WjBhd3RQSG14V1ktS2thQkxUanJmemc1a1hhRGE3TjhFdjZ0cVNSaFExU25LTHBHWjljaF96VWwyNTZkbUJQYW9TbXMwcklvOFhidEo1ck1WSExXQ0gtcVlOSDQ2cTNSYkd2UQ?oc=5",
       "rank": 100,
-      "category": "Technology",
+      "category": "Entertainment",
+      "region": "World",
       "sources_covering_story": 1
     }
   ],
   "total_stories": 100,
-  "last_updated": "2026-07-01T02:24:03.536Z"
+  "last_updated": "2026-07-01T02:41:18.382Z"
 }

@@ -75,6 +75,43 @@ function deduplicateStories(stories) {
   return clusters;
 }
 
+// Topical categories shown on the page (World / U.S. are now regions, not
+// categories). Politics sits above Business per the requested ordering.
+const TOPICAL_CATEGORIES = [
+  'Politics', 'Business', 'Technology', 'Entertainment', 'Sports',
+  'Science', 'Health',
+];
+
+// A story is tagged U.S. when it clearly concerns United States people,
+// places, or institutions; otherwise it is World.
+const US_REGION_RE =
+  /\b(u\.?s\.?|u\.?s\.?a\.?|united states|americans?|america|washington|d\.?c\.?|congress|senate|white house|capitol|pentagon|supreme court|scotus|trump|biden|harris|vance|republicans?|democrats?|gop|federal reserve|wall street|fbi|cia|ice|nasa|medicare|medicaid|social security|new york|california|texas|florida)\b/i;
+
+function detectRegion(headline) {
+  return US_REGION_RE.test(headline || '') ? 'U.S.' : 'World';
+}
+
+// Ordered topical classifiers — the first match wins, so specific topics are
+// checked before the Politics catch-all.
+const CATEGORY_PATTERNS = [
+  ['Health', /\b(health|covid|coronavirus|virus|disease|vaccine|vaccination|hospitals?|cancer|medical|medicine|doctors?|patients?|fda|outbreak|mental health|obesity|diabetes|flu|measles|opioid|abortion|pregnan|therapy|surgery)\b/i],
+  ['Science', /\b(science|scientists?|space|nasa|spacex|rocket|satellite|climate|global warming|studies|researchers?|discovery|physics|astronomy|galaxy|planet|mars|moon|fossils?|dinosaur|species|archaeolog|geolog|volcano|earthquake|wildlife|ocean|biology|genome)\b/i],
+  ['Sports', /\b(sports?|championship|tournament|nba|nfl|mlb|nhl|soccer|basketball|baseball|hockey|tennis|golf|olympics?|world cup|playoffs?|finals?|coach|league|fifa|uefa|grand slam|marathon|formula 1|f1|premier league|super bowl)\b/i],
+  ['Entertainment', /\b(movie|films?|music|celebrity|celebrities|tv show|hollywood|album|actors?|actress|singers?|oscars?|grammys?|emmys?|box office|streaming|netflix|concert|festival|premiere|red carpet|billboard)\b/i],
+  ['Technology', /\b(tech|technology|\bai\b|artificial intelligence|software|hardware|\bapp\b|apps|smartphones?|iphone|android|google|apple|microsoft|amazon|meta|openai|chatgpt|chips?|semiconductor|robots?|cyber|hacking|data breach|crypto|bitcoin|startup|silicon valley|algorithm|quantum)\b/i],
+  ['Business', /\b(business|econom|markets?|stocks?|shares?|trade war|trading|earnings|revenue|profits?|inflation|recession|unemployment|\bfed\b|federal reserve|interest rate|gdp|mergers?|acquisition|ipo|tariffs?|banks?|investors?|nasdaq|dow jones|s&p 500|layoffs?|\bceo\b|jobs report)\b/i],
+  ['Politics', /\b(politic|elections?|president|congress|senate|parliament|government|policy|votes?|voters?|campaign|\bwar\b|military|troops|courts?|lawsuit|legislation|immigration|border|protests?|minister|sanctions?|diplomat|treaty|nato|united nations|coup|referendum|governor|mayor|prime minister|foreign policy|nuclear|ceasefire|airstrike|election)\b/i],
+];
+
+function detectCategory(headline) {
+  const text = headline || '';
+  for (const [cat, re] of CATEGORY_PATTERNS) {
+    if (re.test(text)) return cat;
+  }
+  // General / hard news with no specific topic defaults to Politics.
+  return 'Politics';
+}
+
 async function rankStoriesWithLLM(clusters) {
   // Prepare the headlines for categorization
   const headlines = clusters.map((cluster, idx) => ({
@@ -84,21 +121,22 @@ async function rankStoriesWithLLM(clusters) {
     category_hint: cluster[0].category_hint || 'general',
   }));
 
-  const systemPrompt = `You are a strict news editor. Your job is to categorize deduplicated news headlines into exactly one of the following 8 categories: World, U.S., Business, Technology, Entertainment, Sports, Science, Health. 
+  const systemPrompt = `You are a strict news editor. For each deduplicated headline you must assign:
+1. A "region": exactly "World" or "U.S." ("U.S." for domestic United States news, "World" for everything else).
+2. A "category": exactly one of these 7 topical categories: Politics, Business, Technology, Entertainment, Sports, Science, Health.
 
 CRITICAL RULES:
-1. You may ONLY use the 8 categories listed above. Never invent new categories. "Global" is strictly forbidden.
-2. Evaluate specific categories first. Check if the story fits Technology, Business, Entertainment, Sports, Science, or Health BEFORE defaulting to geography. 
-3. "U.S." is for domestic United States political or national news.
-4. "World" is for international geopolitical news outside the U.S. Do not use "World" as a generic catch-all.
-5. DISTRIBUTE FAIRLY across all 8 categories. Do not overuse World at the expense of other categories.
-6. Return your response as valid JSON with the exact key "category".`;
+1. You may ONLY use the 7 categories listed above. Never invent new categories. Never use "World" or "U.S." as a category — those are regions only.
+2. Evaluate specific categories first (Technology, Business, Entertainment, Sports, Science, Health) before defaulting to Politics.
+3. Politics covers government, elections, policy, war, diplomacy, courts, and general hard news.
+4. DISTRIBUTE FAIRLY across categories. Do not overuse Politics at the expense of other categories.
+5. Return your response as valid JSON.`;
 
   const userPrompt = `Categorize these headlines. Rank them by importance (1 = biggest story).
 
 ${JSON.stringify(headlines, null, 2)}
 
-Return a JSON array with objects like: {"id": 0, "rank": 1, "category": "World"}`;
+Return a JSON array with objects like: {"id": 0, "rank": 1, "region": "U.S.", "category": "Politics"}`;
 
   console.log('Calling Groq API for ranking and categorization...');
 
@@ -156,49 +194,26 @@ Return a JSON array with objects like: {"id": 0, "rank": 1, "category": "World"}
     console.log('Falling back to simple ranking by source count...');
     return headlines
       .sort((a, b) => b.source_count - a.source_count || a.id - b.id)
-      .map((h, idx) => {
-        let category = h.category_hint === 'general' ? 'World' : h.category_hint.charAt(0).toUpperCase() + h.category_hint.slice(1);
-        // Fix "Us" → "U.S."
-        if (category === 'Us') category = 'U.S.';
-        return {
-          id: h.id,
-          rank: idx + 1,
-          category: category,
-        };
-      });
+      .map((h, idx) => ({
+        id: h.id,
+        rank: idx + 1,
+        region: detectRegion(h.headline),
+        category: detectCategory(h.headline),
+      }));
   }
-}
-
-function moveUSAStoriesFromWorld(stories) {
-  // Detect USA-focused stories in World category and move to U.S.
-  const usaKeywords = /\b(usa|u\.s\.|united states|us |america|american|trump|biden|congress|senate|house|capitol|washington|dc|president|federal|republican|democrat)\b/i;
-  
-  let moved = 0;
-  stories.forEach(story => {
-    if (story.category === 'World' && usaKeywords.test(story.headline)) {
-      story.category = 'U.S.';
-      moved++;
-    }
-  });
-
-  if (moved > 0) {
-    console.log(`\nMoved ${moved} USA-focused stories from World to U.S.`);
-  }
-
-  return stories;
 }
 
 function ensureMinimumPerCategory(stories, minPerCategory = 5) {
-  const categories = ['World', 'U.S.', 'Business', 'Technology', 'Entertainment', 'Sports', 'Science', 'Health'];
+  const categories = TOPICAL_CATEGORIES;
   const storiesByCategory = {};
-  
+
   categories.forEach(cat => {
     storiesByCategory[cat] = stories.filter(s => s.category === cat);
   });
 
   // Find categories below minimum
   const underrepresented = categories.filter(cat => storiesByCategory[cat].length < minPerCategory);
-  
+
   if (underrepresented.length === 0) {
     console.log('All categories meet minimum of 5 stories');
     return stories;
@@ -206,24 +221,31 @@ function ensureMinimumPerCategory(stories, minPerCategory = 5) {
 
   console.log(`\nRebalancing categories. Underrepresented: ${underrepresented.join(', ')}`);
 
-  // Reassign stories from World (typically overrepresented) to underrepresented categories
-  // We'll take lower-ranked stories from World since higher ranks are more important
-  let adjustedStories = [...stories];
-  
+  const adjustedStories = [...stories];
+
   for (const targetCat of underrepresented) {
     const current = adjustedStories.filter(s => s.category === targetCat).length;
     const needed = minPerCategory - current;
-    
+
     if (needed > 0) {
-      // Find World stories with lowest importance (highest rank number) to reassign
-      const worldStories = adjustedStories
-        .filter(s => s.category === 'World')
-        .sort((a, b) => b.rank - a.rank) // Sort by lowest importance first
+      // Pull the lowest-importance stories from whichever category currently
+      // has the most stories (typically Politics) to fill the gap.
+      const counts = {};
+      categories.forEach(cat => {
+        counts[cat] = adjustedStories.filter(s => s.category === cat).length;
+      });
+      const donorCat = categories
+        .filter(cat => cat !== targetCat)
+        .sort((a, b) => counts[b] - counts[a])[0];
+
+      const donors = adjustedStories
+        .filter(s => s.category === donorCat)
+        .sort((a, b) => b.rank - a.rank) // lowest importance first
         .slice(0, needed);
-      
-      console.log(`  Moving ${worldStories.length} stories from World to ${targetCat}`);
-      
-      worldStories.forEach(story => {
+
+      console.log(`  Moving ${donors.length} stories from ${donorCat} to ${targetCat}`);
+
+      donors.forEach(story => {
         story.category = targetCat;
       });
     }
@@ -284,30 +306,27 @@ function buildFinalList(clusters, rankings) {
 
   clusters.forEach((cluster, idx) => {
     const primaryStory = cluster[0]; // Use first story as the primary
-    const ranking = rankMap[idx] || { rank: 999, category: 'World' };
+    const ranking = rankMap[idx] || { rank: 999 };
 
-    // Map category names to canonical names
+    // Normalize the LLM's topical category; fall back to heuristics when it is
+    // missing or not one of the 7 topical categories (e.g. old "World"/"U.S.").
     const categoryMap = {
-      'World': 'World',
-      'world': 'World',
-      'US': 'U.S.',
-      'us': 'U.S.',
-      'U.S.': 'U.S.',
-      'Business': 'Business',
-      'business': 'Business',
-      'Technology': 'Technology',
-      'technology': 'Technology',
-      'Entertainment': 'Entertainment',
-      'entertainment': 'Entertainment',
-      'Sports': 'Sports',
-      'sports': 'Sports',
-      'Science': 'Science',
-      'science': 'Science',
-      'Health': 'Health',
-      'health': 'Health',
+      'Politics': 'Politics', 'politics': 'Politics',
+      'Business': 'Business', 'business': 'Business',
+      'Technology': 'Technology', 'technology': 'Technology',
+      'Entertainment': 'Entertainment', 'entertainment': 'Entertainment',
+      'Sports': 'Sports', 'sports': 'Sports',
+      'Science': 'Science', 'science': 'Science',
+      'Health': 'Health', 'health': 'Health',
     };
 
-    const category = categoryMap[ranking.category] || 'World';
+    const mappedCategory = categoryMap[ranking.category];
+    const category = mappedCategory || detectCategory(primaryStory.headline);
+
+    // Region is World or U.S.; prefer the LLM's region, else detect it.
+    const region = (ranking.region === 'U.S.' || ranking.region === 'World')
+      ? ranking.region
+      : detectRegion(primaryStory.headline);
 
     finalStories.push({
       headline: primaryStory.headline,
@@ -315,6 +334,7 @@ function buildFinalList(clusters, rankings) {
       link: primaryStory.link,
       rank: ranking.rank,
       category: category,
+      region: region,
       sources_covering_story: cluster.length,
     });
   });
@@ -325,11 +345,8 @@ function buildFinalList(clusters, rankings) {
   // Select the top 100 while ensuring fair representation across all sources
   const limitedStories = balanceSourceRepresentation(finalStories, 100);
 
-  // Move USA-focused stories from World to U.S. category first
-  const usaMovedStories = moveUSAStoriesFromWorld(limitedStories);
-
   // Ensure minimum 5 stories per category
-  const balancedStories = ensureMinimumPerCategory(usaMovedStories, 5);
+  const balancedStories = ensureMinimumPerCategory(limitedStories, 5);
 
   // Renumber ranks sequentially (1..N) by importance so the displayed
   // ranking is always 1-100 rather than the raw ranking scale.
