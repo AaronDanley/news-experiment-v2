@@ -81,9 +81,38 @@ bias and fact-checking organizations. Edit as needed.
 
 ## Tabloids / gossip / low-quality
 
+Tabloids and outlets focused on celebrity gossip, entertainment rumors, and
+sensationalist coverage.
+
 - TMZ
 - Page Six
 - Medium
+- Daily Mail
+- MailOnline
+- The Sun
+- Daily Star
+- Daily Mirror
+- The Mirror
+- National Enquirer
+- Radar Online
+- New York Post
+- E! News
+- Perez Hilton
+- Hollywood Life
+- Just Jared
+- The Blast
+- OK! Magazine
+- Us Weekly
+- In Touch Weekly
+- Life & Style
+- Star Magazine
+- Closer
+- HELLO! Magazine
+- Heat
+- The Tab
+- Bossip
+- MediaTakeOut
+- The Shade Room
 
 ---
 
