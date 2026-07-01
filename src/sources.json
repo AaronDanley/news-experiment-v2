@@ -170,32 +170,12 @@
 
 
     {
-      "name": "The Wall Street Journal",
-      "domain": "wsj.com",
+      "name": "Bloomberg",
+      "domain": "bloomberg.com",
       "feeds": [
         {
-          "url": "https://feeds.a.dj.com/rss/WSJcomUSBusiness.xml",
-          "category": "business"
-        },
-        {
-          "url": "https://feeds.a.dj.com/rss/RSSWorldNews.xml",
-          "category": "world"
-        },
-        {
-          "url": "https://feeds.a.dj.com/rss/RSSMarketsMain.xml",
-          "category": "business"
-        },
-        {
-          "url": "https://feeds.a.dj.com/rss/RSSWSJD.xml",
+          "url": "https://feeds.bloomberg.com/technology/news.rss",
           "category": "technology"
-        },
-        {
-          "url": "https://feeds.a.dj.com/rss/RSSOpinion.xml",
-          "category": "general"
-        },
-        {
-          "url": "https://feeds.a.dj.com/rss/RSSLifestyle.xml",
-          "category": "entertainment"
         }
       ]
     },
