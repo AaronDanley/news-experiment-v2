@@ -331,6 +331,15 @@ function buildFinalList(clusters, rankings) {
   // Ensure minimum 5 stories per category
   const balancedStories = ensureMinimumPerCategory(usaMovedStories, 5);
 
+  // Renumber ranks sequentially (1..N) by importance so the displayed
+  // ranking is always 1-100 rather than the raw ranking scale.
+  balancedStories
+    .slice()
+    .sort((a, b) => a.rank - b.rank)
+    .forEach((story, idx) => {
+      story.rank = idx + 1;
+    });
+
   return {
     stories: balancedStories,
     total_stories: balancedStories.length,
