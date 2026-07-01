@@ -41,6 +41,8 @@ function generateHTML(data) {
     .story-headline { font-weight: bold; margin-bottom: 5px; }
     .story-meta { color: #666; font-size: 0.9em; }
     .region-tag { display: inline-block; font-size: 0.75em; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; color: #fff; background: #888; border-radius: 3px; padding: 1px 6px; margin-right: 6px; }
+    .region-tag.region-us { background: #6a1b9a; }
+    .region-tag.region-world { background: #00695c; }
     a { color: #0066cc; text-decoration: none; }
     a:hover { text-decoration: underline; }
   </style>
@@ -67,9 +69,10 @@ function generateHTML(data) {
     } else {
       stories.forEach(story => {
         const region = story.region || 'World';
+        const regionClass = region === 'U.S.' ? 'region-us' : 'region-world';
         html += `  <div class="story" data-region="${escapeHtml(region)}">
     <div class="story-headline"><a href="${escapeHtml(story.link)}" target="_blank">${escapeHtml(story.headline)}</a></div>
-    <div class="story-meta"><span class="region-tag">${escapeHtml(region)}</span>${escapeHtml(story.source)} • Ranking ${story.rank}${story.sources_covering_story > 1 ? ` • Covered by ${story.sources_covering_story} sources` : ''}</div>
+    <div class="story-meta"><span class="region-tag ${regionClass}">${escapeHtml(region)}</span>${escapeHtml(story.source)} • Ranking ${story.rank}${story.sources_covering_story > 1 ? ` • Covered by ${story.sources_covering_story} sources` : ''}</div>
   </div>\n`;
       });
     }
