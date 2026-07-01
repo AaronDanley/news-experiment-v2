@@ -180,6 +180,16 @@
       ]
     },
     {
+      "name": "Axios",
+      "domain": "axios.com",
+      "feeds": [
+        {
+          "url": "https://www.axios.com/feeds/feed.rss",
+          "category": "general"
+        }
+      ]
+    },
+    {
       "name": "CBS News",
       "domain": "cbsnews.com",
       "feeds": [
@@ -207,6 +217,105 @@
           "url": "https://news.google.com/rss/search?q=site:usatoday.com&hl=en-US&gl=US&ceid=US:en",
           "category": "general",
           "note": "Google News search filter for USA Today articles"
+        }
+      ]
+    },
+    {
+      "name": "The Wall Street Journal (Google News)",
+      "domain": "wsj.com",
+      "feeds": [
+        {
+          "url": "https://news.google.com/rss/search?q=site:wsj.com+when:1d&hl=en-US&gl=US&ceid=US:en",
+          "category": "business",
+          "note": "Google News proxy — WSJ direct feeds serve stale content"
+        }
+      ]
+    },
+    {
+      "name": "The Economist (Google News)",
+      "domain": "economist.com",
+      "feeds": [
+        {
+          "url": "https://news.google.com/rss/search?q=site:economist.com+when:1d&hl=en-US&gl=US&ceid=US:en",
+          "category": "general",
+          "note": "Google News proxy — direct feed returns HTTP 403"
+        }
+      ]
+    },
+    {
+      "name": "Financial Times (Google News)",
+      "domain": "ft.com",
+      "feeds": [
+        {
+          "url": "https://news.google.com/rss/search?q=site:ft.com+when:1d&hl=en-US&gl=US&ceid=US:en",
+          "category": "business",
+          "note": "Google News proxy — direct feed DNS failure"
+        }
+      ]
+    },
+    {
+      "name": "The New York Times (Google News)",
+      "domain": "nytimes.com",
+      "feeds": [
+        {
+          "url": "https://news.google.com/rss/search?q=site:nytimes.com+when:1d&hl=en-US&gl=US&ceid=US:en",
+          "category": "general",
+          "note": "Google News proxy — direct feed articles paywalled"
+        }
+      ]
+    },
+    {
+      "name": "The Washington Post (Google News)",
+      "domain": "washingtonpost.com",
+      "feeds": [
+        {
+          "url": "https://news.google.com/rss/search?q=site:washingtonpost.com+when:1d&hl=en-US&gl=US&ceid=US:en",
+          "category": "general",
+          "note": "Google News proxy — direct feed articles paywalled"
+        }
+      ]
+    },
+    {
+      "name": "PBS NewsHour (Google News)",
+      "domain": "pbs.org",
+      "feeds": [
+        {
+          "url": "https://news.google.com/rss/search?q=site:pbs.org+when:1d&hl=en-US&gl=US&ceid=US:en",
+          "category": "general",
+          "note": "Google News proxy — direct feed returns HTTP 404"
+        }
+      ]
+    },
+    {
+      "name": "Politico (Google News)",
+      "domain": "politico.com",
+      "feeds": [
+        {
+          "url": "https://news.google.com/rss/search?q=site:politico.com+when:1d&hl=en-US&gl=US&ceid=US:en",
+          "category": "us",
+          "note": "Google News proxy — direct feed returns HTTP 403"
+        }
+      ]
+    },
+    {
+      "name": "Deutsche Welle (Google News)",
+      "domain": "dw.com",
+      "feeds": [
+        {
+          "url": "https://news.google.com/rss/search?q=site:dw.com+when:1d&hl=en-US&gl=US&ceid=US:en",
+          "category": "world",
+          "note": "Google News proxy — direct feed returns HTTP 404"
+        }
+      ]
+    },
+    {
+      "name": "Christian Science Monitor (Google News)",
+      "domain": "csmonitor.com",
+      "feeds": [
+        {
+          "url": "https://news.google.com/rss/search?q=site:csmonitor.com+when:1d&hl=en-US&gl=US&ceid=US:en",
+          "category": "general",
+          "note": "Google News proxy — direct feed DNS failure"
         }
       ]
     }
