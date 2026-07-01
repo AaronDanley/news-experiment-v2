@@ -18,6 +18,10 @@ if (!GROQ_API_KEY) {
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+// Never block the build on a rate-limit cooldown longer than this; fall back
+// to heuristic categorization instead of sleeping for minutes.
+const MAX_RETRY_WAIT_S = 20;
+
 // Simple keyword extraction for deduplication
 function extractKeywords(headline) {
   const stopwords = new Set([
@@ -127,7 +131,6 @@ async function rankStoriesWithLLM(clusters) {
   // very unlikely to reach the top 100 and fall back to heuristics.
   const LLM_CANDIDATE_LIMIT = 150;
   const BATCH_SIZE = 25;
-
   const candidates = [...headlines]
     .sort((a, b) => b.source_count - a.source_count || a.id - b.id)
     .slice(0, LLM_CANDIDATE_LIMIT);
@@ -142,31 +145,38 @@ async function rankStoriesWithLLM(clusters) {
   const llmResults = new Map(); // id -> { importance, region, category }
   let llmFailures = 0;
 
-  for (let b = 0; b < batches.length; b++) {
-    const batch = batches[b];
-    const parsed = await callGroqBatch(batch, b + 1, batches.length);
-
-    if (parsed) {
-      for (const item of parsed) {
-        if (item == null || item.id === undefined) continue;
-        const region = (item.region === 'U.S.' || item.region === 'World')
-          ? item.region
-          : null;
-        const category = TOPICAL_CATEGORIES.includes(item.category)
-          ? item.category
-          : null;
-        let importance = Number(item.importance);
-        if (!Number.isFinite(importance)) importance = 5;
-        importance = Math.max(1, Math.min(10, importance));
-        llmResults.set(item.id, { importance, region, category });
+  // Run batches with bounded concurrency instead of one-at-a-time with 3s
+  // sleeps between each. callGroqBatch already handles 429/retry-after, so a
+  // small concurrency stays within the rate limit while cutting wall time.
+  const GROQ_CONCURRENCY = 3;
+  let batchCursor = 0;
+  async function batchWorker() {
+    while (batchCursor < batches.length) {
+      const b = batchCursor++;
+      const parsed = await callGroqBatch(batches[b], b + 1, batches.length);
+      if (parsed) {
+        for (const item of parsed) {
+          if (item == null || item.id === undefined) continue;
+          const region = (item.region === 'U.S.' || item.region === 'World')
+            ? item.region
+            : null;
+          const category = TOPICAL_CATEGORIES.includes(item.category)
+            ? item.category
+            : null;
+          let importance = Number(item.importance);
+          if (!Number.isFinite(importance)) importance = 5;
+          importance = Math.max(1, Math.min(10, importance));
+          llmResults.set(item.id, { importance, region, category });
+        }
+      } else {
+        llmFailures++;
       }
-    } else {
-      llmFailures++;
     }
-
-    // Small delay between batches to respect the tokens-per-minute limit.
-    if (b < batches.length - 1) await sleep(3000);
   }
+
+  await Promise.all(
+    Array.from({ length: Math.min(GROQ_CONCURRENCY, batches.length) }, batchWorker)
+  );
 
   console.log(`LLM categorized ${llmResults.size} stories (${llmFailures} batch failure(s), remainder use heuristics).`);
 
@@ -244,9 +254,16 @@ Return ONLY a JSON array with one object per headline, like:
       });
       clearTimeout(timeoutId);
 
-      // Rate limited — wait and retry.
+      // Rate limited — wait and retry, but never block the whole build on a
+      // long cooldown (Groq's free tier can return retry-after of many
+      // minutes when the daily quota is exhausted). If the requested wait is
+      // too long, give up on the LLM for this batch and use heuristics.
       if (response.status === 429) {
         const retryAfter = Number(response.headers.get('retry-after')) || (attempt * 8);
+        if (retryAfter > MAX_RETRY_WAIT_S) {
+          console.log(`  Batch ${batchNum}/${batchTotal}: rate limited (${retryAfter}s cooldown) — skipping LLM, using heuristics.`);
+          return null;
+        }
         console.log(`  Batch ${batchNum}/${batchTotal}: rate limited, waiting ${retryAfter}s...`);
         await sleep(retryAfter * 1000);
         continue;
@@ -348,13 +365,22 @@ function buildFinalList(clusters, rankings) {
     };
 
     const mappedCategory = categoryMap[ranking.category];
-    // When neither the LLM nor the headline heuristic yields a specific topic,
-    // fall back to the source feed's declared topical category (e.g. NASA's
-    // "science" feed) before landing on the Politics catch-all.
-    const hintCategory = categoryMap[(primaryStory.category_hint || '').toLowerCase()];
+    // Google News topic feeds are reliably curated, so trust the feed's topical
+    // category over the headline heuristic. The same story can appear in several
+    // feeds (dedup clusters them), so scan the whole cluster and pick the most
+    // specific topical hint present. "general"/"world"/"us" are non-topical and
+    // ignored here (they fall through to the heuristic, which can return Politics).
+    const CATEGORY_HINT_PRIORITY = ['Health', 'Science', 'Sports', 'Entertainment', 'Technology', 'Business'];
+    let clusterHint = null;
+    for (const cat of CATEGORY_HINT_PRIORITY) {
+      if (cluster.some(s => categoryMap[(s.category_hint || '').toLowerCase()] === cat)) {
+        clusterHint = cat;
+        break;
+      }
+    }
     const heuristicCategory = detectCategory(primaryStory.headline);
-    const category = mappedCategory
-      || (heuristicCategory === 'Politics' && hintCategory ? hintCategory : heuristicCategory);
+    // Priority: LLM category > topical feed hint > headline heuristic.
+    const category = mappedCategory || clusterHint || heuristicCategory;
 
     // Region is World or U.S.; prefer the LLM's region, else detect it.
     const region = (ranking.region === 'U.S.' || ranking.region === 'World')

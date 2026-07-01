@@ -16,6 +16,43 @@ const PAYWALLED_DOMAINS = paywallData.paywalled_domains;
 
 const FEED_TIMEOUT_MS = 10000; // Per-feed hard timeout
 
+// Named HTML entities that commonly appear in RSS titles.
+const NAMED_ENTITIES = {
+  amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ',
+  hellip: '…', mdash: '—', ndash: '–', rsquo: '’', lsquo: '‘',
+  rdquo: '”', ldquo: '“', ldquod: '“', copy: '©', reg: '®', trade: '™',
+};
+
+// Decodes numeric (decimal/hex) and common named HTML entities so headlines
+// like "ridiculous &#8216;rate limits&#8217;" render as real characters.
+function decodeEntities(text) {
+  if (!text) return text;
+  return text
+    .replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCodePoint(parseInt(h, 16)))
+    .replace(/&#(\d+);/g, (_, d) => String.fromCodePoint(parseInt(d, 10)))
+    .replace(/&([a-z]+);/gi, (m, name) => {
+      const key = name.toLowerCase();
+      return Object.prototype.hasOwnProperty.call(NAMED_ENTITIES, key) ? NAMED_ENTITIES[key] : m;
+    });
+}
+
+// Google News topic/search feeds format each item title as "Headline - Publisher".
+// Splits off that trailing publisher so we can show the real outlet and keep a
+// clean headline. Returns { headline, publisher } (publisher is null when the
+// last segment doesn't look like a source label).
+function splitGoogleNewsTitle(title) {
+  if (!title) return { headline: title, publisher: null };
+  const idx = title.lastIndexOf(' - ');
+  if (idx === -1) return { headline: title.trim(), publisher: null };
+  const headline = title.slice(0, idx).trim();
+  const publisher = title.slice(idx + 3).trim();
+  // A real publisher label is short; a long tail is probably part of the title.
+  if (!headline || !publisher || publisher.length > 40 || publisher.split(/\s+/).length > 6) {
+    return { headline: title.trim(), publisher: null };
+  }
+  return { headline, publisher };
+}
+
 async function fetchFeed(feedUrl) {
   // Use AbortController so the underlying socket is actually torn down on timeout.
   // (Promise.race alone leaves the connection open, which keeps Node's event loop
@@ -189,9 +226,14 @@ function isJunkStory(headline, link) {
   if (link && /\/\/(click|email|link|track|e)\./i.test(link)) return true;
 
   // Live streams / rolling coverage pages (e.g. "LIVE: ABC News Live",
-  // "WATCH LIVE: ...")
+  // "WATCH LIVE: ...", ESPN's "Follow live: ..." / "Latest ... buzz: Live updates")
   if (/^(watch\s+)?live[:\s]/i.test(raw)) return true;
+  if (/^follow live\b/i.test(raw)) return true;
+  if (/\blive updates\b/i.test(raw)) return true;
   if (/\b(news live|live stream|watch live|live blog)\s*$/i.test(raw)) return true;
+
+  // ESPN-style internal duplicate entries prefixed "Copy of ...".
+  if (/^copy of\b/i.test(raw)) return true;
 
   // Full episodes / show landing pages (e.g. "PBS News Hour full")
   if (/\bfull (episode|show)\b/i.test(raw)) return true;
@@ -320,11 +362,23 @@ async function fetchAllFeeds() {
 
   console.log(`Starting to fetch feeds (looking for stories from the last ${HOURS_BACK} hours)...`);
 
+  const feedTasks = [];
   for (const source of sourcesData.sources) {
-    console.log(`\nProcessing ${source.name}...`);
-    
     for (const feedConfig of source.feeds) {
-      console.log(`  Fetching: ${feedConfig.url}`);
+      feedTasks.push({ source, feedConfig });
+    }
+  }
+
+  // Fetch feeds concurrently (bounded) instead of serially — the old serial
+  // loop with per-feed timeouts + sleeps could take minutes. Order of the
+  // resulting stories doesn't matter; they're deduped/ranked downstream.
+  const FETCH_CONCURRENCY = 8;
+  let cursor = 0;
+  async function worker() {
+    while (cursor < feedTasks.length) {
+      const { source, feedConfig } = feedTasks[cursor++];
+      const isGoogleNews = /news\.google\.com/i.test(feedConfig.url);
+      console.log(`  Fetching (${source.name}): ${feedConfig.url}`);
       const items = await fetchFeed(feedConfig.url);
 
       for (const item of items) {
@@ -335,36 +389,44 @@ async function fetchAllFeeds() {
 
         // Check paywall
         if (isPaywalled(item.link)) {
-          console.log(`    Skipping paywalled: ${item.title}`);
           continue;
+        }
+
+        // For Google News feeds, the item title is "Headline - Publisher".
+        // Pull out the real publisher and clean the headline.
+        let rawTitle = item.title;
+        let publisher = null;
+        if (isGoogleNews) {
+          const split = splitGoogleNewsTitle(item.title);
+          rawTitle = split.headline;
+          publisher = split.publisher;
         }
 
         // Skip non-article noise (section pages, newsletters, puzzles, etc.).
         // Run the junk check on the agency-stripped title so end-anchored
         // patterns (dates, "| Season 2026", etc.) match correctly.
-        const cleanTitle = stripAgencySuffix(item.title, source.name);
+        const cleanTitle = decodeEntities(stripAgencySuffix(rawTitle, publisher || source.name));
         if (isJunkStory(cleanTitle, item.link)) {
           junkSkipped++;
           continue;
         }
 
-        const story = {
+        allStories.push({
           headline: cleanTitle || '',
           link: item.link || '',
-          source: source.name,
+          source: publisher || source.name,
           source_domain: source.domain,
           category_hint: feedConfig.category,
           published_at: item.pubDate,
           guid: item.guid || item.link || item.title, // For deduplication
-        };
-
-        allStories.push(story);
+        });
       }
-
-      // Small delay between feeds to be respectful
-      await new Promise(resolve => setTimeout(resolve, 500));
     }
   }
+
+  await Promise.all(
+    Array.from({ length: Math.min(FETCH_CONCURRENCY, feedTasks.length) }, worker)
+  );
 
   console.log(`\nFetched ${allStories.length} stories total (before deduplication)`);
   if (junkSkipped > 0) {

@@ -1,0 +1,367 @@
+{
+  "sources": [
+    {
+      "name": "NPR",
+      "domain": "npr.org",
+      "feeds": [
+        {
+          "url": "https://feeds.npr.org/1001/rss.xml",
+          "category": "general"
+        }
+      ]
+    },
+    {
+      "name": "BBC News",
+      "domain": "bbc.com",
+      "feeds": [
+        {
+          "url": "https://feeds.bbci.co.uk/news/rss.xml",
+          "category": "world"
+        },
+        {
+          "url": "https://feeds.bbci.co.uk/news/world/rss.xml",
+          "category": "world"
+        },
+        {
+          "url": "https://feeds.bbci.co.uk/news/business/rss.xml",
+          "category": "business"
+        },
+        {
+          "url": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml",
+          "category": "science"
+        },
+        {
+          "url": "https://feeds.bbci.co.uk/sport/rss.xml",
+          "category": "sports"
+        },
+        {
+          "url": "https://feeds.bbci.co.uk/news/entertainment_and_arts/rss.xml",
+          "category": "entertainment"
+        },
+        {
+          "url": "https://feeds.bbci.co.uk/news/health/rss.xml",
+          "category": "health"
+        }
+      ]
+    },
+    {
+      "name": "Reuters",
+      "domain": "reuters.com",
+      "feeds": [
+        {
+          "url": "https://news.google.com/rss/search?q=site:reuters.com+when:1d&hl=en-US&gl=US&ceid=US:en",
+          "category": "general",
+          "note": "Google News search fallback"
+        }
+      ]
+    },
+    {
+      "name": "Associated Press",
+      "domain": "apnews.com",
+      "feeds": [
+        {
+          "url": "https://news.google.com/rss/search?q=site:apnews.com+when:1d&hl=en-US&gl=US&ceid=US:en",
+          "category": "general",
+          "note": "Google News search fallback"
+        }
+      ]
+    },
+    {
+      "name": "The Guardian",
+      "domain": "theguardian.com",
+      "feeds": [
+        {
+          "url": "https://www.theguardian.com/international/rss",
+          "category": "world"
+        },
+        {
+          "url": "https://www.theguardian.com/us/rss",
+          "category": "us"
+        },
+        {
+          "url": "https://www.theguardian.com/business/rss",
+          "category": "business"
+        },
+        {
+          "url": "https://www.theguardian.com/technology/rss",
+          "category": "technology"
+        },
+        {
+          "url": "https://www.theguardian.com/sport/rss",
+          "category": "sports"
+        },
+        {
+          "url": "https://www.theguardian.com/culture/rss",
+          "category": "entertainment"
+        },
+        {
+          "url": "https://www.theguardian.com/society/health/rss",
+          "category": "health"
+        }
+      ]
+    },
+    {
+      "name": "NBC News",
+      "domain": "nbcnews.com",
+      "feeds": [
+        {
+          "url": "https://feeds.nbcnews.com/nbcnews/public/news",
+          "category": "general"
+        }
+      ]
+    },
+
+    {
+      "name": "ABC News",
+      "domain": "abcnews.go.com",
+      "feeds": [
+        {
+          "url": "https://feeds.abcnews.com/abcnews/topstories",
+          "category": "general"
+        }
+      ]
+    },
+
+
+    {
+      "name": "The Hill",
+      "domain": "thehill.com",
+      "feeds": [
+        {
+          "url": "https://thehill.com/feed/",
+          "category": "us"
+        }
+      ]
+    },
+
+
+    {
+      "name": "The Atlantic",
+      "domain": "theatlantic.com",
+      "feeds": [
+        {
+          "url": "https://www.theatlantic.com/feed/all/",
+          "category": "general"
+        }
+      ]
+    },
+    {
+      "name": "The New Yorker",
+      "domain": "newyorker.com",
+      "feeds": [
+        {
+          "url": "https://www.newyorker.com/feed/rss",
+          "category": "general"
+        }
+      ]
+    },
+    {
+      "name": "Time",
+      "domain": "time.com",
+      "feeds": [
+        {
+          "url": "https://time.com/feed",
+          "category": "general"
+        }
+      ]
+    },
+
+
+
+
+    {
+      "name": "Bloomberg",
+      "domain": "bloomberg.com",
+      "feeds": [
+        {
+          "url": "https://feeds.bloomberg.com/technology/news.rss",
+          "category": "technology"
+        }
+      ]
+    },
+    {
+      "name": "Axios",
+      "domain": "axios.com",
+      "feeds": [
+        {
+          "url": "https://www.axios.com/feeds/feed.rss",
+          "category": "general"
+        }
+      ]
+    },
+    {
+      "name": "CBS News",
+      "domain": "cbsnews.com",
+      "feeds": [
+        {
+          "url": "https://www.cbsnews.com/latest/rss/main",
+          "category": "general"
+        }
+      ]
+    },
+    {
+      "name": "ProPublica",
+      "domain": "propublica.org",
+      "feeds": [
+        {
+          "url": "https://feeds.propublica.org/propublica/main",
+          "category": "general"
+        }
+      ]
+    },
+    {
+      "name": "USA Today",
+      "domain": "usatoday.com",
+      "feeds": [
+        {
+          "url": "https://news.google.com/rss/search?q=site:usatoday.com&hl=en-US&gl=US&ceid=US:en",
+          "category": "general",
+          "note": "Google News search filter for USA Today articles"
+        }
+      ]
+    },
+    {
+      "name": "The Wall Street Journal",
+      "domain": "wsj.com",
+      "feeds": [
+        {
+          "url": "https://news.google.com/rss/search?q=site:wsj.com+when:1d&hl=en-US&gl=US&ceid=US:en",
+          "category": "business",
+          "note": "Google News proxy — WSJ direct feeds serve stale content"
+        }
+      ]
+    },
+    {
+      "name": "The Economist",
+      "domain": "economist.com",
+      "feeds": [
+        {
+          "url": "https://news.google.com/rss/search?q=site:economist.com+when:1d&hl=en-US&gl=US&ceid=US:en",
+          "category": "general",
+          "note": "Google News proxy — direct feed returns HTTP 403"
+        }
+      ]
+    },
+    {
+      "name": "Financial Times",
+      "domain": "ft.com",
+      "feeds": [
+        {
+          "url": "https://news.google.com/rss/search?q=site:ft.com+when:1d&hl=en-US&gl=US&ceid=US:en",
+          "category": "business",
+          "note": "Google News proxy — direct feed DNS failure"
+        }
+      ]
+    },
+    {
+      "name": "The New York Times",
+      "domain": "nytimes.com",
+      "feeds": [
+        {
+          "url": "https://news.google.com/rss/search?q=site:nytimes.com+when:1d&hl=en-US&gl=US&ceid=US:en",
+          "category": "general",
+          "note": "Google News proxy — direct feed articles paywalled"
+        }
+      ]
+    },
+    {
+      "name": "The Washington Post",
+      "domain": "washingtonpost.com",
+      "feeds": [
+        {
+          "url": "https://news.google.com/rss/search?q=site:washingtonpost.com+when:1d&hl=en-US&gl=US&ceid=US:en",
+          "category": "general",
+          "note": "Google News proxy — direct feed articles paywalled"
+        }
+      ]
+    },
+    {
+      "name": "PBS NewsHour",
+      "domain": "pbs.org",
+      "feeds": [
+        {
+          "url": "https://news.google.com/rss/search?q=site:pbs.org+when:1d&hl=en-US&gl=US&ceid=US:en",
+          "category": "general",
+          "note": "Google News proxy — direct feed returns HTTP 404"
+        }
+      ]
+    },
+    {
+      "name": "Politico",
+      "domain": "politico.com",
+      "feeds": [
+        {
+          "url": "https://news.google.com/rss/search?q=site:politico.com+when:1d&hl=en-US&gl=US&ceid=US:en",
+          "category": "us",
+          "note": "Google News proxy — direct feed returns HTTP 403"
+        }
+      ]
+    },
+    {
+      "name": "Deutsche Welle",
+      "domain": "dw.com",
+      "feeds": [
+        {
+          "url": "https://news.google.com/rss/search?q=site:dw.com+when:1d&hl=en-US&gl=US&ceid=US:en",
+          "category": "world",
+          "note": "Google News proxy — direct feed returns HTTP 404"
+        }
+      ]
+    },
+    {
+      "name": "Christian Science Monitor",
+      "domain": "csmonitor.com",
+      "feeds": [
+        {
+          "url": "https://news.google.com/rss/search?q=site:csmonitor.com+when:1d&hl=en-US&gl=US&ceid=US:en",
+          "category": "general",
+          "note": "Google News proxy — direct feed DNS failure"
+        }
+      ]
+    },
+    {
+      "name": "CNN",
+      "domain": "cnn.com",
+      "feeds": [
+        {
+          "url": "https://news.google.com/rss/search?q=site:cnn.com+when:1d&hl=en-US&gl=US&ceid=US:en",
+          "category": "general",
+          "note": "Google News proxy — rss.cnn.com feeds are deprecated and serve frozen 2018-2023 content"
+        }
+      ]
+    },
+    {
+      "name": "NASA",
+      "domain": "nasa.gov",
+      "feeds": [
+        {
+          "url": "https://news.google.com/rss/search?q=site:nasa.gov+when:1d&hl=en-US&gl=US&ceid=US:en",
+          "category": "science",
+          "note": "Google News proxy — science/space coverage"
+        }
+      ]
+    },
+    {
+      "name": "The Verge",
+      "domain": "theverge.com",
+      "feeds": [
+        {
+          "url": "https://www.theverge.com/rss/index.xml",
+          "category": "technology",
+          "note": "Native feed — main feed covers tech/AI/business; /tech/rss returns 404"
+        }
+      ]
+    },
+    {
+      "name": "ESPN",
+      "domain": "espn.com",
+      "feeds": [
+        {
+          "url": "https://www.espn.com/espn/rss/news",
+          "category": "sports",
+          "note": "Native feed — general sports news"
+        }
+      ]
+    }
+  ]
+}
