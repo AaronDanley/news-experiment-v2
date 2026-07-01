@@ -75,8 +75,72 @@ function isPaywalled(url) {
   return PAYWALLED_DOMAINS.some(pd => domain.includes(pd));
 }
 
+// Section/index landing-page titles (after stripping the trailing " - Publisher"
+// that Google News appends). These are navigation pages, not articles.
+const JUNK_TITLE_PATTERNS = [
+  /^leaders$/i,
+  /^politics$/i,
+  /^opinion$/i,
+  /^business$/i,
+  /^world( news)?$/i,
+  /^u\.?s\.?( news)?$/i,
+  /^sports?$/i,
+  /^science$/i,
+  /^health$/i,
+  /^technology$/i,
+  /^entertainment$/i,
+  /^culture$/i,
+  /^lifestyle$/i,
+  /^obituaries$/i,
+  /^notable obituaries$/i,
+  /^briefing$/i,
+  /^newsletters?$/i,
+  /^podcasts?$/i,
+  /^videos?$/i,
+  /^photos?$/i,
+  /^letters$/i,
+  /^most popular$/i,
+  /^the economist explains$/i,
+  /^graphic detail$/i,
+  /^home$/i,
+];
+
+// Filters out non-article noise from feeds (especially Google News proxies):
+// section pages, topic indexes, newsletters/tracking links, and puzzles/games.
+function isJunkStory(headline, link) {
+  if (!headline) return true;
+  const raw = headline.trim();
+
+  // Too short to be a real headline
+  if (raw.length < 12) return true;
+
+  // Games / puzzles
+  if (/\b(crossword|wordle|sudoku|the mini|spelling bee|acrostic|quiz of the (day|week))\b/i.test(raw)) {
+    return true;
+  }
+
+  // Topic index / paginated listing pages
+  if (/all content on this topic/i.test(raw)) return true;
+  if (/page \d+ of \d+/i.test(raw)) return true;
+
+  // Stray newsletter/tracking-link headlines (e.g. "- click.e.economist.com")
+  if (raw.startsWith('-')) return true;
+  if (link && /\/\/(click|email|link|track|e)\./i.test(link)) return true;
+
+  // Strip the trailing " - Publisher" Google News appends, then test the title
+  const titlePart = raw.replace(/\s+[-–|]\s+[^-–|]+$/, '').trim();
+
+  // Bare domain as a "headline" (e.g. "click.e.economist.com")
+  if (/^[\w-]+(\.[\w-]+)+$/.test(titlePart)) return true;
+
+  if (JUNK_TITLE_PATTERNS.some(p => p.test(titlePart))) return true;
+
+  return false;
+}
+
 async function fetchAllFeeds() {
   const allStories = [];
+  let junkSkipped = 0;
 
   console.log(`Starting to fetch feeds (looking for stories from the last ${HOURS_BACK} hours)...`);
 
@@ -99,6 +163,12 @@ async function fetchAllFeeds() {
           continue;
         }
 
+        // Skip non-article noise (section pages, newsletters, puzzles, etc.)
+        if (isJunkStory(item.title, item.link)) {
+          junkSkipped++;
+          continue;
+        }
+
         const story = {
           headline: item.title || '',
           link: item.link || '',
@@ -118,6 +188,9 @@ async function fetchAllFeeds() {
   }
 
   console.log(`\nFetched ${allStories.length} stories total (before deduplication)`);
+  if (junkSkipped > 0) {
+    console.log(`Skipped ${junkSkipped} non-article entries (section pages, newsletters, puzzles)`);
+  }
   return allStories;
 }
 

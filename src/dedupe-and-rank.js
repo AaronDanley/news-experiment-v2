@@ -234,6 +234,45 @@ function ensureMinimumPerCategory(stories, minPerCategory = 5) {
   return adjustedStories;
 }
 
+function balanceSourceRepresentation(stories, limit = 100) {
+  // Group stories by source, each group ordered by importance (rank).
+  const bySource = {};
+  for (const story of stories) {
+    if (!bySource[story.source]) bySource[story.source] = [];
+    bySource[story.source].push(story);
+  }
+  Object.values(bySource).forEach(arr => arr.sort((a, b) => a.rank - b.rank));
+
+  const selected = [];
+  let addedThisRound = true;
+
+  // Round-robin: each round, take the next most-important story from every source.
+  // Within a round, sources are ordered by the rank of their next story so the
+  // biggest stories still surface first. This guarantees every source appears
+  // before any single source can take a second slot.
+  while (selected.length < limit && addedThisRound) {
+    addedThisRound = false;
+
+    const sourcesWithStories = Object.keys(bySource)
+      .filter(src => bySource[src].length > 0)
+      .sort((a, b) => bySource[a][0].rank - bySource[b][0].rank);
+
+    for (const src of sourcesWithStories) {
+      if (selected.length >= limit) break;
+      selected.push(bySource[src].shift());
+      addedThisRound = true;
+    }
+  }
+
+  // Re-sort the final selection by importance for display.
+  selected.sort((a, b) => a.rank - b.rank);
+
+  const sourceCount = new Set(selected.map(s => s.source)).size;
+  console.log(`\nBalanced selection: ${selected.length} stories across ${sourceCount} sources`);
+
+  return selected;
+}
+
 function buildFinalList(clusters, rankings) {
   // Create a map of rankings
   const rankMap = {};
@@ -283,8 +322,8 @@ function buildFinalList(clusters, rankings) {
   // Sort by rank
   finalStories.sort((a, b) => a.rank - b.rank);
 
-  // Limit to 100 stories
-  const limitedStories = finalStories.slice(0, 100);
+  // Select the top 100 while ensuring fair representation across all sources
+  const limitedStories = balanceSourceRepresentation(finalStories, 100);
 
   // Move USA-focused stories from World to U.S. category first
   const usaMovedStories = moveUSAStoriesFromWorld(limitedStories);
