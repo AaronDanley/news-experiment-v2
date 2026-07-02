@@ -338,6 +338,15 @@ function isJunkStory(headline, link) {
     return true;
   }
 
+  // Product/media review roundups and buying-guide slop — not news.
+  // (e.g. "Rhythm Heaven Groove reviews roundup", "iPhone 18 review roundup")
+  if (/\breviews?\s+round[\s-]?up\b/i.test(raw)) return true;
+  if (/\bround[\s-]?up\s+of\s+reviews\b/i.test(raw)) return true;
+  // Shopping / deals / buying-guide content.
+  if (/\b(best deals?|deals of the|prime day|black friday|cyber monday|discount code|coupon|promo code|gift guide|buying guide|where to buy|best \w+ to buy)\b/i.test(raw)) return true;
+  // "How/where to watch/stream" service-journalism listicles.
+  if (/\b(how|where) to (watch|stream|listen)\b/i.test(raw)) return true;
+
   // Topic index / paginated listing pages
   if (/all content on this topic/i.test(raw)) return true;
   if (/page \d+ of \d+/i.test(raw)) return true;
@@ -499,10 +508,18 @@ async function fetchAllFeeds() {
     while (cursor < feedTasks.length) {
       const { source, feedConfig } = feedTasks[cursor++];
       const isGoogleNews = /news\.google\.com/i.test(feedConfig.url);
+      // The "general" Google News feed is the editorially-curated Top Stories
+      // list; its item order reflects Google's own importance ranking.
+      const isTopStories = feedConfig.category === 'general';
       console.log(`  Fetching (${source.name}): ${feedConfig.url}`);
       const items = await fetchFeed(feedConfig.url);
 
-      for (const item of items) {
+      for (let i = 0; i < items.length; i++) {
+        const item = items[i];
+        // Position of this item within its feed (1-based), captured BEFORE any
+        // recency/junk filtering so it reflects the feed's original ordering.
+        const feedPosition = i + 1;
+
         // Check recency
         if (!isWithinHours(item.pubDate)) {
           continue;
@@ -558,6 +575,9 @@ async function fetchAllFeeds() {
           published_at: item.pubDate,
           guid: item.guid || item.link || item.title, // For deduplication
           google_sources: relatedSources, // Google's related-outlet list (Google News only)
+          feed_position: feedPosition, // 1-based position within its source feed
+          is_top_stories: isTopStories, // From Google News "Top Stories" (editorial ranking)
+          top_stories_position: isTopStories ? feedPosition : null, // Rank in Top Stories feed
         });
       }
     }

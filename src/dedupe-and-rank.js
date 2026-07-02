@@ -77,6 +77,18 @@ function clusterCoverage(cluster) {
   return { count: byNormalized.size, names: [...byNormalized.values()] };
 }
 
+// Best (lowest) Google News "Top Stories" position across a cluster. The same
+// story often appears in Top Stories AND topic feeds; we take its strongest
+// editorial placement. Returns null when no cluster member is a Top Story.
+function clusterTopStoriesPosition(cluster) {
+  let best = null;
+  for (const s of cluster) {
+    const p = s.top_stories_position;
+    if (p != null && (best == null || p < best)) best = p;
+  }
+  return best;
+}
+
 function deduplicateStories(stories) {
   const clusters = [];
   const processed = new Set();
@@ -132,28 +144,86 @@ const CATEGORY_PATTERNS = [
   ['Health', /\b(covid|coronavirus|virus|disease|vaccine|vaccination|hospitals?|cancer|medical|medicine|doctors?|patients?|fda|outbreak|mental health|obesity|diabetes|flu|measles|opioid|abortion|pregnan|therapy|surgery|pandemic|epidemic|tuberculosis|malaria|infection|immunization|hiv|aids|covid-19)\b/i],
   ['Science', /\b(science|scientists?|space|spacewalks?|spacecrafts?|astronauts?|aerospace|nasa|spacex|rocket|satellite|telescopes?|orbit|cosmic|cosmos|nebula|asteroids?|meteors?|comet|climate|global warming|studies|researchers?|discovery|physics|astronomy|astrophysics|galaxy|galaxies|planet|mars|moon|fossils?|dinosaur|species|archaeolog|geolog|volcano|earthquake|wildlife|ocean|biology|genome)\b/i],
   ['Sports', /\b(sports?|championship|tournament|nba|nfl|mlb|nhl|ncaa|soccer|basketball|baseball|hockey|tennis|golf|olympics?|world cup|playoffs?|finals?|coach|league|fifa|uefa|grand slam|marathon|formula 1|f1|premier league|super bowl|free agency|free agent|quarterback|touchdown|home run|draft pick|midseason|wimbledon|lebron|lakers|celtics|warriors|knicks|yankees|dodgers|cowboys|patriots|athlete)\b/i],
-  ['Arts & Entertainment', /\b(movie|films?|music|celebrity|celebrities|tv show|hollywood|album|actors?|actress|singers?|oscars?|grammys?|emmys?|box office|streaming|netflix|concert|festival|premiere|red carpet|billboard|books?|literary|novel|author|theater|theatre|ballet|opera|dance|gallery|art|artwork|museum|exhibition|painting|sculpture|playwright|broadway|shakespeare|artist|photography|photographer|fashion|design|documentary)\b/i],
+  ['Arts & Entertainment', /\b(movie|films?|music|celebrity|celebrities|tv show|hollywood|album|actors?|actress|singers?|oscars?|grammys?|emmys?|box office|streaming|netflix|concert|festival|premiere|red carpet|billboard|books?|literary|novel|author|theater|theatre|ballet|opera|dance|gallery|art|artwork|museum|exhibition|painting|sculpture|playwright|broadway|shakespeare|artist|photography|photographer|fashion|design|documentary|video ?games?|pc game|console game|indie game|\bmmo\b|\brpg\b|first-person shooter|gaming|gamer|nintendo|playstation|\bps5\b|xbox|\bwii\b|game(?:play)? (?:review|trailer|roundup)|comic ?con|marvel|dc comics|showrunner|screenwriter)\b/i],
   ['Technology', /\b(tech|technology|\bai\b|artificial intelligence|software|hardware|\bapp\b|apps|smartphones?|iphone|android|google|apple|microsoft|amazon|meta|openai|chatgpt|chips?|semiconductor|robots?|cyber|hacking|data breach|crypto|bitcoin|startup|silicon valley|algorithm|quantum)\b/i],
   ['Business', /\b(business|econom|markets?|stocks?|shares?|trade war|trading|earnings|revenue|profits?|inflation|recession|unemployment|\bfed\b|federal reserve|interest rate|gdp|mergers?|acquisition|ipo|tariffs?|banks?|investors?|nasdaq|dow jones|s&p 500|layoffs?|\bceo\b|jobs report)\b/i],
   ['Politics', /\b(politic|elections?|president|congress|senate|parliament|government|policy|votes?|voters?|campaign|\bwar\b|military|troops|courts?|lawsuit|legislation|immigration|border|protests?|minister|sanctions?|diplomat|treaty|nato|united nations|coup|referendum|governor|mayor|prime minister|foreign policy|nuclear|ceasefire|airstrike|election)\b/i],
 ];
 
-function detectCategory(headline) {
+function detectCategory(headline, sourceNames = []) {
   const text = headline || '';
   for (const [cat, re] of CATEGORY_PATTERNS) {
     if (re.test(text)) return cat;
   }
+  // Headline gave no topical signal. Infer from the outlets covering the story:
+  // if it is carried mainly by specialist outlets (entertainment, tech, sports,
+  // business, science) it belongs in that section, not the Politics catch-all.
+  const outletCategory = inferCategoryFromOutlets(sourceNames);
+  if (outletCategory) return outletCategory;
   // General / hard news with no specific topic defaults to Politics.
   return 'Politics';
 }
 
+// Specialist outlets whose beat reliably indicates a story's topical category.
+// Used only when the headline itself has no topical keyword.
+const OUTLET_CATEGORY = {
+  'Arts & Entertainment': new Set([
+    'variety', 'deadline', 'thewrap', 'the hollywood reporter', 'vanity fair',
+    'rolling stone', 'a.v. club', 'tvline', 'vulture', 'billboard', 'pitchfork',
+    'entertainment weekly', 'polygon', 'game informer', 'nintendo everything',
+    'kotaku', 'ign', 'eurogamer', 'pc gamer', 'comic basics', 'collider',
+    'video games chronicle', 'gamespot', 'gamesradar+', 'gamesradar', 'destructoid',
+    'the a.v. club', 'creative bloq', 'comic book resources', 'comicbook.com',
+  ]),
+  'Technology': new Set([
+    'techcrunch', 'the verge', 'wired', 'ars technica', 'cnet', 'gizmodo',
+    'engadget', 'macrumors', '9to5mac', 'appleinsider', 'phonearena', 'macworld',
+    'bleepingcomputer', 'the information', 'venturebeat', 'the register',
+  ]),
+  'Sports': new Set([
+    'espn', 'the athletic', 'bleacher report', 'cbs sports', 'yahoo sports',
+    'nbc sports', 'sportsnet.ca', 'sportsnet', 'defector', 'andscape',
+    'blazer\'s edge', 'celticsblog', 'prohockeyrumors',
+  ]),
+  'Business': new Set([
+    'bloomberg', 'cnbc', 'marketwatch', "barron's", 'forbes', 'fortune',
+    'yahoo finance', 'investopedia', 'seeking alpha', 'business insider',
+    'fox business', 'investor\'s business daily', 'tipranks', 'tradingview',
+  ]),
+  'Science': new Set([
+    'live science', 'popular science', 'sciencealert', 'nature', 'space.com',
+    'phys.org', 'new scientist',
+  ]),
+};
+
+function inferCategoryFromOutlets(sourceNames) {
+  if (!sourceNames || sourceNames.length === 0) return null;
+  const counts = {};
+  for (const name of sourceNames) {
+    const n = normalizeSourceName(name);
+    for (const [cat, set] of Object.entries(OUTLET_CATEGORY)) {
+      if (set.has(n)) counts[cat] = (counts[cat] || 0) + 1;
+    }
+  }
+  const ranked = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+  return ranked.length > 0 ? ranked[0][0] : null;
+}
+
 async function rankStoriesWithLLM(clusters) {
   // Prepare the headlines for categorization
-  const headlines = clusters.map((cluster, idx) => ({
-    id: idx,
-    headline: cluster[0].headline, // Use first story's headline
-    source_count: clusterCoverage(cluster).count,
-  }));
+  const headlines = clusters.map((cluster, idx) => {
+    const coverage = clusterCoverage(cluster);
+    // A story picked up by no national outlet (only local TV/regional papers)
+    // is local news — big stories always get carried by AP/Reuters/CNN/etc.
+    return {
+      id: idx,
+      headline: cluster[0].headline, // Use first story's headline
+      source_count: coverage.count,
+      sourceNames: coverage.names,
+      isLocalOnly: isLocalOnlyStory(coverage.names),
+      topStoriesPosition: clusterTopStoriesPosition(cluster),
+    };
+  });
 
   // Only the strongest candidates (by source coverage) are sent to the LLM so
   // the number of requests stays small and within the rate limit. The rest are
@@ -209,29 +279,84 @@ async function rankStoriesWithLLM(clusters) {
 
   console.log(`LLM categorized ${llmResults.size} stories (${llmFailures} batch failure(s), remainder use heuristics).`);
 
+  // Google News "Top Stories" editorial boost. Stories appearing in the
+  // curated Top Stories feed get a position-decayed bump so Google's own
+  // ranking strongly influences ours without being a hard 1-N override.
+  // #1 adds the full MAX_TOP_BOOST; the boost fades to 0 past the window.
+  const TOP_STORIES_WINDOW = 20; // only the top N positions earn a boost
+  const MAX_TOP_BOOST = 4;       // importance points added to the #1 slot
+  function topStoriesBoost(position) {
+    if (position == null || position > TOP_STORIES_WINDOW) return 0;
+    return ((TOP_STORIES_WINDOW - position + 1) / TOP_STORIES_WINDOW) * MAX_TOP_BOOST;
+  }
+
+  // Coverage-quality boost. Raw source_count treats a local TV station the same
+  // as Reuters; this weights pickup by outlet tier so a story carried by a few
+  // Tier-1 outlets outranks one carried by many local/regional ones. Only the
+  // top tiers contribute (raw count already reflects the long tail), and the
+  // total is capped so prestige nudges rather than dominates LLM importance.
+  const MAX_COVERAGE_BOOST = 2; // importance points from high-quality pickup
+  function coverageQualityBoost(sourceNames) {
+    let score = 0;
+    for (const name of sourceNames || []) {
+      const tier = getOutletTier(name);
+      if (tier === 1) score += 1;        // AP/Reuters/BBC/NYT/etc.
+      else if (tier === 2) score += 0.6; // major regional/intl, sports/ent
+      else if (tier === 3) score += 0.3; // niche but credible
+      // tier 4/5 add nothing here — raw source_count already counts them
+    }
+    return Math.min(MAX_COVERAGE_BOOST, score);
+  }
+
   // Combine LLM output with heuristic fallback for everything else.
   const enriched = headlines.map(h => {
     const llm = llmResults.get(h.id);
     const region = (llm && llm.region) || detectRegion(h.headline);
-    const category = (llm && llm.category) || detectCategory(h.headline);
-    const importance = llm ? llm.importance : 0; // 0 => sorts below LLM-scored
-    return { ...h, region, category, importance, scored: !!llm };
+    const category = (llm && llm.category) || detectCategory(h.headline, h.sourceNames);
+    const baseImportance = llm ? llm.importance : 0; // 0 => sorts below LLM-scored
+    const boost = topStoriesBoost(h.topStoriesPosition);
+    const quality = coverageQualityBoost(h.sourceNames);
+    const importance = baseImportance + boost + quality;
+    // A Top Stories item always competes in the ranked pool, even if the LLM
+    // didn't score it (Google's editorial placement is signal enough).
+    const scored = !!llm || h.topStoriesPosition != null;
+    return { ...h, region, category, importance, baseImportance, boost, quality, scored };
   });
 
-  // Rank globally: LLM-scored stories first (by importance, then coverage),
-  // then the rest by coverage. Importance (1-10) is absolute, so it is
-  // comparable across batches.
-  enriched.sort((a, b) => {
+  // Drop local-only stories (covered solely by local TV/regional papers, no
+  // national pickup) unless the LLM scored them as genuinely major news
+  // (importance >= 8). Regional items like "New laws take effect in Virginia"
+  // should not compete with national/global stories.
+  const LOCAL_KEEP_THRESHOLD = 8;
+  const filtered = enriched.filter(
+    h => !(h.isLocalOnly && (!h.scored || h.importance < LOCAL_KEEP_THRESHOLD))
+  );
+  const droppedLocal = enriched.length - filtered.length;
+  if (droppedLocal > 0) {
+    console.log(`Filtered out ${droppedLocal} local-only stories (no national coverage).`);
+  }
+
+  // Rank globally: LLM-scored / Top-Stories items first (by boosted importance,
+  // then coverage), then the rest. Importance (1-10) plus the Top Stories boost
+  // is comparable across batches.
+  filtered.sort((a, b) => {
     if (a.scored !== b.scored) return a.scored ? -1 : 1;
-    if (a.importance !== b.importance) return b.importance - a.importance;
+    if (b.importance !== a.importance) return b.importance - a.importance;
     return b.source_count - a.source_count || a.id - b.id;
   });
 
-  return enriched.map((h, idx) => ({
+  const boosted = filtered.filter(h => h.boost > 0).length;
+  console.log(`Applied Top Stories boost to ${boosted} stories (window ${TOP_STORIES_WINDOW}, max +${MAX_TOP_BOOST}).`);
+
+  const qualityBoosted = filtered.filter(h => h.quality > 0).length;
+  console.log(`Applied coverage-quality boost to ${qualityBoosted} stories (Tier 1/2/3 weighted, max +${MAX_COVERAGE_BOOST}).`);
+
+  return filtered.map((h, idx) => ({
     id: h.id,
     rank: idx + 1,
     region: h.region,
     category: h.category,
+    topStoriesPosition: h.topStoriesPosition,
   }));
 }
 
@@ -389,6 +514,64 @@ function getOutletTier(outlet) {
   return 5; // Unknown / niche
 }
 
+// National / major outlets whose names don't match the tier lists exactly
+// (abbreviations, ".com" variants, major metro/business/culture titles). Used
+// only to decide whether a story has ANY national pickup — if it does, it is
+// not treated as purely local news.
+const NATIONAL_OUTLETS = new Set([
+  'wsj', 'pbs', 'forbes', 'fortune', 'marketwatch', "barron's", 'business insider',
+  'fox business', 'newsnation', 'newsday', 'people', 'rolling stone',
+  'the hollywood reporter', 'thewrap', 'deadline', 'variety', 'vanity fair',
+  'los angeles times', 'boston globe', 'politico', 'vox', 'slate magazine',
+  'the new republic', 'the free press', 'the bulwark', 'the week', 'newser',
+  'ars technica', 'cnet', 'gizmodo', 'the verge', 'wired', 'macrumors', 'engadget',
+  'techcrunch', 'investopedia', 'cbs sports', 'bleacher report', 'yahoo sports',
+  'yahoo finance', 'yahoo', 'fox sports', 'the athletic', 'nbc sports',
+  'live science', 'popular science', 'sciencealert', 'nature', 'the conversation',
+  'al jazeera', 'bbc', 'the times', 'the telegraph', 'sky news', 'france 24',
+  'reuters', 'associated press', 'ap news', 'bloomberg', 'cnbc', 'cnn', 'npr',
+]);
+
+// Recognizably local U.S. outlets: TV station call signs and network affiliates
+// (WTOP, WLWT, ABC7 Chicago, FOX 5 DC, NBC10 Philadelphia, 6abc, Channel 3000,
+// Local 4/6/8), plus regional papers/sites that only cover a metro or state.
+const LOCAL_OUTLETS = new Set([
+  'arlnow', 'cardinal news', 'virginia mercury', 'nevada current', 'indystar',
+  'mlive', 'oregonlive', 'stltoday', 'detroit news', 'mercury news', 'phillyvoice',
+  'columbus dispatch', 'san francisco standard', 'inquirer',
+]);
+
+function isLocalOutlet(name) {
+  const n = normalizeSourceName(name);
+  if (!n) return false;
+  if (LOCAL_OUTLETS.has(n)) return true;
+  // U.S. TV station call signs: W/K + 2-4 letters, optional channel number or -TV/-FM/-AM.
+  if (/^[wk][a-z]{2,4}\d{0,2}(-(tv|fm|am|dt))?$/.test(n)) return true;
+  // Network affiliates with a channel number: "abc7", "fox 5", "nbc10", "cbs8", "abc11 news".
+  if (/\b(abc|cbs|nbc|fox)\s?\d{1,2}\b/.test(n)) return true;
+  // "6abc", "13newsnow", "local 4/6/8", "channel 3000", "action news 5", "wdiv local 4".
+  if (/\b\d{1,2}(abc|news|newsnow)\b/.test(n)) return true;
+  if (/\blocal\s?(news\s?)?\d{1,2}\b/.test(n)) return true;
+  if (/\bchannel\s?\d{2,4}\b/.test(n)) return true;
+  return false;
+}
+
+function isNationalOutlet(name) {
+  const n = normalizeSourceName(name);
+  if (getOutletTier(name) <= 3) return true;
+  return NATIONAL_OUTLETS.has(n);
+}
+
+// A story is local-only when at least one clearly-local outlet covers it and NO
+// national outlet has picked it up. Big national news is always carried by
+// AP/Reuters/CNN/NYT etc., so the absence of any national pickup is the signal.
+function isLocalOnlyStory(sourceNames) {
+  if (!sourceNames || sourceNames.length === 0) return false;
+  const hasLocal = sourceNames.some(isLocalOutlet);
+  const hasNational = sourceNames.some(isNationalOutlet);
+  return hasLocal && !hasNational;
+}
+
 // Pick the most prominent outlet from a list of names, preferring tier 1 > 2 > 3 > unknown.
 function pickBestOutlet(outletNames) {
   if (!outletNames || outletNames.length === 0) return null;
@@ -446,7 +629,7 @@ function buildFinalList(clusters, rankings) {
         break;
       }
     }
-    const heuristicCategory = detectCategory(primaryStory.headline);
+    const heuristicCategory = detectCategory(primaryStory.headline, clusterCoverage(cluster).names);
     // Priority: LLM category > topical feed hint > headline heuristic.
     const category = mappedCategory || clusterHint || heuristicCategory;
 
@@ -460,12 +643,12 @@ function buildFinalList(clusters, rankings) {
     // overlap alone. sources_list drives the "also covered by..." display.
     const coverage = clusterCoverage(cluster);
 
-    // Pick the most prominent outlet from the coverage list to display as the
-    // primary source, preferring major outlets (CNN, NYT, AP) over local ones.
+    // Pick the most prominent outlet from all available coverage (cluster + Google sources).
+    // This ensures national/global outlets (Tier 1-2) are always preferred over regional (Tier 4).
     const source = pickBestOutlet(coverage.names) || primaryStory.source;
     
-    // Find the link from the best outlet's version of this story, if available.
-    // Otherwise fall back to the primary story's link.
+    // Use link from the chosen outlet's story in the cluster if available.
+    // Otherwise fall back to the primary story's link (which works even if from a regional source).
     let link = primaryStory.link;
     const sourceNormalized = normalizeSourceName(source);
     for (const story of cluster) {
@@ -484,6 +667,7 @@ function buildFinalList(clusters, rankings) {
       region: region,
       sources_covering_story: coverage.count,
       sources_list: coverage.names,
+      top_stories_position: ranking.topStoriesPosition ?? null,
     });
   });
 
